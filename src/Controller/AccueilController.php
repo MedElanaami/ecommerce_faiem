@@ -11,13 +11,12 @@ class AccueilController extends AbstractController
     #[Route('/', name: 'app_accueil')]
     public function index(): Response
     {
-         $noms=["ahmed","aziz","amine","youssef","simo"];
-
-        return $this->render('accueil/index.html.twig', [
-
-            'noms'=>$noms
-
-        ]);
+         if($this->getUser())
+         {
+             return  $this->redirectToRoute('admin_accueil');
+         }
+         else
+             return $this->redirectToRoute('app_login');
     }
     #[Route('/contact', name: 'contact')]
     public function contact(): Response
@@ -36,6 +35,14 @@ class AccueilController extends AbstractController
         return $this->render('service.html.twig', [
 
             'page'=>"service"
+
+        ]);
+    }
+    #[Route('/admin', name: 'admin_accueil')]
+    public function adminAccueil(): Response
+    {
+        return $this->render('accueil/index.html.twig', [
+
 
         ]);
     }
