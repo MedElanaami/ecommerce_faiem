@@ -1,38 +1,90 @@
-{% extends '../../base.html.twig' %}
+{% extends 'backend/layouts/base.html.twig' %}
+{% block css %}
+    <!--dataTable-->
+    <link rel="stylesheet" href="{{ asset('backend/vendor/data-table/media/css/dataTables.bootstrap.min.css') }}">
+{% endblock %}
 
-{% block title %}Faq index{% endblock %}
+{% block content %}
 
-{% block body %}
-    <h1>Faq index</h1>
+    <!-- content HEADER -->
+    <!-- ========================================================= -->
+    <div class="content-header">
+        <!-- leftside content header -->
+        <div class="leftside-content-header">
+            <ul class="breadcrumbs">
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
+                <li><a>Faqs</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!--SEARCHING, ORDENING & PAGING-->
+    <div class="row animated fadeInRight">
+        <div class="col-sm-12">
+            {# ---PANEL- -#}
+            <div class="panel">
+                <div class="panel-header panel-success">
+                    <h3 class="panel-title">Liste de Faqs </h3>
+                    <div class="panel-actions">
+                        <ul>
+                            <li class="action btn-info "><span class="fa fa-plus action" aria-hidden="true"> <a
+                                            href="{{ path('app_faq_new') }}"></a> </span></li>
+                            <li class="action btn-danger "><span class="fa fa-trash action"
+                                                                 aria-hidden="true"> <a
+                                            href="#"> </a></span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="table-responsive">
+                        <table id="basic-table" class="data-table table table-striped nowrap table-hover"
+                               cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Reponse</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for faq in faqs %}
+                                <tr>
+                                    <td>{{ faq.question }}</td>
+                                    <td>{{ faq.reponse }}</td>
+                                    <td>
+                                        <div class="btn-toolbar btn-group-sm">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Question</th>
-                <th>Reponse</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for faq in faqs %}
-            <tr>
-                <td>{{ faq.id }}</td>
-                <td>{{ faq.question }}</td>
-                <td>{{ faq.reponse }}</td>
-                <td>
-                    <a href="{{ path('app_faq_show', {'id': faq.id}) }}">show</a>
-                    <a href="{{ path('app_faq_edit', {'id': faq.id}) }}">edit</a>
-                    <a href="{{ path('app_faq_delete', {'id': faq.id}) }}">delete</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                                            <a class="btn btn-warning"
+                                               href="{{ path('app_faq_edit', {'id': faq.id}) }}"><i
+                                                        class="fa fa-pencil"></i>
+                                            </a>
+                                            <a class="btn btn-danger"
+                                               href="{{ path('app_faq_delete', {'id': faq.id}) }}"
+                                               onclick="return confirm('Etes vous sûre de supprimer ce champ?')"><i
+                                                        class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
 
-    <a href="{{ path('app_faq_new') }}">Create new</a>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+{% endblock %}
+{% block js %}
+    <!--dataTable-->
+    <script src="{{ asset('backend/vendor/data-table/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/vendor/data-table/media/js/dataTables.bootstrap.min.js') }}"></script>
+    <!--Examples-->
+    <script src="{{ asset('backend/javascripts/examples/tables/data-tables.js') }}"></script>
 {% endblock %}

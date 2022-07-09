@@ -16,7 +16,7 @@ class FaqController extends AbstractController
     #[Route('/', name: 'app_faq_index', methods: ['GET'])]
     public function index(FaqRepository $faqRepository): Response
     {
-        return $this->render('faq/index.html.twig', [
+        return $this->render('backend/faq/index.html.twig', [
             'faqs' => $faqRepository->findAll(),
         ]);
     }
