@@ -32,10 +32,34 @@
                     </li>
                     <!--FAQS-->
                     <li class="has-child-item close-item">
-                        <a><i class="fa fa-question" aria-hidden="true"></i><span>FAQS</span> </a>
+                        <a><i class="fa fa-question" aria-hidden="true"></i><span>Faqs</span> </a>
                         <ul class="nav child-nav level-1">
                             <li><a href="{{ path('app_faq_index') }}">Liste de questions</a></li>
                             <li><a href="{{ path('app_faq_new') }}">Ajouter question</a></li>
+                        </ul>
+                    </li>
+                    <!--VILLES-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-map-marker" aria-hidden="true"></i><span>Villes</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_ville_index') }}">Liste de villes</a></li>
+                            <li><a href="{{ path('app_ville_new') }}">Ajouter ville</a></li>
+                        </ul>
+                    </li>
+                    <!--CARACTERISTIQUES-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-th-large" aria-hidden="true"></i><span>Caracteristiques</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_caracteristique_index') }}">Liste des caracteristiques</a></li>
+                            <li><a href="{{ path('app_caracteristique_new') }}">Ajouter une caracteristique</a></li>
+                        </ul>
+                    </li>
+                    <!--STATUS-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-pencil" aria-hidden="true"></i><span>Status</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_status_index') }}">Liste des status</a></li>
+                            <li><a href="{{ path('app_status_new') }}">Ajouter une status</a></li>
                         </ul>
                     </li>
 

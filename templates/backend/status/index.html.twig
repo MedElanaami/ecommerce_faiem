@@ -13,7 +13,7 @@
         <div class="leftside-content-header">
             <ul class="breadcrumbs">
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
-                <li><a>Faqs</a></li>
+                <li><a>Status</a></li>
             </ul>
         </div>
     </div>
@@ -24,38 +24,37 @@
             {# ---PANEL- -#}
             <div class="panel">
                 <div class="panel-header panel-success">
-                    <h3 class="panel-title">Liste de Faqs </h3>
+                    <h3 class="panel-title">Liste de Status </h3>
 
                 </div>
 
                 <div class="panel-content">
 
-                    <a class="btn btn-sm btn-success btn-center" href="{{ path('app_faq_new') }}"><span class="fa fa-plus"></span> </a>
+                    <a class="btn btn-sm btn-success btn-center" href="{{ path('app_status_new') }}"><span class="fa fa-plus"></span> </a>
                     <a class="btn btn-sm btn-danger"><span class="fa fa-trash"></span> </a>
                     <div class="table-responsive">
                         <table id="basic-table" class="data-table table table-striped nowrap table-hover"
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>Question</th>
-                                <th>Reponse</th>
+                                <th>Nom</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for faq in faqs %}
+                            {% for status in status %}
                                 <tr>
-                                    <td>{{ faq.question|raw }}</td>
-                                    <td>{{ faq.reponse|raw }}</td>
+                                    <td>{{ status.nom }}</td>
+
                                     <td>
                                         <div class="btn-toolbar btn-group-sm">
 
                                             <a class="btn btn-warning"
-                                               href="{{ path('app_faq_edit', {'id': faq.id}) }}"><i
+                                               href="{{ path('app_status_edit', {'id': status.id}) }}"><i
                                                         class="fa fa-pencil"></i>
                                             </a>
                                             <a class="btn btn-danger"
-                                               href="{{ path('app_faq_delete', {'id': faq.id}) }}"
+                                               href="{{ path('app_status_delete', {'id': status.id}) }}"
                                                onclick="return confirm('Etes vous sûre de supprimer ce champ?')"><i
                                                         class="fa fa-trash"></i>
                                             </a>
