@@ -30,20 +30,29 @@
                             <li><a href="#">Ajouter Categorie</a></li>
                         </ul>
                     </li>
-                    <!--FAQS-->
+                    <!--SLIDERS-->
                     <li class="has-child-item close-item">
-                        <a><i class="fa fa-question" aria-hidden="true"></i><span>Faqs</span> </a>
+                        <a><i class="fa fa-image" aria-hidden="true"></i><span>Sliders</span> </a>
                         <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('app_faq_index') }}">Liste de questions</a></li>
-                            <li><a href="{{ path('app_faq_new') }}">Ajouter question</a></li>
+                            <li><a href="{{ path('app_slider_index') }}">Liste de sliders</a></li>
+                            <li><a href="{{ path('app_slider_new') }}">Ajouter slider</a></li>
                         </ul>
                     </li>
+
                     <!--VILLES-->
                     <li class="has-child-item close-item">
                         <a><i class="fa fa-map-marker" aria-hidden="true"></i><span>Villes</span> </a>
                         <ul class="nav child-nav level-1">
                             <li><a href="{{ path('app_ville_index') }}">Liste de villes</a></li>
                             <li><a href="{{ path('app_ville_new') }}">Ajouter ville</a></li>
+                        </ul>
+                    </li>
+                    <!--ATTRIBUTS-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-check" aria-hidden="true"></i><span>Attributs</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_attribut_index') }}">Liste des attributs</a></li>
+                            <li><a href="{{ path('app_attribut_new') }}">Ajouter un attributs</a></li>
                         </ul>
                     </li>
                     <!--CARACTERISTIQUES-->
@@ -59,7 +68,32 @@
                         <a><i class="fa fa-pencil" aria-hidden="true"></i><span>Status</span> </a>
                         <ul class="nav child-nav level-1">
                             <li><a href="{{ path('app_status_index') }}">Liste des status</a></li>
-                            <li><a href="{{ path('app_status_new') }}">Ajouter une status</a></li>
+                            <li><a href="{{ path('app_status_new') }}">Ajouter un status</a></li>
+                        </ul>
+                    </li>
+
+                    <!--TYPEREDUCTION-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa-solid fa-chart-line" ></i><span>Types Reduction</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_typeReduction_index') }}">Liste des types de reduction</a></li>
+                            <li><a href="{{ path('app_typeReduction_new') }}">Ajouter un type de reduction</a></li>
+                        </ul>
+                    </li>
+                    <!--COUPONS-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa-solid fa-gift" ></i><span>Coupon</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_coupon_index') }}">Liste des Coupons</a></li>
+                            <li><a href="{{ path('app_coupon_new') }}">Ajouter un Coupon</a></li>
+                        </ul>
+                    </li>
+                    <!--FAQS-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-question" aria-hidden="true"></i><span>Faqs</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_faq_index') }}">Liste de questions</a></li>
+                            <li><a href="{{ path('app_faq_new') }}">Ajouter question</a></li>
                         </ul>
                     </li>
 

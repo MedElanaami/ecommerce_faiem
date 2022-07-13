@@ -13,7 +13,7 @@
         <div class="leftside-content-header">
             <ul class="breadcrumbs">
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
-                <li><a>Caracteristiques</a></li>
+                <li><a>Attributs</a></li>
             </ul>
         </div>
     </div>
@@ -24,37 +24,41 @@
             {# ---PANEL- -#}
             <div class="panel">
                 <div class="panel-header panel-success">
-                    <h3 class="panel-title">Liste des Caracteristiques </h3>
+                    <h3 class="panel-title">Liste des Attributs </h3>
 
                 </div>
 
                 <div class="panel-content">
 
-                    <a class="btn btn-sm btn-success btn-center" href="{{ path('app_caracteristique_new') }}"><span class="fa fa-plus"></span> </a>
+                    <a class="btn btn-sm btn-success btn-center" href="{{ path('app_attribut_new') }}"><span class="fa fa-plus"></span> </a>
                     <a class="btn btn-sm btn-danger"><span class="fa fa-trash"></span> </a>
                     <div class="table-responsive">
                         <table id="basic-table" class="data-table table table-striped nowrap table-hover"
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>Nom</th>
+
+                                <th>Caracteristique</th>
+                                <th>Valeur</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for caracteristique in caracteristiques %}
+                            {% for attribut in attributs %}
                                 <tr>
-                                    <td>{{ caracteristique.nom }}</td>
+
+                                    <td>{{ attribut.caracteristique }}</td>
+                                    <td>{{ attribut.valeur }}</td>
 
                                     <td>
                                         <div class="btn-toolbar btn-group-sm">
 
                                             <a class="btn btn-warning"
-                                               href="{{ path('app_caracteristique_edit', {'id': caracteristique.id}) }}"><i
+                                               href="{{ path('app_attribut_edit', {'id': attribut.id}) }}"><i
                                                         class="fa fa-pencil"></i>
                                             </a>
                                             <a class="btn btn-danger"
-                                               href="{{ path('app_caracteristique_delete', {'id': caracteristique.id}) }}"
+                                               href="{{ path('app_attribut_delete', {'id': attribut.id}) }}"
                                                onclick="return confirm('Etes vous sûre de supprimer ce champ?')"><i
                                                         class="fa fa-trash"></i>
                                             </a>

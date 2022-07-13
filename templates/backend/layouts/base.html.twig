@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>Helsinki</title>
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('backend') }}/favicon/apple-icon-120x120.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('backend') }}/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('backend') }}/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend') }}/favicon/favicon-16x16.png">
+    <title>Faem Store</title>
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('backend/favicon/apple-icon-120x120.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('backend/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('backend/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/favicon/favicon-16x16.png') }}">
     <!--load progress bar-->
-    <script src="{{ asset('backend') }}/vendor/pace/pace.min.js"></script>
-    <link href="{{ asset('backend') }}/vendor/pace/pace-theme-minimal.css" rel="stylesheet"/>
+    <script src="{{ asset('backend/vendor/pace/pace.min.js') }}"></script>
+    <link href="{{ asset('backend/vendor/pace/pace-theme-minimal.css') }}" rel="stylesheet"/>
 
     <!--BASIC css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('backend') }}/vendor/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" href="{{ asset('backend') }}/vendor/animate.css/animate.css">
+
+    <link rel="stylesheet" href="{{ asset('backend/vendor/animate.css/animate.css') }}">
     <!--SECTION css-->
     <!-- ========================================================= -->
     <!--Notification msj-->
-    <link rel="stylesheet" href="{{ asset('backend') }}/vendor/toastr/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('backend/vendor/toastr/toastr.min.css') }}">
     <!--Magnific popup-->
-    <link rel="stylesheet" href="{{ asset('backend') }}/vendor/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="{{ asset('backend/vendor/magnific-popup/magnific-popup.css') }}">
     <!--TEMPLATE css-->
     <!-- ========================================================= -->
-    <link rel="stylesheet" href="{{ asset('backend') }}/stylesheets/css/style.css">
+    <link rel="stylesheet" href="{{ asset('backend/stylesheets/css/style.css') }}">
     {% block css %}
     {% endblock %}
 
@@ -55,21 +55,23 @@
 </div>
 <!--BASIC scripts-->
 <!-- ========================================================= -->
-<script src="{{ asset('backend') }}/vendor/jquery/jquery-1.12.3.min.js"></script>
-<script src="{{ asset('backend') }}/vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="{{ asset('backend') }}/vendor/nano-scroller/nano-scroller.js"></script>
+<script src="{{ asset('backend/vendor/jquery/jquery-1.12.3.min.js') }}"></script>
+<script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('backend/vendor/nano-scroller/nano-scroller.js') }}"></script>
+<script src="https://kit.fontawesome.com/d6c62b0e44.js" crossorigin="anonymous"></script>
 <!--TEMPLATE scripts-->
 <!-- ========================================================= -->
-<script src="{{ asset('backend') }}/javascripts/template-script.min.js"></script>
-<script src="{{ asset('backend') }}/javascripts/template-init.min.js"></script>
+<script src="{{ asset('backend/javascripts/template-script.min.js') }}"></script>
+<script src="{{ asset('backend/javascripts/template-init.min.js') }}"></script>
 <!-- SECTION script and examples-->
 <!-- ========================================================= -->
 <!--Notification msj-->
-<script src="{{ asset('backend') }}/vendor/toastr/toastr.min.js"></script>
+<script src="{{ asset('backend/vendor/toastr/toastr.min.js') }}"></script>
 <!--morris chart-->
-<script src="{{ asset('backend') }}/vendor/chart-js/chart.min.js"></script>
+<script src="{{ asset('backend/vendor/chart-js/chart.min.js') }}"></script>
 <!--Gallery with Magnific popup-->
-<script src="{{ asset('backend') }}/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="{{ asset('backend/vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+
 
 {% block js %}
 {% endblock %}
