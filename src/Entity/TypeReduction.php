@@ -21,9 +21,13 @@ class TypeReduction
     #[ORM\OneToMany(mappedBy: 'typeReduction', targetEntity: Coupon::class, orphanRemoval: true)]
     private $coupons;
 
+    #[ORM\OneToMany(mappedBy: 'typeReduction', targetEntity: Produit::class)]
+    private $produits;
+
     public function __construct()
     {
         $this->coupons = new ArrayCollection();
+        $this->produits = new ArrayCollection();
     }
 
 
@@ -78,6 +82,36 @@ class TypeReduction
     public function __toString(): string
     {
        return $this->nom;
+    }
+
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getProduits(): Collection
+    {
+        return $this->produits;
+    }
+
+    public function addProduit(Produit $produit): self
+    {
+        if (!$this->produits->contains($produit)) {
+            $this->produits[] = $produit;
+            $produit->setTypeReduction($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): self
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getTypeReduction() === $this) {
+                $produit->setTypeReduction(null);
+            }
+        }
+
+        return $this;
     }
 
 

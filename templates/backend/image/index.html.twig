@@ -1,0 +1,87 @@
+{% extends 'backend/layouts/base.html.twig' %}
+{% block css %}
+    <!--dataTable-->
+    <link rel="stylesheet" href="{{ asset('backend/vendor/data-table/media/css/dataTables.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- content HEADER -->
+    <!-- ========================================================= -->
+    <div class="content-header">
+        <!-- leftside content header -->
+        <div class="leftside-content-header">
+            <ul class="breadcrumbs">
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
+                <li><a href="{{ path('app_produit_index') }}">Produits</a></li>
+                <li><a>{{ produit.nom }}</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!--SEARCHING, ORDENING & PAGING-->
+    <div class="row animated fadeInRight">
+        <div class="col-sm-12">
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ form_start(form , { 'attr':{'class':'form-horizontal form-stripe'}}) }}
+                            <h6 class="mb-xlg text-center"><b>Ajouter une image !</b></h6>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.imageFile,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-12  mt-md">
+            <div class="panel">
+                <div class="panel-content">
+                    <h5>Liste des images du produit <b> {{ produit.nom }}</b></h5>
+                    <div class="row" id="gallery">
+                        {% for i in produit.images %}
+                        <div class="col-xs-6 col-md-3">
+
+                                <img alt="first photo" src="{{ asset('/uploads/images/produits/'~i.imageName) }}" height="200px" width="100%" >
+                            <div class="row pt-lg">
+                            <div class="col-sm-12">
+                                <div class="col-sm-6">
+                                <a href="{{ path('app_image_edit', {'id': i.id}) }}" class="btn btn-o btn-warning"><i class="fa fa-edit"></i> Modifier</a>
+                                </div>
+                                <div class="col-sm-6">
+                                <a href="{{ path('app_image_delete', {'id': i.id}) }}" class="btn  btn-o btn-danger"   onclick="return confirm('Etes vous sûre de supprimer ce champ?')"><i class="fa fa-trash"></i> Supprimer</a>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+{% endblock %}
+{% block js %}
+    <!--dataTable-->
+    <script src="{{ asset('backend/vendor/data-table/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/vendor/data-table/media/js/dataTables.bootstrap.min.js') }}"></script>
+    <!--Examples-->
+    <script src="{{ asset('backend/javascripts/examples/tables/data-tables.js') }}"></script>
+{% endblock %}

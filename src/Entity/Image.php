@@ -2,26 +2,27 @@
 
 namespace App\Entity;
 
-use App\Repository\SliderRepository;
+use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[ORM\Entity(repositoryClass: SliderRepository::class)]
+#[ORM\Entity(repositoryClass: ImageRepository::class)]
 #[Vich\Uploadable]
-class Slider
+class Image
 {
     #[ORM\Id]
+    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    #[ORM\GeneratedValue(strategy: 'AUTO')]
-    private ?int $id = null;
+    private $id;
 
-
-
+    #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $produit;
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      */
-    #[Vich\UploadableField(mapping: 'sliders', fileNameProperty: 'imageName', size: 'imageSize')]
+    #[Vich\UploadableField(mapping: 'produits', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
 
     #[ORM\Column(type: 'string')]
@@ -32,6 +33,26 @@ class Slider
 
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getProduit(): ?Produit
+    {
+        return $this->produit;
+    }
+
+    public function setProduit(?Produit $produit): self
+    {
+        $this->produit = $produit;
+
+        return $this;
+    }
+
+
+
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -77,13 +98,4 @@ class Slider
     {
         return $this->imageSize;
     }
-
-    /**
-     * @return int|null
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
 }

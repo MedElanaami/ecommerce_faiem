@@ -1,0 +1,139 @@
+{% extends 'backend/layouts/base.html.twig' %}
+
+{% block content %}
+
+    <!-- content HEADER -->
+    <!-- ========================================================= -->
+    <div class="content-header">
+        <!-- leftside content header -->
+        <div class="leftside-content-header">
+            <ul class="breadcrumbs">
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
+                <li><a href="{{ path('app_produit_index') }}">Produits</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!--SEARCHING, ORDENING & PAGING-->
+    <div class="row animated fadeInRight">
+        <div class="col-md-12">
+
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ form_start(form , { 'attr':{'class':'form-horizontal form-stripe'}}) }}
+                            <h6 class="mb-xlg text-center"><b>Ajouter un produit !</b></h6>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Nom</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.nom,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Courte Description</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.courteDesc,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Longue Description</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.longueDesc,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Prix Achat</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.prixAchat,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Prix Vente</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.prixVente,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Quantité en Stock</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.qteStock,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Slug</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.slug,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+
+
+                            <div class="form-group ">
+
+                                <div class="col-sm-2"></div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox-custom checkbox-inline checkbox-primary">
+
+                                        {{ form_widget(form.visibilite) }}
+                                        <label class="check" for="produit_visibilite">Visibilité</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox-custom checkbox-inline checkbox-primary">
+
+                                        {{ form_widget(form.favoris) }}
+                                        <label class="check" for="produit_favoris">Favoris</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox-custom checkbox-inline checkbox-primary">
+
+                                        {{ form_widget(form.reductionApplique) }}
+                                        <label class="check" for="produit_reductionApplique">Reduction Appliquée</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Valeur de Reduction</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.valeurReduction,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Type de Reduction</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.typeReduction,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}
+{% block js %}
+    <script>
+        produit = document.getElementById("produit_nom");
+        slug = document.getElementById("produit_slug")
+        produit.addEventListener("keyup", function () {
+            nom= (produit.value).replace(/ /g,"_");
+            slug.value=nom
+
+        })
+    </script>
+{% endblock %}
+
+
