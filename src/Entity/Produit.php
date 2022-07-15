@@ -54,12 +54,16 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Image::class, orphanRemoval: true)]
     private $images;
 
+    #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'produits')]
+    private $categories;
+
     public function __construct()
     {
         $this->visibilite=false;
         $this->favoris=true;
         $this->reductionApplique=false;
         $this->images = new ArrayCollection();
+        $this->categories = new ArrayCollection();
 
     }
 
@@ -238,6 +242,30 @@ class Produit
                 $image->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Categorie>
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategory(Categorie $category): self
+    {
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+        }
+
+        return $this;
+    }
+
+    public function removeCategory(Categorie $category): self
+    {
+        $this->categories->removeElement($category);
 
         return $this;
     }

@@ -2,8 +2,10 @@
 
 namespace App\Controller\Backend;
 
+use App\Entity\Categorie;
 use App\Entity\Produit;
 use App\Form\ProduitType;
+use App\Repository\CategorieRepository;
 use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,5 +73,44 @@ class ProduitController extends AbstractController
     {$produitRepository->remove($produit,true);
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/categories/{id}', name: 'app_produit_categories', methods: ['GET'])]
+    public function categories( Produit $produit , ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
+    {
+        $categories= $categorieRepository->findby(['parent'=>NULL]);
+
+        return $this->render('backend/produit/categories.html.twig', [
+            'categories'=>$categories,
+            'produit' => $produit
+        ]);
+    }
+    #[Route('/categories/ajouter/{produit}/{categorie}', name: 'app_ajouter_produit_categorie', methods: ['GET'])]
+    public function ajouterCategorie( Produit $produit ,Categorie $categorie, ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
+    {
+        $produit->addCategory($categorie);
+        while( $categorie->getParent()) {
+            $produit->addCategory($categorie->getParent());
+            $categorie=$categorie->getParent();
+        }
+        $produitRepository->add($produit,true);
+       return $this->redirectToRoute('app_produit_categories',['id'=>$produit->getId()]);
+    }
+    #[Route('/categories/supprimer/{produit}/{categorie}', name: 'app_supprimer_produit_categorie', methods: ['GET'])]
+    public function supprimerCategorie( Produit $produit ,Categorie $categorie, ProduitRepository $produitRepository, CategorieRepository $categorieRepository): Response
+    {
+        $produit->removeCategory($categorie);
+        $categories=$categorie->getCategories();
+        while(count($categories)>0) {
+                foreach ($categories as $cat) {
+                    if($produit->getCategories()->contains($cat)) {
+                        $produit->removeCategory($cat);
+                        $categories = $cat->getCategories();
+                        break;
+                    }
+                }
+        }
+        $produitRepository->add($produit,true);
+        return $this->redirectToRoute('app_produit_categories',['id'=>$produit->getId()]);
     }
 }

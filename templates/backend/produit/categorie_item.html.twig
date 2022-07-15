@@ -1,0 +1,32 @@
+
+{% for categorie in categories %}
+<div class="panel-content">
+<div class="panel">
+    <div class="panel-header  panel-light">
+        <h3 class="panel-title">
+            {{ categorie.nom }}
+        </h3>
+        <div class="panel-actions">
+            <ul>
+                {% if produit.categories.contains(categorie) %}
+                <li class="panel-title pl-xs" style="font-size: 12px">
+                    <a href="{{ path('app_supprimer_produit_categorie', {'categorie': categorie.id, 'produit': produit.id}) }}"><i class="fa fa-trash"></i></a>
+                </li>
+                {% else %}
+                <li class="panel-title pl-xs" style="font-size: 12px">
+                    <a href="{{ path('app_ajouter_produit_categorie', {'categorie':categorie.id , 'produit':produit.id }) }}"><i class="fa fa-plus"></i></a>
+                </li>
+                    {% endif %}
+            </ul>
+        </div>
+    </div>
+
+        {%if categorie.categories|length >0%}
+            <div class="panel-content">
+        {% include "backend/produit/categorie_item.html.twig" with { "categories":categorie.categories} %}
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+{% endfor %}
