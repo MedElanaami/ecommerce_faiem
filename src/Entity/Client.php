@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
+class Client extends  Utilisateur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,6 +33,7 @@ class Client
 
     public function __construct()
     {
+        $this -> setRoles(['ROLE_CLIENT']);
         $this->commandes = new ArrayCollection();
     }
 
