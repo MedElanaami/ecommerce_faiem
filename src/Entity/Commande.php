@@ -28,6 +28,10 @@ class Commande
     #[ORM\ManyToOne(targetEntity: Status::class, inversedBy: 'commandes')]
     private $status;
 
+    #[ORM\ManyToOne(targetEntity: Client::class, inversedBy: 'commandes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $client;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +93,18 @@ class Commande
     public function setStatus(?Status $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }
