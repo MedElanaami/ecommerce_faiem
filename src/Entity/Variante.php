@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VarianteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VarianteRepository::class)]
@@ -26,6 +28,14 @@ class Variante
     #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'variantes')]
     #[ORM\JoinColumn(nullable: false)]
     private $produit;
+
+    #[ORM\OneToMany(mappedBy: 'variante', targetEntity: LigneCommande::class)]
+    private $ligneCommandes;
+
+    public function __construct()
+    {
+        $this->ligneCommandes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -76,6 +86,36 @@ class Variante
     public function setProduit(?Produit $produit): self
     {
         $this->produit = $produit;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LigneCommande>
+     */
+    public function getLigneCommandes(): Collection
+    {
+        return $this->ligneCommandes;
+    }
+
+    public function addLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if (!$this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes[] = $ligneCommande;
+            $ligneCommande->setVariante($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if ($this->ligneCommandes->removeElement($ligneCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($ligneCommande->getVariante() === $this) {
+                $ligneCommande->setVariante(null);
+            }
+        }
 
         return $this;
     }

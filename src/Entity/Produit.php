@@ -60,6 +60,9 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Variante::class, orphanRemoval: true)]
     private $variantes;
 
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: LigneCommande::class, orphanRemoval: true)]
+    private $ligneCommandes;
+
     public function __construct()
     {
         $this->visibilite=false;
@@ -68,6 +71,7 @@ class Produit
         $this->images = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->variantes = new ArrayCollection();
+        $this->ligneCommandes = new ArrayCollection();
 
     }
 
@@ -298,6 +302,36 @@ class Produit
             // set the owning side to null (unless already changed)
             if ($variante->getProduit() === $this) {
                 $variante->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, LigneCommande>
+     */
+    public function getLigneCommandes(): Collection
+    {
+        return $this->ligneCommandes;
+    }
+
+    public function addLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if (!$this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes[] = $ligneCommande;
+            $ligneCommande->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if ($this->ligneCommandes->removeElement($ligneCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($ligneCommande->getProduit() === $this) {
+                $ligneCommande->setProduit(null);
             }
         }
 
