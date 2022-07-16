@@ -57,6 +57,9 @@ class Produit
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'produits')]
     private $categories;
 
+    #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Variante::class, orphanRemoval: true)]
+    private $variantes;
+
     public function __construct()
     {
         $this->visibilite=false;
@@ -64,6 +67,7 @@ class Produit
         $this->reductionApplique=false;
         $this->images = new ArrayCollection();
         $this->categories = new ArrayCollection();
+        $this->variantes = new ArrayCollection();
 
     }
 
@@ -266,6 +270,36 @@ class Produit
     public function removeCategory(Categorie $category): self
     {
         $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Variante>
+     */
+    public function getVariantes(): Collection
+    {
+        return $this->variantes;
+    }
+
+    public function addVariante(Variante $variante): self
+    {
+        if (!$this->variantes->contains($variante)) {
+            $this->variantes[] = $variante;
+            $variante->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVariante(Variante $variante): self
+    {
+        if ($this->variantes->removeElement($variante)) {
+            // set the owning side to null (unless already changed)
+            if ($variante->getProduit() === $this) {
+                $variante->setProduit(null);
+            }
+        }
 
         return $this;
     }
