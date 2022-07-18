@@ -93,8 +93,15 @@
                     <li class="has-child-item close-item">
                         <a><i class="fa fa-question" aria-hidden="true"></i><span>Faqs</span> </a>
                         <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('app_faq_index') }}">Liste de questions</a></li>
-                            <li><a href="{{ path('app_faq_new') }}">Ajouter question</a></li>
+                            <li><a href="{{ path('admin_faq_index') }}">Liste de questions</a></li>
+                            <li><a href="{{ path('admin_faq_new') }}">Ajouter question</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-envelope-open" aria-hidden="true"></i><span>Newsletters</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('admin_newsletter_index') }}">Liste de newsletter</a></li>
+                            <li><a href="{{ path('admin_newsletter_new') }}">Ajouter newsletter</a></li>
                         </ul>
                     </li>
 

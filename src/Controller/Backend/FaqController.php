@@ -10,10 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/faq')]
+#[Route('/admin/faq')]
 class FaqController extends AbstractController
 {
-    #[Route('/', name: 'app_faq_index', methods: ['GET'])]
+    #[Route('/', name: 'admin_faq_index', methods: ['GET'])]
     public function index(FaqRepository $faqRepository): Response
     {
         return $this->render('backend/faq/index.html.twig', [
@@ -21,7 +21,7 @@ class FaqController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_faq_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'admin_faq_new', methods: ['GET', 'POST'])]
     public function new(Request $request, FaqRepository $faqRepository): Response
     {
         $faq = new Faq();
@@ -31,7 +31,7 @@ class FaqController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $faqRepository->add($faq, true);
 
-            return $this->redirectToRoute('app_faq_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_faq_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('backend/faq/new.html.twig', [
@@ -40,7 +40,7 @@ class FaqController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_faq_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'admin_faq_show', methods: ['GET'])]
     public function show(Faq $faq): Response
     {
         return $this->render('faq/show.html.twig', [
@@ -48,7 +48,7 @@ class FaqController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_faq_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'admin_faq_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Faq $faq, FaqRepository $faqRepository): Response
     {
         $form = $this->createForm(FaqType::class, $faq);
@@ -57,7 +57,7 @@ class FaqController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $faqRepository->add($faq, true);
 
-            return $this->redirectToRoute('app_faq_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_faq_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('backend/faq/edit.html.twig', [
@@ -66,10 +66,10 @@ class FaqController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'app_faq_delete', methods: ['GET'])]
+    #[Route('/{id}/delete', name: 'admin_faq_delete', methods: ['GET'])]
     public function delete(Request $request, Faq $faq, FaqRepository $faqRepository): Response
     {$faqRepository->remove($faq,true);
 
-        return $this->redirectToRoute('app_faq_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_faq_index', [], Response::HTTP_SEE_OTHER);
     }
 }

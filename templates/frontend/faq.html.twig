@@ -1,0 +1,41 @@
+{% extends 'frontend/layouts/base.html.twig' %}
+{% block content %}
+    <main class="main contact-two mb-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav sticky-header p-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Faqs</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav>
+
+
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-12">
+                    <h2 class="mt-6 mb-1">Questions Fréquentes </h2>
+                    <div id="accordion">
+                        {% for faq in faqs %}
+                            <div class="card card-accordion">
+                                <a class="card-header collapsed" href="#" data-toggle="collapse"
+                                   data-target="#collapse{{ faq.id }}" aria-expanded="false" aria-controls="collapse{{ faq.id }}">
+                               {{ faq.question|raw }}
+                                </a>
+
+                                <div id="collapse{{ faq.id }}" class="collapse  {% if loop.index==1  %} show {% endif %}" data-parent="#accordion" style="">
+                                    <p>{{ faq.reponse|raw }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </main><!-- End .main -->
+
+
+{% endblock %}
