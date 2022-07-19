@@ -18,27 +18,7 @@ class AccueilController extends AbstractController
         return $this->render('frontend/index.html.twig');
     }
 
-    #[Route('/contact', name: 'contact')]
-    public function contact(): Response
-    {
-        return $this->render('contact.html.twig', [
 
-            'page' => 'contact'
-
-        ]);
-    }
-
-    #[Route('/service', name: 'service')]
-    public function service(): Response
-    {
-
-
-        return $this->render('service.html.twig', [
-
-            'page' => "service"
-
-        ]);
-    }
 
     #[Route('/admin', name: 'admin_accueil')]
     public function adminAccueil(): Response
@@ -64,5 +44,15 @@ class AccueilController extends AbstractController
 
         }
         return $this->redirectToRoute('app_accueil');
+    }
+
+    #[Route('/contact-test', name: 'contact-test')]
+    public function contactTest(): Response
+    {
+        $data=['nom'=>"med",'email'=>'med@gmail.com','tel'=>'024653','message'=>'lorem hcjgchgdlkjgghghj gfrhjb jhg fdg  '];
+        return $this->render('frontend/emails/contact.html.twig', [ 'data'=>$data
+
+
+        ]);
     }
 }

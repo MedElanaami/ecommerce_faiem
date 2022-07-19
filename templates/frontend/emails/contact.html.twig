@@ -1,0 +1,41 @@
+<html>
+<head>
+    <style>
+        .titre {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            font-family: Sans-Serif;
+            background-color: #087f5b;
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 32px;
+            border: 2px solid #087f5b;
+            padding: 10px;
+            border-radius: 50px 20px;
+        }
+        .s-titre {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: "Shadows Into Light", sans-serif;
+
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <h3 class='titre'>Nom</h3>
+    <p class="s-titre"> {{ data.nom }}</p>
+    <h3 class='titre'>Email</h3>
+    <p class="s-titre"> {{ data.email }}</p>
+    <h3 class='titre'>Tel</h3>
+    <p class="s-titre"> {{ data.tel }}</p>
+    <h3 class='titre'>Message</h3>
+    <p class="s-titre"> {{ data.message }}</p>
+</div>
+</body>
+</html>
