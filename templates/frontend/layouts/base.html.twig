@@ -63,16 +63,31 @@
 
 
 <!-- Plugins JS File -->
-<script src="frontend/assets/js/jquery.min.js"></script>
-<script src="frontend/assets/js/bootstrap.bundle.min.js"></script>
-<script src="frontend/assets/js/plugins.min.js"></script>
-<script src="frontend/assets/js/optional/isotope.pkgd.min.js"></script>
-<script src="frontend/assets/js/jquery.appear.min.js"></script>
+<script src="{{ asset ('frontend/assets/js/jquery.min.js')}}"></script>
+<script src="{{ asset ('frontend/assets/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset ('frontend/assets/js/plugins.min.js')}}"></script>
+<script src="{{ asset ('frontend/assets/js/optional/isotope.pkgd.min.js')}}"></script>
+<script src="{{ asset ('frontend/assets/js/jquery.appear.min.js')}}"></script>
 
 <!-- Main JS File -->
 <script src="frontend/assets/js/main.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style> .swal2-popup{
+        width: 48em !important;
+    }</style>
+{% for message in app.flashes('success') %}
+    <script>
+        Swal.fire({
+            position: 'top-center',
+            icon: 'success',
+            title: '{{ message }}',
+            showConfirmButton: true,
+        })
+    </script>
+{% endfor %}
+
+
 </body>
 
-
-<!-- Mirrored from portotheme.com/html/porto_ecommerce/demo10.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 06 Jul 2022 12:37:19 GMT -->
 </html>
