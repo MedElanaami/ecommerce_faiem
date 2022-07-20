@@ -46,13 +46,18 @@ class AccueilController extends AbstractController
         return $this->redirectToRoute('app_accueil');
     }
 
-    #[Route('/contact-test', name: 'contact-test')]
-    public function contactTest(): Response
+
+    #[Route('/Confidentialité', name: 'p_conf')]
+    public function pConf(): Response
     {
-        $data=['nom'=>"med",'email'=>'med@gmail.com','tel'=>'024653','message'=>'lorem hcjgchgdlkjgghghj gfrhjb jhg fdg  '];
-        return $this->render('frontend/emails/contact.html.twig', [ 'data'=>$data
 
-
-        ]);
+        return $this->render('frontend/conf.html.twig');
     }
+    #[Route('/Retour', name: 'p_retour')]
+    public function pRetour(): Response
+    {
+
+        return $this->render('frontend/retour.html.twig');
+    }
+
 }
