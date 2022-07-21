@@ -337,5 +337,19 @@ class Produit
 
         return $this;
     }
+    public function prixReduction(){
+        if ($this ->getTypeReduction()->getNom()=='Prix')
+            $prixReduction=$this->getPrixVente()-$this->getValeurReduction();
+        else
+            $prixReduction=$this->getPrixVente()*(1-$this->getValeurReduction()/100);
+        return $prixReduction;
+    }
+    public function valReduction(){
+        if ($this ->getTypeReduction()->getNom()=='Prix')
+            $valReduction=$this->getValeurReduction()." DH";
+        else
+            $valReduction=$this->getValeurReduction()."%";
+        return $valReduction;
+    }
 
 }

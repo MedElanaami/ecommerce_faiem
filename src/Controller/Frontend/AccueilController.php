@@ -5,6 +5,7 @@ namespace App\Controller\Frontend;
 use App\Entity\Newsletter;
 use App\Form\NewsletterType;
 use App\Repository\NewsletterRepository;
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,9 +14,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil')]
-    public function index(): Response
+    public function index(ProduitRepository $produitRepository): Response
     {
-        return $this->render('frontend/index.html.twig');
+        $produits=$produitRepository->findAll();
+        return $this->render('frontend/index.html.twig',['produits'=>$produits]);
     }
 
 
