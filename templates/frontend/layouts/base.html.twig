@@ -47,6 +47,7 @@
 </head>
 
 <body>
+{%set produits_cmd=app.session.get('produits') %}
 <div class="page-wrapper">
     {% include 'frontend/layouts/header.html.twig' %}
 

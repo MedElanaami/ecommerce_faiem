@@ -21,6 +21,7 @@
                             <ul>
                                 <li><a href="#">EUR</a></li>
                                 <li><a href="#">USD</a></li>
+                                <li><a href="#">AR</a></li>
                             </ul>
                         </div>
                         <!-- End .header-menu -->
@@ -45,7 +46,8 @@
                         <a href="#" class="search-toggle" role="button"><i class="icon-magnifier"></i></a>
                         <div class="header-search-wrapper show">
                             <form action="#" method="get">
-                                <input type="search" class="form-control" name="q" id="q" placeholder="Search..." required="">
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Search..."
+                                       required="">
                                 <button class="btn" type="submit"><i class="icon-magnifier"></i></button>
                             </form>
                         </div>
@@ -56,9 +58,11 @@
                                 class=" icon-wishlist-2"></i></a>
 
                     <div class="dropdown cart-dropdown">
-                        <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle d-flex align-items-center" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                        <a href="#" title="Cart"
+                           class="dropdown-toggle dropdown-arrow cart-toggle d-flex align-items-center" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                             <i class="minicart-icon"></i>
-                            <span class="cart-count badge-circle">3</span>
+                            <span class="cart-count badge-circle">{{ produits_cmd|length }}</span>
                         </a>
 
                         <div class="cart-overlay"></div>
@@ -67,91 +71,51 @@
                             <a href="#" title="Close (Esc)" class="btn-close">×</a>
 
                             <div class="dropdownmenu-wrapper custom-scrollbar">
-                                <div class="dropdown-cart-header">Shopping Cart</div>
+                                <div class="dropdown-cart-header">Panier</div>
                                 <!-- End .dropdown-cart-header -->
 
                                 <div class="dropdown-cart-products">
-                                    <div class="product">
-                                        <div class="product-details">
-                                            <h4 class="product-title">
-                                                <a href="demo10-product.html">Ultimate 3D
-                                                    Bluetooth Speaker</a>
-                                            </h4>
+                                    {% for key,produit in produits_cmd %}
 
-                                            <span class="cart-product-info">
-														<span class="cart-product-qty">1</span> × $99.00
+                                        <div class="product">
+                                            <div class="product-details">
+                                                <h4 class="product-title">
+                                                    <a href="{{ path('app_produit', {'slug': produit.slug}) }}">{{ produit.nom }}</a>
+                                                </h4>
+
+                                                <span class="cart-product-info">
+														<span class="cart-product-qty">{{ produit.qte }}</span> × {{ produit.prix }} DH
                                                     </span>
+                                            </div>
+                                            <!-- End .product-details -->
+
+                                            <figure class="product-image-container">
+                                                <a href="{{ path('app_produit', {'slug': produit.slug}) }}" class="product-image">
+                                                    <img src="{{ asset('uploads/images/produits/'~produit.imageName) }}"
+                                                         alt="product" width="80" height="80">
+                                                </a>
+
+                                                <a href="{{ path('app_supprimer_produit', {'key': key}) }}" class="btn-remove" title="Remove Product"><span>×</span></a>
+                                            </figure>
                                         </div>
-                                        <!-- End .product-details -->
+                                        <!-- End .product -->
+                                    {% endfor %}
 
-                                        <figure class="product-image-container">
-                                            <a href="demo10-product.html" class="product-image">
-                                                <img src="frontend/assets/images/products/product-1.jpg" alt="product" width="80" height="80">
-                                            </a>
-
-                                            <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                        </figure>
-                                    </div>
-                                    <!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-details">
-                                            <h4 class="product-title">
-                                                <a href="demo10-product.html">Brown Women
-                                                    Casual HandBag</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-														<span class="cart-product-qty">1</span> × $35.00
-                                                    </span>
-                                        </div>
-                                        <!-- End .product-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="demo10-product.html" class="product-image">
-                                                <img src="frontend/assets/images/products/product-2.jpg" alt="product" width="80" height="80">
-                                            </a>
-
-                                            <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                        </figure>
-                                    </div>
-                                    <!-- End .product -->
-
-                                    <div class="product">
-                                        <div class="product-details">
-                                            <h4 class="product-title">
-                                                <a href="demo10-product.html">Circled
-                                                    Ultimate 3D Speaker</a>
-                                            </h4>
-
-                                            <span class="cart-product-info">
-														<span class="cart-product-qty">1</span> × $35.00
-                                                    </span>
-                                        </div>
-                                        <!-- End .product-details -->
-
-                                        <figure class="product-image-container">
-                                            <a href="demo10-product.html" class="product-image">
-                                                <img src="frontend/assets/images/products/product-3.jpg" alt="product" width="80" height="80">
-                                            </a>
-                                            <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                        </figure>
-                                    </div>
-                                    <!-- End .product -->
                                 </div>
                                 <!-- End .cart-product -->
 
                                 <div class="dropdown-cart-total">
-                                    <span>SUBTOTAL:</span>
+                                    <span>TOTAL:</span>
 
-                                    <span class="cart-total-price float-right">$134.00</span>
+                                    <span class="cart-total-price float-right">
+                                        {{ app.session.get('prixTotal') }} DH
+                                    </span>
                                 </div>
                                 <!-- End .dropdown-cart-total -->
 
                                 <div class="dropdown-cart-action">
-                                    <a href="cart.html" class="btn btn-gray btn-block view-cart">View
-                                        Cart</a>
-                                    <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
+                                    <a href="{{ path('app_panier') }}" class="btn btn-gray btn-block view-cart">Détail Panier</a>
+                                    <a href="checkout.html" class="btn btn-dark btn-block">Aller à la caisse</a>
                                 </div>
                                 <!-- End .dropdown-cart-total -->
                             </div>
@@ -186,7 +150,8 @@
                                     class="icon-magnifier"></i></a>
                         <div class="header-search-wrapper d-lg-flex position-relative border-0">
                             <form action="#" method="get">
-                                <input type="search" class="form-control" name="q" id="qq" placeholder="Search..." required>
+                                <input type="search" class="form-control" name="q" id="qq" placeholder="Search..."
+                                       required>
                                 <button class="btn" type="submit"><i class="icon-magnifier"></i></button>
                             </form>
                         </div>
@@ -251,11 +216,12 @@
                                         <div class="col-lg-4 p-0">
                                             <div class="menu-banner">
                                                 <figure>
-                                                    <img src="frontend/assets/images/menu-banner.jpg" width="192" height="313" alt="Menu banner">
+                                                    <img src="frontend/assets/images/menu-banner.jpg" width="192"
+                                                         height="313" alt="Menu banner">
                                                 </figure>
                                                 <div class="banner-content">
                                                     <h4>
-                                                        <span class="">UP TO</span><br />
+                                                        <span class="">UP TO</span><br/>
                                                         <b class="">50%</b>
                                                         <i>OFF</i>
                                                     </h4>
@@ -323,12 +289,13 @@
                                         <div class="col-lg-4 p-0">
                                             <div class="menu-banner menu-banner-2">
                                                 <figure>
-                                                    <img src="frontend/assets/images/menu-banner-1.jpg" alt="Menu banner" class="product-promo">
+                                                    <img src="frontend/assets/images/menu-banner-1.jpg"
+                                                         alt="Menu banner" class="product-promo">
                                                 </figure>
                                                 <i>OFF</i>
                                                 <div class="banner-content">
                                                     <h4>
-                                                        <span class="">UP TO</span><br />
+                                                        <span class="">UP TO</span><br/>
                                                         <b class="">50%</b>
                                                     </h4>
                                                 </div>
@@ -357,11 +324,17 @@
                                     <li><a href="cart.html">Shopping Cart</a></li>
                                     <li><a href="#">Checkout</a>
                                         <ul>
-                                            <li><a href="https://www.portotheme.com/html/porto_ecommerce/checkout-shipping.html">Checkout Shipping</a>
+                                            <li>
+                                                <a href="https://www.portotheme.com/html/porto_ecommerce/checkout-shipping.html">Checkout
+                                                    Shipping</a>
                                             </li>
-                                            <li><a href="https://www.portotheme.com/html/porto_ecommerce/checkout-shipping-2.html">Checkout Shipping
+                                            <li>
+                                                <a href="https://www.portotheme.com/html/porto_ecommerce/checkout-shipping-2.html">Checkout
+                                                    Shipping
                                                     2</a></li>
-                                            <li><a href="https://www.portotheme.com/html/porto_ecommerce/checkout-review.html">Checkout Review</a></li>
+                                            <li>
+                                                <a href="https://www.portotheme.com/html/porto_ecommerce/checkout-review.html">Checkout
+                                                    Review</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">Dashboard</a>
@@ -383,7 +356,7 @@
                                 </ul>
                             </li>
                             <li class="border-0"><a href="{{ path('app_contact') }}" class="border-0">CONTACT
-                                    </a>
+                                </a>
                             </li>
                             <li class="border-0"><a href="#" class="border-0">ELEMENTS</a>
                                 <ul class="custom-scrollbar">

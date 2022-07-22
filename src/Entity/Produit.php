@@ -45,7 +45,7 @@ class Produit
     #[ORM\Column(type: 'boolean')]
     private $reductionApplique;
 
-    #[ORM\Column(type: 'float',nullable: true)]
+    #[ORM\Column(type: 'float', nullable: true)]
     private $valeurReduction;
 
     #[ORM\ManyToOne(targetEntity: TypeReduction::class, inversedBy: 'produits')]
@@ -65,9 +65,9 @@ class Produit
 
     public function __construct()
     {
-        $this->visibilite=false;
-        $this->favoris=true;
-        $this->reductionApplique=false;
+        $this->visibilite = false;
+        $this->favoris = true;
+        $this->reductionApplique = false;
         $this->images = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->variantes = new ArrayCollection();
@@ -337,18 +337,26 @@ class Produit
 
         return $this;
     }
-    public function prixReduction(){
-        if ($this ->getTypeReduction()->getNom()=='Prix')
-            $prixReduction=$this->getPrixVente()-$this->getValeurReduction();
+
+    public function prixReduction()
+    {
+        if ($this->getTypeReduction()) {
+            if ($this->getTypeReduction()->getNom() == 'Prix')
+                $prixReduction = $this->getPrixVente() - $this->getValeurReduction();
+            else
+                $prixReduction = $this->getPrixVente() * (1 - $this->getValeurReduction() / 100);
+            return $prixReduction;
+        }
         else
-            $prixReduction=$this->getPrixVente()*(1-$this->getValeurReduction()/100);
-        return $prixReduction;
+            return $this->getPrixVente();
     }
-    public function valReduction(){
-        if ($this ->getTypeReduction()->getNom()=='Prix')
-            $valReduction=$this->getValeurReduction()." DH";
+
+    public function valReduction()
+    {
+        if ($this->getTypeReduction()->getNom() == 'Prix')
+            $valReduction = $this->getValeurReduction() . " DH";
         else
-            $valReduction=$this->getValeurReduction()."%";
+            $valReduction = $this->getValeurReduction() . "%";
         return $valReduction;
     }
 
