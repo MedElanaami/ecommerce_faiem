@@ -4,7 +4,9 @@ namespace App\Controller\Frontend;
 
 use App\Entity\Produit;
 use App\Repository\CouponRepository;
+use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,17 +53,14 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/supprimerProduit/{key}', name: 'app_supprimer_produit')]
-    public function SupProduit($key, Request $request,CouponRepository $couponRepository)
+    public function supProduit($key, Request $request,CouponRepository $couponRepository)
     {
-
         $session = $request->getSession();
         $produits = $session->get('produits');
         unset($produits[$key]);
         $session->set('produits', $produits);
         $this->setPrixTotal($request,$couponRepository);
         return $this->redirect($request->headers->get('referer'));
-
-
     }
 
     public function setPrixTotal(Request $request,CouponRepository $couponRepository)
@@ -82,6 +81,27 @@ class ProduitController extends AbstractController
         }
         $session->set('prixTotal', $prixTotal);
     }
+    #[Route('/modifierProduit/', name: 'app_modifier_produit')]
+    public function modProduit( Request $request,CouponRepository $couponRepository)
+    {
+        $session = $request->getSession();
+        $produits = $session->get('produits');
+        if($request->isXmlHttpRequest())
+        {
+         $produitId=$request->get('produit');
+            foreach ($produits as $key=>$produit){
+                if($produit['id']==$produitId)
+                {
+                    $produits[$key]['qte']=$request->get('qte');
 
+                }
+            }
+            $session->set('produits',$produits);
+            $this->setPrixTotal($request,$couponRepository);
+            return new JsonResponse($session->get('prixTotal'));
+        }
+
+
+    }
 
 }
