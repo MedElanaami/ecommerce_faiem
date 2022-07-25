@@ -1,0 +1,216 @@
+{% extends 'frontend/layouts/base.html.twig' %}
+{% block content %}
+    <main class="main contact-two mb-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav sticky-header p-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav>
+
+
+        <div class="container">
+            <div class="row mt-2">
+                <h4>Déjà Client ?
+                    <a href="{{ path('app_login') }}"  class="btn btn-link btn-toggle">Se connecter
+                    </a>
+                </h4>
+            </div>
+            <div class="row">
+                <div class="col-lg-7">
+                    <ul class="checkout-steps">
+                        <li>
+                            <h2 class="step-title">Inscription</h2>
+
+                            {{ form_start(form,{ 'attr':{'id':'form-checkout'}}) }}
+
+
+                            <div class="form-group">
+                                <label>Nom
+                                    <abbr class="required" title="required">*</abbr>
+                                </label>
+                                {{ form_widget(form.nom,{ 'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            <div class="form-group">
+                                <label>Prénom
+                                    <abbr class="required" title="required">*</abbr>
+                                </label>
+                                {{ form_widget(form.prenom,{ 'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            {% if not app.user  %}
+                            <div class="form-group">
+                                <label>Nom d'utilisateur
+                                    <abbr class="required" title="required">*</abbr></label>
+                                {{ form_widget(form.username,{ 'attr':{'class':'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mot de Passe
+                                    <abbr class="required" title="required">*</abbr></label>
+                                {{ form_widget(form.plainPassword,{ 'attr':{'class':'form-control'}}) }}
+                            </div>
+                            {% endif %}
+                            <div class="form-group">
+                                <label>Téléphone <abbr class="required" title="required">*</abbr></label>
+                                {{ form_widget(form.tel,{ 'attr':{'class':'form-control'}}) }}
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email
+                                    <abbr class="required" title="required">*</abbr></label>
+                                {{ form_widget(form.email,{ 'attr':{'class':'form-control'}}) }}
+
+                            </div>
+                            <div class="form-group">
+                                <label>Ville
+                                    <abbr class="required" title="required">*</abbr></label>
+                                {{ form_widget(form.ville,{ 'attr':{'class':'form-control','style':'height:37px'}}) }}
+
+                            </div>
+                            <div class="form-group">
+                                <label>Code Postal</label>
+                                    {{ form_widget(form.codePostal,{ 'attr':{'class':'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+                                <label>Adresse
+                                    <abbr class="required" title="required">*</abbr></label>
+                                {{ form_widget(form.adresse,{ 'attr':{'class':'form-control'}}) }}
+                            </div>
+
+
+                            {{ form_end(form) }}
+                        </li>
+                    </ul>
+                </div>
+                <!-- End .col-lg-8 -->
+
+                <div class="col-lg-5">
+                    <div class="order-summary">
+                        <h3>Votre Panier</h3>
+
+                        <table class="table table-mini-cart">
+                            <thead>
+                            <tr>
+                                <th colspan="2">Produits</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for produit in produits_cmd %}
+                                <tr>
+                                    <td class="product-col">
+                                        <h5 class="product-title">
+                                            {{ produit.nom }} ×
+                                            <span class="product-qty">{{ produit.qte }}</span>
+                                        </h5>
+                                    </td>
+
+                                    <td class="price-col">
+                                        <span>{{ produit.prix *produit.qte }} DH</span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                            <tfoot>
+                            <tr class="cart-subtotal">
+                                <td>
+                                    <h4>Sous Total</h4>
+                                </td>
+
+                                <td class="price-col">
+                                    <span>{{ app.session.get("prixTotal") }}DH</span>
+                                </td>
+                            </tr>
+
+                            <tr class="order-total">
+                                <td>
+                                    <h4>Total</h4>
+                                </td>
+                                <td>
+                                    <b class="total-price"><span>{{ app.session.get("prixTotal") }}DH</span></b>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+
+                        <div class="payment-methods">
+                            <h4 class="">Méthode de Payement</h4>
+                            <div class="info-box with-icon p-0">
+                                <p>
+                                    Nous acceptons actuellement le paiement à la livraison
+                                </p>
+                            </div>
+                        </div>
+
+                        <button type="submit"  class="btn btn-dark btn-place-order" form="form-checkout">
+                            Valider
+                        </button>
+                    </div>
+                    <!-- End .cart-summary -->
+                </div>
+                <!-- End .col-lg-4 -->
+            </div>
+            <!-- End .row -->
+        </div><!-- End .container -->
+    </main><!-- End .main -->
+
+{% endblock %}
+{% block js %}
+    <script>
+        $(".input-qte").change(function () {
+            qte = $(this).val();
+            produit = $(this).closest('tr').data('id');
+            prix = $(this).closest('tr').data('prix');
+
+            $(this).closest('tr').children('.td-price').children().text(prix * qte + ' DH');
+            $.ajax({
+                method: 'POST',
+                url: "{{ path('app_modifier_produit') }}",
+                data: {'produit': produit, 'qte': qte},
+                success: function (data) {
+                    $("#prix-total").text(data + ' DH');
+                },
+                error: function (xhr, status) {
+                }
+            })
+        });
+        $(".form_coupon").on("submit", function (event) {
+            event.preventDefault();
+            var formValues = $(this).serialize();
+            $.ajax({
+                method: 'POST',
+                url: "{{ path('app_panier') }}",
+                data: formValues,
+                success: function (data) {
+                    if (data.status === 200)
+                        Swal.fire({
+                            position: 'top-center',
+                            icon: 'success',
+                            title: data.message,
+                            showConfirmButton: true,
+                        });
+                    else
+                        Swal.fire({
+                            position: 'top-center',
+                            icon: 'error',
+                            title: data.message,
+                            showConfirmButton: true,
+                        });
+
+
+                    $("#prix-total").text(data.prix + ' DH');
+                },
+                error: function (xhr, status) {
+                    alert("error")
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,107 @@
+{% extends 'backend/layouts/base.html.twig' %}
+{% block css %}
+    <!--dataTable-->
+    <link rel="stylesheet" href="{{ asset('backend/vendor/data-table/media/css/dataTables.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- content HEADER -->
+    <!-- ========================================================= -->
+    <div class="content-header">
+        <!-- leftside content header -->
+        <div class="leftside-content-header">
+            <ul class="breadcrumbs">
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
+                <li><a>Commandes</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!--SEARCHING, ORDENING & PAGING-->
+    <div class="row animated fadeInRight">
+        <div class="col-sm-12">
+            {# ---PANEL- -#}
+            <div class="panel">
+                <div class="panel-header panel-success">
+                    <h3 class="panel-title">Liste des Commandes </h3>
+
+                </div>
+
+                <div class="panel-content">
+
+                    <a class="btn btn-sm btn-success btn-center" href="{{ path('admin_commande_new') }}"><span class="fa fa-plus"></span> </a>
+                    <a class="btn btn-sm btn-danger"><span class="fa fa-trash"></span> </a>
+                    <div class="table-responsive">
+                        <table id="basic-table" class="data-table table table-striped nowrap table-hover"
+                               cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Client</th>
+                                <th>Prix</th>
+                                <th>Etat</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for commande in commandes %}
+                                <tr>
+                                    <td>{{ commande.id }}</td>
+                                    <td>{{ commande.dateCommande| date('Y-m-d H:i') }}</td>
+                                    <td>Nom: {{ commande.client.nom}} <br>
+                                        Prenom: {{ commande.client.prenom}} <br>
+                                        Email: {{ commande.client.email}} <br>
+                                        Tel: {{ commande.client.tel}} <br>
+                                        Adresse: <br>{{ commande.client.adresse}}<br> {{ commande.client.ville}}<br> {{ commande.client.codePostal}}</td>
+                                    <td>{{ commande.prixTotal }}</td>
+                                    <td></td>
+
+                                    <td>
+                                        <div class="btn-toolbar btn-group-sm">
+
+                                            <a class="btn btn-warning"
+                                               href="{{ path('admin_commande_edit', {'id': commande.id}) }}"><i
+                                                        class="fa fa-pencil"></i>
+                                            </a>
+                                            <a class="btn btn-info"
+                                               href="{{ path('admin_commande_details', {'id': commande.id}) }}"><i
+                                                        class="fa fa-shopping-basket"></i>
+                                            </a>
+                                            <a class="btn btn-danger"
+                                               href="{{ path('admin_commande_delete', {'id': commande.id}) }}"
+                                               onclick="return confirm('Etes vous sûre de supprimer ce champ?')"><i
+                                                        class="fa fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+
+{% endblock %}
+{% block js %}
+    <!--dataTable-->
+    <script src="{{ asset('backend/vendor/data-table/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/vendor/data-table/media/js/dataTables.bootstrap.min.js') }}"></script>
+    <!--Examples-->
+    <script >
+        $(document).ready(function () {
+            $('.data-table').DataTable({
+                order: [[1, 'desc']],
+            });
+        });
+    </script>
+{% endblock %}

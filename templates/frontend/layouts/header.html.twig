@@ -3,30 +3,6 @@
         <div class="header-top sticky-header" data-sticky-options="{'mobile': true}">
             <div class="container">
                 <div class="header-left header-dropdowns">
-                    <div class="header-dropdown d-none d-lg-block">
-                        <a href="#" class="pl-0">ENG</a>
-                        <div class="header-menu">
-                            <ul>
-                                <li><a href="#">ENG</a></li>
-                                <li><a href="#">FRE</a></li>
-                            </ul>
-                        </div>
-                        <!-- End .header-menu -->
-                    </div>
-                    <!-- End .header-dropown -->
-
-                    <div class="header-dropdown d-none d-lg-block">
-                        <a href="#" class="pt-0">USD</a>
-                        <div class="header-menu">
-                            <ul>
-                                <li><a href="#">EUR</a></li>
-                                <li><a href="#">USD</a></li>
-                                <li><a href="#">AR</a></li>
-                            </ul>
-                        </div>
-                        <!-- End .header-menu -->
-                    </div>
-                    <!-- End .header-dropown -->
 
                     <button class="mobile-menu-toggler d-lg-none d-block" type="button">
                         <i class="fas fa-bars text-white"></i>
@@ -39,7 +15,7 @@
                 <!-- End .header-left -->
 
                 <div class="header-right">
-                    <a href="login.html" class="header-icon header-icon-user d-lg-block d-none"><i
+                    <a href="{{ path('app_login') }}" class="header-icon header-icon-user d-lg-block d-none"><i
                                 class="icon-user-2"></i></a>
 
                     <div class="header-search d-lg-none d-block mr-4">
@@ -115,7 +91,7 @@
 
                                 <div class="dropdown-cart-action">
                                     <a href="{{ path('app_panier') }}" class="btn btn-gray btn-block view-cart">Détail Panier</a>
-                                    <a href="checkout.html" class="btn btn-dark btn-block">Aller à la caisse</a>
+                                    <a href="{{ path('app_checkout') }}" class="btn btn-dark btn-block">Aller à la caisse</a>
                                 </div>
                                 <!-- End .dropdown-cart-total -->
                             </div>
@@ -377,8 +353,12 @@
                                     <li><a href="element-tabs.html">Tabs</a></li>
                                     <li><a href="element-testimonial.html">Testimonials</a></li>
                                 </ul>
-                            </li>
-                            <li class="border-0"><a href="{{ path('app_login') }}" class="border-0">CONNEXION</a></li>
+                            </li><li class="border-0">
+                            {% if app.user %}
+                           <a href="{{ path('app_logout') }}" class="border-0">DECONNEXION
+                            {% else %}
+                            <a href="{{ path('app_login') }}" class="border-0">CONNEXION
+                            {% endif %}</a></li>
                         </ul>
                     </nav>
                 </div>

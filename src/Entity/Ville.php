@@ -72,4 +72,11 @@ class Ville
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getNom();
+        // TODO: Implement __toString() method.
+    }
+
 }

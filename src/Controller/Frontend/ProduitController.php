@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProduitController extends AbstractController
 {
     #[Route('/produit/{slug}', name: 'app_produit')]
-    public function index(Produit $produit, Request $request,CouponRepository $couponRepository): Response
+    public function index(Produit $produit, Request $request, CouponRepository $couponRepository): Response
     {
 
         $qte = $request->get('qte');
@@ -42,7 +42,7 @@ class ProduitController extends AbstractController
                 );
             }
             $session->set('produits', $produits);
-            $this->setPrixTotal($request,$couponRepository);
+            $this->setPrixTotal($request, $couponRepository);
             $this->addFlash('success', "L'article a été ajouté à votre panier");
         }
         return $this->render('frontend/produit.html.twig', [
@@ -53,51 +53,51 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/supprimerProduit/{key}', name: 'app_supprimer_produit')]
-    public function supProduit($key, Request $request,CouponRepository $couponRepository)
+    public function supProduit($key, Request $request, CouponRepository $couponRepository)
     {
         $session = $request->getSession();
         $produits = $session->get('produits');
         unset($produits[$key]);
         $session->set('produits', $produits);
-        $this->setPrixTotal($request,$couponRepository);
+        $this->setPrixTotal($request, $couponRepository);
         return $this->redirect($request->headers->get('referer'));
     }
 
-    public function setPrixTotal(Request $request,CouponRepository $couponRepository)
+    public function setPrixTotal(Request $request, CouponRepository $couponRepository)
     {
         $prixTotal = 0;
         $session = $request->getSession();
         $produits = $session->get('produits');
         foreach ($produits as $produit)
             $prixTotal += $produit['qte'] * $produit['prix'];
+        if ($session->get("codeCoupon")) {
+            $coupon = $couponRepository->find($session->get('codeCoupon'));
+            if ($coupon) {
+                if ($coupon->getTypeReduction()->getNom() == 'Prix')
+                    $prixTotal = $prixTotal - $coupon->getValeur();
+                else
+                    $prixTotal = $prixTotal * (1 - $coupon->getValeur() / 100);
 
-        $coupon=$couponRepository->find($session->get('codeCoupon'));
-        if($coupon) {
-            if ($coupon->getTypeReduction()->getNom() == 'Prix')
-                $prixTotal = $prixTotal - $coupon->getValeur();
-            else
-                $prixTotal = $prixTotal * (1 - $coupon->getValeur() / 100);
-
+            }
         }
         $session->set('prixTotal', $prixTotal);
     }
+
     #[Route('/modifierProduit/', name: 'app_modifier_produit')]
-    public function modProduit( Request $request,CouponRepository $couponRepository)
+    public function modProduit(Request $request, CouponRepository $couponRepository)
     {
         $session = $request->getSession();
         $produits = $session->get('produits');
-        if($request->isXmlHttpRequest())
-        {
-         $produitId=$request->get('produit');
-            foreach ($produits as $key=>$produit){
-                if($produit['id']==$produitId)
-                {
-                    $produits[$key]['qte']=$request->get('qte');
+        if ($request->isXmlHttpRequest()) {
+            $produitId = $request->get('produit');
+            foreach ($produits as $key => $produit) {
+                if ($produit['id'] == $produitId) {
+                    $produits[$key]['qte'] = $request->get('qte');
 
                 }
             }
-            $session->set('produits',$produits);
-            $this->setPrixTotal($request,$couponRepository);
+            $session->set('produits', $produits);
+            $this->setPrixTotal($request, $couponRepository);
             return new JsonResponse($session->get('prixTotal'));
         }
 

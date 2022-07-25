@@ -1,0 +1,121 @@
+{% extends 'backend/layouts/base.html.twig' %}
+
+{% block content %}
+
+    <!-- content HEADER -->
+    <!-- ========================================================= -->
+    <div class="content-header">
+        <!-- leftside content header -->
+        <div class="leftside-content-header">
+            <ul class="breadcrumbs">
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
+                <li><a>Faqs</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!--SEARCHING, ORDENING & PAGING-->
+    <div class="row">
+        <div class="col-md-6 col-lg-4">
+            <div class="panel bg-scale-0 b-primary bt-sm mt-xl">
+                <div class="panel-content">
+                    <h4 class=""><b>Information Client</b></h4>
+                    <ul class="user-contact-info ph-sm">
+                        <li>
+                            <b><i class="color-primary mr-sm fa fa-user"></i></b>Nom d'utilisateur: {{ commande.client.username }}
+                        </li>
+                        <li>
+                            <b><i class="color-primary mr-sm fa fa-user"></i></b>Nom: {{ commande.client.nom }} {{ commande.client.prenom }}
+                        </li>
+                        <li><b><i class="color-primary mr-sm fa fa-envelope"></i></b> {{commande.client.email}}
+                        </li>
+                        <li><b><i class="color-primary mr-sm fa fa-phone"></i></b>{{ commande.client.tel }}</li>
+                        <li><b><i class="color-primary mr-sm fa fa-map-marker"></i></b>Adresse: {{ commande.client.adresse }}
+                        </li>
+                        <li><b><i class="color-primary mr-sm fa fa-map-marker"></i></b>Ville: {{ commande.client.ville }}
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+        </div>
+        <div class="col-md-6 col-lg-8">
+            <!--CONTACT INFO-->
+            <div class="panel bg-scale-0 b-primary bt-sm mt-xl">
+                <div class="panel-content">
+                    <h4 class=""><b>Detail Commande</b></h4>
+                    <ul class="user-contact-info ph-sm">
+                        <li><b><i class="color-primary mr-sm fa fa-book"></i></b>Num: {{ commande.id }}</li>
+                        <li><b><i class="color-primary mr-sm fa fa-calendar"></i></b>Date de
+                            commande: {{ commande.dateCommande| date('Y-m-d H:i') }}</li>
+                        <li>
+                            <b><i class="color-primary mr-sm fa fa-money"></i></b>Prix: {{ commande.prixTotal }}
+                            DH
+                            {% if commande.couponApplique %}
+                            Bénificié d'un code Coupon
+
+                            <span class="badge">{{ commande.coupon.nom }}</span>
+                            {% endif %}</li>
+                    </ul>
+                    <div class="btn-group">
+                        <a href="#"
+                           class="btn btn-sm btn-warning"><i
+                                    class="fa fa-edit"></i></a>
+                        <a href="{{ path('admin_commande_delete', {'id': commande.id}) }}"
+                           class="btn btn-sm btn-danger"
+                           onclick="return confirm('Etes vous sûr de supprimer cette commande?')"><i
+                                    class="fa fa-trash-o"></i> Supprimer Commande</a>
+                        <a href="#"
+                           class="btn btn-sm btn-info"><i
+                                    class="fa fa-print"></i> Bon de livraison</a>
+                        <a href="#"
+                           class="btn btn-sm btn-default"><i
+                                    class="fa fa-plane"></i> Suivi colis</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row animated fadeInRight">
+
+        <div class="col-sm-12">
+            <div class="panel ">
+                <div class="panel-content">
+                    <div class="table-responsive">
+                        <table id="basic-table" class="data-table table table-bordered  table-hover"
+                               cellspacing="0" width="100%">
+                            <thead>
+                            <tr>
+
+                                <th>Image</th><th>Produit</th>
+                                <th>Prix Unitaire</th>
+                                <th>Quantite</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for ligne in commande.ligneCommandes %}
+                            <tr>
+
+                                <td><img src="{{ asset('uploads/images/produits/'~ligne.produit.images[0].imageName) }}" height="100px"/></td>
+                                <td>{{ ligne.produit.nom }}</td>
+                                <td> {{ ligne.prixVente }}
+                                </td>
+                                <td>{{ ligne.qte }}</td>
+                            </tr>
+                            {% endfor %}
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+

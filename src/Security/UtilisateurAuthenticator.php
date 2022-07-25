@@ -22,10 +22,12 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
 
     private UrlGeneratorInterface $urlGenerator;
+    private Security $security;
 
-    public function __construct(UrlGeneratorInterface $urlGenerator)
+    public function __construct(UrlGeneratorInterface $urlGenerator, Security $security)
     {
         $this->urlGenerator = $urlGenerator;
+        $this->security = $security;
     }
 
     public function authenticate(Request $request): Passport
@@ -48,10 +50,18 @@ class UtilisateurAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+        $user = $this->security->getUser();
+        if ($this->security->getUser() && $this->security->isGranted('ROLE_ADMIN'))
+            return new RedirectResponse($this->urlGenerator->generate('admin_accueil'));
+        else {
+            if ($request->getSession()->get('route'))
 
-        // For example:
-        return new RedirectResponse($this->urlGenerator->generate('admin_accueil'));
+                return new RedirectResponse($this->urlGenerator->generate($request->getSession()->get('route')));
+            else
+                return new RedirectResponse($this->urlGenerator->generate("app_accueil"));
 
+
+        }
     }
 
     protected function getLoginUrl(Request $request): string

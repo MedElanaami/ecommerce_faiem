@@ -18,10 +18,10 @@ class Client extends  Utilisateur
     #[ORM\Column(type: 'string', length: 255)]
     private $tel;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'text')]
     private $adresse;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
+    #[ORM\Column(type: 'string', nullable: true)]
     private $codePostal;
 
     #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'clients')]

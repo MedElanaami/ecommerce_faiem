@@ -40,13 +40,6 @@ class FaqController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'admin_faq_show', methods: ['GET'])]
-    public function show(Faq $faq): Response
-    {
-        return $this->render('faq/show.html.twig', [
-            'faq' => $faq,
-        ]);
-    }
 
     #[Route('/{id}/edit', name: 'admin_faq_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Faq $faq, FaqRepository $faqRepository): Response

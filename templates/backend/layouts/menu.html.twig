@@ -2,7 +2,8 @@
     <!-- left sidebar HEADER -->
     <div class="left-sidebar-header">
         <div class="left-sidebar-title">Navigation</div>
-        <div class="left-sidebar-toggle c-hamburger c-hamburger--htla hidden-xs" data-toggle-class="left-sidebar-collapsed" data-target="html">
+        <div class="left-sidebar-toggle c-hamburger c-hamburger--htla hidden-xs"
+             data-toggle-class="left-sidebar-collapsed" data-target="html">
             <span></span>
         </div>
     </div>
@@ -13,7 +14,18 @@
             <nav>
                 <ul class="nav nav-left-lines" id="main-nav">
                     <!--HOME-->
-                    <li class="active-item"><a href="{{ path('admin_accueil') }}"><i class="fa fa-home" aria-hidden="true"></i><span>Accueil</span></a></li>
+                    <li class="active-item"><a href="{{ path('admin_accueil') }}"><i class="fa fa-home"
+                                                                                     aria-hidden="true"></i><span>Accueil</span></a>
+                    </li>
+                    <!--Commandes-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-shopping-cart" aria-hidden="true"></i><span>Commandes</span></a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('admin_commande_index') }}">Liste de commandes</a></li>
+                            <li><a href="{{ path('admin_commande_new') }}">Ajouter commande</a></li>
+
+                        </ul>
+                    </li>
                     <!--PRODUITS-->
                     <li class="has-child-item close-item">
                         <a><i class="fa fa-cart-plus" aria-hidden="true"></i><span>Produits</span></a>
@@ -23,6 +35,7 @@
 
                         </ul>
                     </li>
+
                     <!--CATEGORIES-->
                     <li class="has-child-item close-item">
                         <a><i class="fa fa-list" aria-hidden="true"></i><span>Categories</span> </a>
@@ -75,7 +88,7 @@
 
                     <!--TYPEREDUCTION-->
                     <li class="has-child-item close-item">
-                        <a><i class="fa-solid fa-chart-line" ></i><span>Types Reduction</span> </a>
+                        <a><i class="fa-solid fa-chart-line"></i><span>Types Reduction</span> </a>
                         <ul class="nav child-nav level-1">
                             <li><a href="{{ path('app_typeReduction_index') }}">Liste des types de reduction</a></li>
                             <li><a href="{{ path('app_typeReduction_new') }}">Ajouter un type de reduction</a></li>
@@ -83,7 +96,7 @@
                     </li>
                     <!--COUPONS-->
                     <li class="has-child-item close-item">
-                        <a><i class="fa-solid fa-gift" ></i><span>Coupon</span> </a>
+                        <a><i class="fa-solid fa-gift"></i><span>Coupon</span> </a>
                         <ul class="nav child-nav level-1">
                             <li><a href="{{ path('app_coupon_index') }}">Liste des Coupons</a></li>
                             <li><a href="{{ path('app_coupon_new') }}">Ajouter un Coupon</a></li>

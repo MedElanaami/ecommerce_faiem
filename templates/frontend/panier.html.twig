@@ -76,9 +76,9 @@
                                     </div><!-- End .float-left -->
 
                                     <div class="float-right">
-                                        <button type="submit" class="btn btn-shop btn-update-cart">
+                                        <a href="{{ path('app_checkout') }}" type="submit" class="btn btn-black btn-shop btn-update-cart">
                                             Aller à la caisse
-                                        </button>
+                                        </a>
                                     </div><!-- End .float-right -->
                                 </td>
                             </tr>
@@ -138,7 +138,7 @@
                 $("#prix-total").text(data.prix + ' DH');
             },
             error: function (xhr, status) {
-                alert("aziz")
+                alert("error")
             }
         });
     });
