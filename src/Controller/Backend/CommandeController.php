@@ -20,9 +20,12 @@ class CommandeController extends AbstractController
             'commandes' => $commandeRepository->findAll(),
         ]);
     }
-    #[Route('/details/{id}', name: 'admin_commande_details', methods: ['GET'])]
+    #[Route('/details/{id}', name: 'admin_commande_details',  options: ['expose' => true],methods: ['GET'] )]
     public function details(Commande $commande ,CommandeRepository $commandeRepository): Response
     {
+        $commande->setVu(true);
+        $commandeRepository->add($commande ,true);
+
         return $this->render('backend/commande/details.html.twig', [
             'commande' => $commande
         ]);

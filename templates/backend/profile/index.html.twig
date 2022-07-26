@@ -1,0 +1,39 @@
+{% extends 'backend/layouts/base.html.twig' %}
+
+
+{% block content %}
+
+    <!-- content HEADER -->
+    <!-- ========================================================= -->
+    <div class="content-header">
+        <!-- leftside content header -->
+        <div class="leftside-content-header">
+            <ul class="breadcrumbs">
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
+                <li><a>Profile</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 panel bg-scale-0 b-primary bt-sm mt-xl">
+            <div class="panel-content">
+                <div class="user-header-info col-md-4 ">
+                    <h4 class="user-name">{{ app.user.nom }} {{ app.user.prenom }}</h4>
+                    <h5 class="user-position">Administrateur</h5>
+                </div>
+                <div class="col-md-4 pull-right">
+                    <h4 class=""><b>Coordonnées</b></h4>
+                    <ul class="user-contact-info ph-sm ">
+                        <li><b><i class="color-primary mr-sm fa fa-envelope"></i></b> {{app.user.email}}</li>
+                        <li><b><i class="color-primary mr-sm fa fa-user"></i></b> {{app.user.username}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <a href="{{ path('admin_editer_profile') }}" class="btn btn-success">Modifier votre profil</a>
+            <a href="{{ path('admin_editer_password') }}" class="btn btn-danger">Modifier votre mot de passe</a>
+        </div>
+    </div>
+
+{% endblock %}

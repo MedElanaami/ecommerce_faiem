@@ -1,0 +1,88 @@
+<html>
+<head>
+    <style>
+        .titre {
+            display: grid;
+            align-items: center;
+            justify-content: center;
+            font-family: Sans-Serif;
+            background-color: #087f5b;
+            color: #FFFFFF;
+            text-align: center;
+            line-height: 32px;
+            border: 2px solid #087f5b;
+            padding: 10px;
+            border-radius: 50px 20px;
+        }
+
+
+        .badge {
+            padding: 4px 8px;
+            margin: 0 2px;
+            display: inline-block;
+            min-width: 10px;
+
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 1;
+            color: #fff;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            background-color: #777;
+            border-radius: 10px;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="content">
+    <h3 class='titre'>Informations Client</h3>
+<ul>
+    <li>Nom d'utilisateur: {{ commande.client.username }}</li>
+    <li>Nom: {{ commande.client.nom }} {{ commande.client.prenom }}</li>
+    <li> {{ commande.client.email }}</li>
+    <li>{{ commande.client.tel }}</li>
+    <li>Adresse: {{ commande.client.adresse }}</li>
+    <li>Ville: {{ commande.client.ville }}</li>
+</ul>
+    <h3 class="titre">Detail Commande</h3>
+    <ul>
+        <li>Num: {{ commande.id }}</li>
+        <li>Date de commande: {{ commande.dateCommande| date('Y-m-d H:i') }}</li>
+        <li>Prix: {{ commande.prixTotal }} DH
+            {% if commande.couponApplique %}
+                Bénificié d'un code Coupon
+                <span class="badge">{{ commande.coupon.nom }}</span>
+            {% endif %}</li>
+    </ul>
+    <h3 class="titre">Produits commandés</h3>
+    <table border="2px black solid"
+           cellspacing="0" width="100%">
+        <thead>
+        <tr>
+
+          <th>Produit</th>
+            <th>Prix Unitaire</th>
+            <th>Quantite</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for ligne in commande.ligneCommandes %}
+            <tr>
+
+               <td>{{ ligne.produit.nom }}</td>
+                <td> {{ ligne.prixVente }}
+                </td>
+                <td>{{ ligne.qte }}</td>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

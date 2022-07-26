@@ -27,6 +27,9 @@ class Commande
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $couponApplique;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $vu;
+
     #[ORM\ManyToOne(targetEntity: Status::class, inversedBy: 'commandes')]
     private $status;
 
@@ -39,9 +42,27 @@ class Commande
 
     public function __construct()
     {
+        $this->vu=false;
         $this->dateCommande=new \DateTimeImmutable();
         $this->ligneCommandes = new ArrayCollection();
     }
+
+    /**
+     * @return false
+     */
+    public function getVu(): bool
+    {
+        return $this->vu;
+    }
+
+    /**
+     * @param false $vu
+     */
+    public function setVu(bool $vu): void
+    {
+        $this->vu = $vu;
+    }
+
 
     public function getId(): ?int
     {

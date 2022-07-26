@@ -12,10 +12,13 @@ use App\Form\RegistrationClientType;
 
 
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
@@ -23,7 +26,7 @@ use Symfony\Component\Security\Core\Security;
 class CheckoutController extends AbstractController
 {
     #[Route('/checkout', name: 'app_checkout')]
-    public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, Security $security): Response
+    public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, Security $security ,MailerInterface $mailer): Response
     {
         $session = $request->getSession();
         $session->set('route', "app_checkout");
@@ -74,15 +77,26 @@ class CheckoutController extends AbstractController
                         $ligneCommande->setPrixVente($produitSession['prix']);
                         $ligneCommande->setQte($produitSession['qte']);
                         $entityManager->persist($ligneCommande);
+                        $commande->addLigneCommande($ligneCommande);
                         $entityManager->flush();
                     }
                 }
+                $entityManager->persist($commande);
+                $entityManager->flush();
                 $session->remove('produits');
                 $session->remove('prixTotal');
                 $session->remove('codeCoupon');
                 $this->addFlash('success', 'Votre commande a été bien enregistrée, nous vous contacterons le plus tôt possible.');
+                $email=(new TemplatedEmail())
+                    ->from(" noreply@elanaami.com")
+                    ->to (new Address('elanaamimohamed@gmail.com'))
+                    ->subject("Nouvelle commande depuis le site faem.ma")
+                    ->htmlTemplate('frontend/emails/commande.html.twig')
+                    ->context(['commande'=>$commande]);
+                $mailer->send($email);
                 return $this->redirectToRoute("app_accueil");
             }
+
             return $this->render('frontend/checkout.html.twig', ['form' => $form->createView()]);
         } else {
             return $this->redirectToRoute("app_accueil");

@@ -17,15 +17,9 @@
     <link rel="stylesheet" href="{{ asset('backend/vendor/bootstrap/css/bootstrap.css') }}">
 
     <link rel="stylesheet" href="{{ asset('backend/vendor/animate.css/animate.css') }}">
-    <!--SECTION css-->
-    <!-- ========================================================= -->
-    <!--Notification msj-->
-    <link rel="stylesheet" href="{{ asset('backend/vendor/toastr/toastr.min.css') }}">
-    <!--Magnific popup-->
-    <link rel="stylesheet" href="{{ asset('backend/vendor/magnific-popup/magnific-popup.css') }}">
-    <!--TEMPLATE css-->
     <!-- ========================================================= -->
     <link rel="stylesheet" href="{{ asset('backend/stylesheets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('backend/vendor/lobibox/dist/css/lobibox.min.css') }}"/>
     {% block css %}
     {% endblock %}
 
@@ -43,10 +37,10 @@
         <!-- ========================================================= -->
         {% include 'backend/layouts/menu.html.twig' %}
         <div class="content">
-        <!-- CONTENT -->
-        {% block content %}
+            <!-- CONTENT -->
+            {% block content %}
 
-        {% endblock %}
+            {% endblock %}
         </div>
         <!-- RIGHT SIDEBAR -->
         <!-- ========================================================= -->
@@ -65,15 +59,70 @@
 <script src="{{ asset('backend/javascripts/template-init.min.js') }}"></script>
 <!-- SECTION script and examples-->
 <!-- ========================================================= -->
-<!--Notification msj-->
-<script src="{{ asset('backend/vendor/toastr/toastr.min.js') }}"></script>
+
 <!--morris chart-->
 <script src="{{ asset('backend/vendor/chart-js/chart.min.js') }}"></script>
-<!--Gallery with Magnific popup-->
-<script src="{{ asset('backend/vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+<script src="{{ asset('backend/vendor/lobibox/dist/js/lobibox.min.js') }}"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script>
+
+    notif();
+    setInterval(notif, 20000)
+
+    function notif() {
+        $.ajax(
+            {
+                url: "{{ path('notifications') }}",
+                success: function (data, status, xhr) {
+
+                    $(".nbr-cmd").text(data.length);
+                    $(".div-notif").empty();
+                    for (cmd of data) {
+                        path = Routing.generate('admin_commande_details', {'id': cmd.id_cmd});
+
+                        $(".div-notif").append(`
+<li>                               <a href="${path}">
+                                        <div class="left-element"><i class="fa fa-shopping-basket color-primary"></i></div>
+                                        <div class="text">
+                                            <span class="title"> Nouvelle commande n° </span>
+                                            <span class="subtitle"> (${cmd.id_cmd})</span>
+                                        </div>
+                                    </a>
+                                </li>`);
 
 
+                    }
+                    if (data.length > 0) {
+                        Lobibox.notify('info', {
 
+                            soundPath: '{{ asset('backend/vendor/lobibox/dist/sounds/') }}',
+                            sound: "sound7",
+                            delay: 15000,  //In milliseconds
+                            msg: "Nouvelle commande est arrivée!"
+                        });
+                    }
+                },
+                error: function (xhr, status) {
+                    alert("error");
+                }
+
+            }
+        )
+    }
+</script>
+
+{% for message in app.flashes('error') %}
+    <script>
+        Lobibox.notify('warning', {
+
+            soundPath: '{{ asset('backend/vendor/lobibox/dist/sounds/') }}',
+            sound: "sound1",
+            delay: 15000,  //In milliseconds
+            msg: '{{ message }}'
+        });
+    </script>
+{% endfor %}
 {% block js %}
 {% endblock %}
 </body>
