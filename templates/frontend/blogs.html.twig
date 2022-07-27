@@ -1,0 +1,52 @@
+{% extends 'frontend/layouts/base.html.twig' %}
+{% block content %}
+    <main class="main contact-two mb-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav sticky-header p-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Blogs</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav>
+
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-section row">
+                        {% for blog in blogs %}
+                            <div class="col-md-6 col-lg-4">
+                                <article class="post">
+                                    <div class="post-media">
+                                        <a href="{{ path('app_blog', {'id': blog.id}) }}">
+                                            <img src="{{ asset('uploads/images/blogs/'~blog.imageName) }}" alt="Post"
+                                                 width="225"
+                                                 height="280">
+                                        </a>
+                                        <div class="post-date">
+                                            <span class="day">{{ blog.date| date("d") }}</span>
+                                            <span class="month">{{ blog.date|date("M") }}</span>
+                                        </div>
+                                    </div><!-- End .post-media -->
+
+                                    <div class="post-body">
+                                        <h2 class="post-title">
+                                            <a href="{{ path('app_blog', {'id': blog.id}) }}">{{ blog.titre }}</a>
+                                        </h2>
+                                        <div class="post-content">
+                                            <p>{{ blog.courteDesc }}</p>
+                                        </div><!-- End .post-content -->
+
+                                    </div><!-- End .post-body -->
+                                </article><!-- End .post -->
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div><!-- End .col-lg-9 -->
+            </div>
+        </div>
+    </main><!-- End .main -->
+
+
+{% endblock %}

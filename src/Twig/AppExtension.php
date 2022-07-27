@@ -4,6 +4,7 @@ namespace App\Twig;
 
 use App\Entity\Newsletter;
 use App\Form\NewsletterType;
+use App\Repository\CategorieRepository;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactory;
@@ -17,16 +18,18 @@ class AppExtension extends AbstractExtension
 {
 
     public FormFactory $formFactory;
-    public FormInterface $formInterface;
-    public function __construct(FormFactory $formFactory)
+    public CategorieRepository $categorieRepository;
+    public function __construct(FormFactory $formFactory,CategorieRepository $categorieRepository)
     {
         $this->formFactory = $formFactory;
+        $this->categorieRepository=$categorieRepository;
     }
 
     public function getFunctions(): array
     {
         return [
             new TwigFunction('formNewsletter', [$this, 'formNewsletter']),
+            new TwigFunction('categories', [$this, 'categories']),
         ];
     }
 
@@ -36,5 +39,12 @@ class AppExtension extends AbstractExtension
         $newsletter = new Newsletter();
         $form = $this->formFactory->create(NewsletterType::class, $newsletter);
         return $form->createView();
+    }
+    public function categories()
+    {
+
+        $categories=$this->categorieRepository->findBy(array('parent'=>NULL));
+
+        return $categories;
     }
 }

@@ -25,3 +25,10 @@ vich_uploader:
       delete_on_update: true
       delete_on_remove: true
       namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+    blogs:
+      uri_prefix: /uploads/images/blogs
+      upload_destination: '%kernel.project_dir%/public/uploads/images/blogs'
+      inject_on_load: false
+      delete_on_update: true
+      delete_on_remove: true
+      namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
