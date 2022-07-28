@@ -8,45 +8,28 @@
 						'loop': false,
 						'navText': [ '<i class=icon-left-open-big>', '<i class=icon-right-open-big>' ]
 					}">
+                 {% for slider in sliders %}
 
-                 <div class="banner">
-                     <img src="frontend/assets/images/demoes/demo10/slider/slide-1.jpg" width="1620" height="980"
+                 <div class="banner {{ slider.textPosition }}">
+                     <img src="{{ asset('uploads/images/sliders/'~slider.imageName) }}" width="1620" height="980"
                           style="background-color: #eee;" alt="slider-one">
 
                      <div class="banner-layer banner-layer-middle">
                          <h6 class=" appear-animate" data-animation-name="fadeInRightShorter"
-                             data-animation-delay="200">NEW ARRIVALS!</h6>
-                         <img src="frontend/assets/images/demoes/demo10/banners/banner-text-1.png"
-                              class="w-auto appear-animate" data-animation-name="fadeInRightShorter"
-                              data-animation-delay="450" width="503" height="113" alt="banner-text">
+                             data-animation-delay="200">{{slider.titre}}</h6>
+
                          <h3 class=" appear-animate" data-animation-name="fadeInRightShorter"
-                             data-animation-delay="700">70% OFF</h3>
-                         <a href="demo10-shop.html" class="btn btn-xl appear-animate"
-                            data-animation-name="fadeInRightShorter" data-animation-delay="950" role="button">Shop
-                             Now<i class="fas fa-chevron-right"></i></a>
+                             data-animation-delay="700">{{ slider.sousTitre }}</h3>
+                         {% if slider.lien%}
+                         <a href="{{ slider.lien }}" class="btn btn-xl appear-animate"
+                            data-animation-name="fadeInRightShorter" data-animation-delay="950" role="button">Acheter maintenant<i class="fas fa-chevron-right"></i></a>{% endif %}
                      </div>
                      <!-- End .banner-layer.banner-layer-middle -->
                  </div>
                  <!-- End .banner -->
+                 {% endfor%}
 
-                 <div class="banner text-right">
-                     <img src="frontend/assets/images/demoes/demo10/slider/slide-2.jpg" width="1620" height="980"
-                          style="background-color: #eee;" alt="slider-two">
 
-                     <div class="banner-layer banner-layer-middle content-right">
-                         <h6 class=" appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="200">
-                             NEW ARRIVALS!</h6>
-                         <img src="frontend/assets/images/demoes/demo10/banners/banner-text-2.png"
-                              class="w-auto ml-auto appear-animate" data-animation-name="fadeInLeftShorter"
-                              data-animation-delay="450" width="503" height="113" alt="banner-text">
-                         <h3 class=" appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="700">
-                             50% OFF</h3>
-                         <a href="demo10-shop.html" class="btn btn-xl appear-animate"
-                            data-animation-name="fadeInLeftShorter" data-animation-delay="950" role="button">Shop
-                             Now<i class="fas fa-chevron-right"></i></a>
-                     </div>
-                     <!-- End .banner-layer.banner-layer-middle -->
-                 </div>
              </div>
          </section>
          <!-- End .section-1 -->
