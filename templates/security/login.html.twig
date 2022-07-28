@@ -26,7 +26,7 @@
                             <div class="col-md-12">
                                 <div class="form-group required-field">
                                     <label for="contact-username">Nom de l'utilisateur</label>
-                                    <input type="text"  value="{{ last_username }}" class="form-control"  name="username"
+                                    <input type="text"  name="_username" value="{{ last_username }}" class="form-control"
                                            autocomplete="username" autofocus required>
                                 </div><!-- End .form-group -->
                             </div>
@@ -34,14 +34,14 @@
                             <div class="col-md-12">
                                 <div class="form-group required-field">
                                     <label for="contact-password">Mot de passe</label>
-                                    <input type="password" class="form-control" name="password" autocomplete="current-password"
+                                    <input type="password" class="form-control" name="_password" autocomplete="current-password"
                                            required>
 
 
                                 </div><!-- End .form-group -->
 
                             </div>
-                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         </div>
 
 
