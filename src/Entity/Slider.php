@@ -33,6 +33,18 @@ class Slider
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $titre;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $sousTitre;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $lien;
+
+    #[ORM\Column(type: 'string', length: 10, nullable: true)]
+    private $textPosition;
+
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
@@ -63,6 +75,7 @@ class Slider
         $this->imageName = $imageName;
     }
 
+
     public function getImageName(): ?string
     {
         return $this->imageName;
@@ -84,6 +97,53 @@ class Slider
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(?string $titre): self
+    {
+        $this->titre = $titre;
+        return $this;
+    }
+
+    public function getSousTitre(): ?string
+    {
+        return $this->sousTitre;
+    }
+
+    public function setSousTitre(?string $sousTitre): self
+    {
+        $this->sousTitre = $sousTitre;
+
+        return $this;
+    }
+
+    public function getLien(): ?string
+    {
+        return $this->lien;
+    }
+
+    public function setLien(?string $lien): self
+    {
+        $this->lien = $lien;
+
+        return $this;
+    }
+
+    public function getTextPosition(): ?string
+    {
+        return $this->textPosition;
+    }
+
+    public function setTextPosition(?string $textPosition): self
+    {
+        $this->textPosition = $textPosition;
+
+        return $this;
     }
 
 }
