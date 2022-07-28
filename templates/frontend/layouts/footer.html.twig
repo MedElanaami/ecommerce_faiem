@@ -76,13 +76,12 @@
                     <div class="row mt-5 ml-2 ">
                         <div class="col-sm-6 col-md-3">
                             <div class="widget">
-                                <h4 class="widget-title">Produit</h4>
+                                <h4 class="widget-title">Produits</h4>
                                 <div class="links link-parts row mb-0">
                                     <ul class="link-part col-sm-6 col-md-12">
-                                        <li><a href="#">Femmes</a></li>
-                                        <li><a href="#">Filles</a></li>
-                                        <li><a href="#">Hommes</a></li>
-                                        <li><a href="#">Garçons</a></li>
+                                        {% for categorie in categories() %}
+                                        <li><a href="{{ path('app_categorie', {'slug': categorie.slug}) }}">{{ categorie.nom }}</a></li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
