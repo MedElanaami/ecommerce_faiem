@@ -145,10 +145,10 @@
                                         {% for categorie in categories()  %}
 
                                         <div class="col-lg-4">
-                                            <a href="#" class="nolink">{{ categorie.nom }}</a>
+                                            <a href="{{ path('app_categorie', {'slug': categorie.slug}) }}" class="nolink">{{ categorie.nom }}</a>
                                             <ul class="submenu">
                                                 {% for  sousCategorie  in categorie.categories %}
-                                                <li><a href="#">{{ sousCategorie.nom }}</a></li>
+                                                <li><a href="{{ path('app_categorie', {'slug': sousCategorie.slug}) }}">{{ sousCategorie.nom }}</a></li>
                                                 {% endfor %}
                                             </ul>
                                         </div>

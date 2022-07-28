@@ -15,20 +15,16 @@
 
         <div class="container pt-2">
             <div class="product-single-container product-single-default">
-                <div class="cart-message d-none">
-                    <strong class="single-cart-notice">“Men Black Sports Shoes”</strong>
-                    <span>has been added to your cart.</span>
-                </div>
-
                 <div class="row">
                     <div class="col-lg-5 col-md-6 product-single-gallery">
                         <div class="product-slider-container">
                             <div class="label-group">
-                                <div class="product-label label-hot">HOT</div>
+                                {% if produit.reductionApplique %}
 
-                                <div class="product-label label-sale">
-                                    -16%
-                                </div>
+                                    <div class="product-label label-sale">- {{ produit.valReduction }}</div>
+
+                                {% endif %}
+
                             </div>
 
                             <div class="product-single-carousel owl-carousel owl-theme show-nav-hover">
