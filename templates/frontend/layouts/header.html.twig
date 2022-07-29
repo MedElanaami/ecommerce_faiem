@@ -2,37 +2,41 @@
     <div class="header-wrapper">
         <div class="header-top sticky-header" data-sticky-options="{'mobile': true}">
             <div class="container">
-                <div class="header-left header-dropdowns">
-
+                <div class="header-left header-dropdowns ">
+                    <div class="header-dropdown d-none d-lg-block">
+                        <a href="#" class="pl-0">FR</a>
+                        <!-- End .header-menu -->
+                    </div>
+                    <!-- End .header-dropown -->
+                    <div class="header-dropdown d-none d-lg-block">
+                        <a href="#" class="pt-0">MAD</a>
+                        <!-- End .header-menu -->
+                    </div>
+                    <!-- End .header-dropown -->
                     <button class="mobile-menu-toggler d-lg-none d-block" type="button">
                         <i class="fas fa-bars text-white"></i>
                     </button>
-
                     <a href="{{ path('app_accueil') }}" class="logo d-block d-lg-none">
-                        <img src="frontend/assets/images/demoes/demo10/logo.png" alt="Porto Logo">
+                        <img src="{{ asset('frontend/assets/images/demoes/demo10/logo.png') }}" alt="Porto Logo">
                     </a>
                 </div>
                 <!-- End .header-left -->
-
-                <div class="header-right">
+                <div class=" header-left">
                     <a href="{{ path('app_login') }}" class="header-icon header-icon-user d-lg-block d-none"><i
                                 class="icon-user-2"></i></a>
-
                     <div class="header-search d-lg-none d-block mr-4">
                         <a href="#" class="search-toggle" role="button"><i class="icon-magnifier"></i></a>
                         <div class="header-search-wrapper show">
                             <form action="#" method="get">
-                                <input type="search" class="form-control" name="q" id="q" placeholder="Search..."
+                                <input type="search" class="form-control" name="q" id="q" placeholder="Rechercher..."
                                        required="">
                                 <button class="btn" type="submit"><i class="icon-magnifier"></i></button>
                             </form>
                         </div>
                         <!-- End .header-search-wrapper -->
                     </div>
-
-                    <a href="wishlist.html" title="Wishlist" class="header-icon"><i
+                    <a href="#" title="Wishlist" class="header-icon"><i
                                 class=" icon-wishlist-2"></i></a>
-
                     <div class="dropdown cart-dropdown">
                         <a href="#" title="Cart"
                            class="dropdown-toggle dropdown-arrow cart-toggle d-flex align-items-center" role="button"
@@ -66,12 +70,14 @@
                                             <!-- End .product-details -->
 
                                             <figure class="product-image-container">
-                                                <a href="{{ path('app_produit', {'slug': produit.slug}) }}" class="product-image">
+                                                <a href="{{ path('app_produit', {'slug': produit.slug}) }}"
+                                                   class="product-image">
                                                     <img src="{{ asset('uploads/images/produits/'~produit.imageName) }}"
                                                          alt="product" width="80" height="80">
                                                 </a>
 
-                                                <a href="{{ path('app_supprimer_produit', {'key': key}) }}" class="btn-remove" title="Remove Product"><span>×</span></a>
+                                                <a href="{{ path('app_supprimer_produit', {'key': key}) }}"
+                                                   class="btn-remove" title="Remove Product"><span>×</span></a>
                                             </figure>
                                         </div>
                                         <!-- End .product -->
@@ -90,8 +96,10 @@
                                 <!-- End .dropdown-cart-total -->
 
                                 <div class="dropdown-cart-action">
-                                    <a href="{{ path('app_panier') }}" class="btn btn-gray btn-block view-cart">Détail Panier</a>
-                                    <a href="{{ path('app_checkout') }}" class="btn btn-dark btn-block">Aller à la caisse</a>
+                                    <a href="{{ path('app_panier') }}" class="btn btn-gray btn-block view-cart">Détail
+                                        Panier</a>
+                                    <a href="{{ path('app_checkout') }}" class="btn btn-dark btn-block">Aller à la
+                                        caisse</a>
                                 </div>
                                 <!-- End .dropdown-cart-total -->
                             </div>
@@ -101,7 +109,7 @@
                     </div>
                     <!-- End .dropdown -->
                 </div>
-                <!-- End .header-right -->
+
             </div>
             <!-- End .container -->
         </div>
@@ -115,7 +123,7 @@
                     </button>
 
                     <a href="{{ path('app_accueil') }}" class="logo">
-                        <img src="frontend/assets/images/demoes/demo10/logo.png" alt="Porto Logo">
+                        <img src="{{ asset('frontend/assets/images/demoes/demo10/logo.png') }}" alt="Porto Logo">
                     </a>
                 </div>
                 <!-- End .header-left -->
@@ -126,7 +134,7 @@
                                     class="icon-magnifier"></i></a>
                         <div class="header-search-wrapper d-lg-flex position-relative border-0">
                             <form action="#" method="get">
-                                <input type="search" class="form-control" name="q" id="qq" placeholder="Search..."
+                                <input type="search" class="form-control" name="q" id="qq" placeholder="Rechercher..."
                                        required>
                                 <button class="btn" type="submit"><i class="icon-magnifier"></i></button>
                             </form>
@@ -142,16 +150,19 @@
                                 <a href="#" class="sf-with-ul border-0">CATEGORIES</a>
                                 <div class="megamenu megamenu-fixed-width megamenu-3cols">
                                     <div class="row">
-                                        {% for categorie in categories()  %}
+                                        {% for categorie in categories() %}
 
-                                        <div class="col-lg-4">
-                                            <a href="{{ path('app_categorie', {'slug': categorie.slug}) }}" class="nolink">{{ categorie.nom }}</a>
-                                            <ul class="submenu">
-                                                {% for  sousCategorie  in categorie.categories %}
-                                                <li><a href="{{ path('app_categorie', {'slug': sousCategorie.slug}) }}">{{ sousCategorie.nom }}</a></li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
+                                            <div class="col-lg-4">
+                                                <a href="{{ path('app_categorie', {'slug': categorie.slug}) }}"
+                                                   class="nolink">{{ categorie.nom }}</a>
+                                                <ul class="submenu">
+                                                    {% for  sousCategorie  in categorie.categories %}
+                                                        <li>
+                                                            <a href="{{ path('app_categorie', {'slug': sousCategorie.slug}) }}">{{ sousCategorie.nom }}</a>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -160,9 +171,11 @@
                             <li class="border-0"><a href="{{ path('app_faq') }}" class="border-0">FAQS</a></li>
                             <li class="border-0"><a href="{{ path('app_contact') }}" class="border-0">CONTACT</a></li>
                             {% if app.user %}
-                            <li class="border-0"> <a href="{{ path('app_logout') }}" class="border-0">DECONNEXION</a></li>
+                                <li class="border-0"><a href="{{ path('app_logout') }}" class="border-0">DECONNEXION</a>
+                                </li>
                             {% else %}
-                            <li class="border-0"><a href="{{ path('app_login') }}" class="border-0">CONNEXION</a></li>
+                                <li class="border-0"><a href="{{ path('app_login') }}" class="border-0">CONNEXION</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </nav>
@@ -176,13 +189,13 @@
         <div class="header-bottom d-none d-lg-block text-align-center position-absolute">
             <div class="container d-block text-center">
                 <div class="header-left d-block">
-                    <h6 class="mb-0">CALL US NOW</h6>
+                    <h6 class="mb-0">CONTACTER NOUS</h6>
                 </div>
                 <!-- End .header-left -->
 
                 <div class="header-right d-block pr-0">
                     <div class="header-contact text-white">
-                        <a href="tel:#">+123 456 7890</a>
+                        <a href="tel:#">+212 656915271</a>
                     </div>
                     <!-- End .header-contact -->
                 </div>
@@ -191,9 +204,9 @@
             <!-- End .container -->
 
             <div class="social-icons text-center">
-                <a href="#" class="social-icon" target="_blank"><i class="icon-facebook"></i></a>
-                <a href="#" class="social-icon" target="_blank"><i class="icon-twitter"></i></a>
-                <a href="#" class="social-icon" target="_blank"><i class="icon-instagram"></i></a>
+                <a href="#" class="social-icon" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a href="#" class="social-icon" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                <a href="#" class="social-icon" target="_blank"><i class="fa fa-instagram"></i></a>
             </div>
             <!-- End .social-icons -->
         </div>
