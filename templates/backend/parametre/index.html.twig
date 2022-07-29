@@ -1,0 +1,97 @@
+{% extends 'backend/layouts/base.html.twig' %}
+{% block css %}
+    <!--dataTable-->
+    <link rel="stylesheet" href="{{ asset('backend/vendor/data-table/media/css/dataTables.bootstrap.min.css') }}">
+{% endblock %}
+
+{% block content %}
+
+    <!-- content HEADER -->
+    <!-- ========================================================= -->
+    <div class="content-header">
+        <!-- leftside content header -->
+        <div class="leftside-content-header">
+            <ul class="breadcrumbs">
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
+                <li><a>Parametre</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!--SEARCHING, ORDENING & PAGING-->
+    <div class="row animated fadeInRight">
+    <div class="col-sm-12">
+    {# ---PANEL- -#}
+    <div class="panel">
+    <div class="panel-header">
+        <h3 class="panel-title">Liste des Parametres </h3>
+        <div class="panel-actions">
+            <ul>
+
+                <li class="action"><a
+                            href="{{ path('admin_parametre_edit', {'id': parametre.id}) }}">
+                        <span class="fa fa-pencil action" aria-hidden="true"></span></a></li>
+
+            </ul>
+        </div>
+
+
+    </div>
+
+    <div class="panel-content">
+    {% if parametre == null %}
+        <a class="btn btn-sm btn-success btn-center" href="{{ path('admin_parametre_new') }}"><span
+                    class="fa fa-plus"></span> </a>
+    {% else %}
+        <div class="table-responsive">
+            <table class=" table table-striped nowrap table-hover"
+                   cellspacing="0" width="100%">
+                <thead>
+                <tr>
+                    <th>Nom Site</th>
+                    <th>Titre</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>{{ parametre.nomSite }}</td>
+                    <td>{{ parametre.titre }}</td>
+                    <td>{{ parametre.email}}</td>
+                    <td>{{ parametre.tel}}</td>
+                    <td>{{ parametre.description}}</td>
+                </tr>
+                <tr>
+                    <th>Facebook</th>
+                    <th>Instagram</th>
+                    <th>Whatsapp</th>
+                    <th>Adresse</th>
+                    <th>Livraison</th>
+                </tr>
+                <tr>
+                    <td>{{ parametre.facebook }}</td>
+                    <td>{{ parametre.instagram }}</td>
+                    <td>{{ parametre.whatsapp}}</td>
+                    <td>{{ parametre.adresse}}</td>
+                    <td>{{ parametre.seuilLivraison}}</td>
+                </tr>
+                </thead>
+            </table>
+
+        </div>
+
+        </div>
+        </div>
+
+        </div>
+        </div>
+        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    {% endif %}
+{% endblock %}
+{% block js %}
+    <!--dataTable-->
+    <script src="{{ asset('backend/vendor/data-table/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/vendor/data-table/media/js/dataTables.bootstrap.min.js') }}"></script>
+    <!--Examples-->
+    <script src="{{ asset('backend/javascripts/examples/tables/data-tables.js') }}"></script>
+{% endblock %}

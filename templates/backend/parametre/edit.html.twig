@@ -1,0 +1,121 @@
+{% extends 'backend/layouts/base.html.twig' %}
+
+{% block content %}
+
+    <!-- content HEADER -->
+    <!-- ========================================================= -->
+    <div class="content-header">
+        <!-- leftside content header -->
+        <div class="leftside-content-header">
+            <ul class="breadcrumbs">
+                <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
+                <li><a>Parametre</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
+    <!--SEARCHING, ORDENING & PAGING-->
+    <div class="row animated fadeInRight">
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-content">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ form_start(form , { 'attr':{'class':'form-horizontal form-stripe'}}) }}
+                            <h6 class="mb-xlg text-center"><b>Modifier parametre !</b></h6>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Nom du Site</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.nomSite,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Titre</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.titre,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Description</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.description,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Téléphone</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.tel,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Email</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.email,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Facebook</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.facebook,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Instagram</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.instagram,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Whatsapp</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.whatsapp,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Adresse</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.adresse,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Seuil de Livraison</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.seuilLivraison,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Stock</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.gestionStock,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Logo (202 x 80)</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.imageFile,{ 'attr':{'class':'form-control'}}) }}
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+{% endblock %}
+
+
