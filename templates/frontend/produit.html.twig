@@ -94,14 +94,18 @@
                             <li>
                                 Categories:
                                 {% for categorie in produit.categories %}
-                                <strong>  <a href="#" class="product-category">{{ categorie.nom }}</a></strong>
+                                <strong>  <a href="{{ path('app_categorie', {'slug': categorie.slug}) }}" class="product-category">{{ categorie.nom }}</a></strong>
                                     {% if loop.index!=loop.last %},&nbsp; {% endif %}
                                 {% endfor %}
                             </li>
 
                             <li>
-                                TAGs: <strong><a href="#" class="product-category">CLOTHES</a></strong>,
-                                <strong><a href="#" class="product-category">SWEATER</a></strong>
+                                TAGs:
+
+                                {% for tag in produit.tags %}
+                                    <strong>  <a href="#" class="product-category">{{ tag.titre }}</a></strong>
+                                    {% if loop.index!=loop.last %},&nbsp; {% endif %}
+                                {% endfor %}
                             </li>
                         </ul>
                         <form method="post">

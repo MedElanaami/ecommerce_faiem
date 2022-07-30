@@ -1,5 +1,7 @@
 {% extends 'backend/layouts/base.html.twig' %}
-
+{% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 {% block content %}
 
     <!-- content HEADER -->
@@ -67,6 +69,13 @@
                                     {{ form_widget(form.slug,{ 'attr':{'class':'form-control'}}) }}
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Tags</label>
+                                <div class="col-sm-10">
+                                    {{ form_widget(form.tags,{ 'attr':{'class':'form-control tag'}}) }}
+                                </div>
+                            </div>
+
 
 
                             <div class="form-group ">
@@ -127,7 +136,9 @@
 {% endblock %}
 
 {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        $('.tag').select2();
         produit = document.getElementById("produit_nom");
         slug = document.getElementById("produit_slug")
         produit.addEventListener("keyup", function () {
