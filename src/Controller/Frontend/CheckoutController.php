@@ -11,9 +11,12 @@ use App\Entity\Produit;
 use App\Form\RegistrationClientType;
 
 
+use App\Repository\ParametreRepository;
+use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -102,5 +105,34 @@ class CheckoutController extends AbstractController
             return $this->redirectToRoute("app_accueil");
 
         }
+    }
+    #[Route('/prixLivraison', name: 'app_prix_livraison')]
+    public function prixLivrasion(Request $request,  ParametreRepository $parametreRepository,VilleRepository $villeRepository): Response
+    {
+        if($request->isXmlHttpRequest())
+        {
+            $idVille=$request->get("id_ville");
+            $ville=$villeRepository->find($idVille);
+            $parametre=$parametreRepository->findOneBy(array());
+            $prixLivraison=0;
+            if($ville){
+                if( $ville->getLivraison()) {
+                    if( $parametre && $parametre->getSeuilLivraison())
+                    {
+                        if( $request->getSession()->get('prixTotal')>=$parametre->getSeuilLivraison())
+                            $prixLivraison=0;
+                        else
+                            $prixLivraison= $ville->getLivraison()->getPrix();
+                    }
+                    else{
+                        $prixLivraison= $ville->getLivraison()->getPrix();
+                    }
+                }
+            }
+            $request->getSession()->set('prixLivraison',$prixLivraison);
+            return new JsonResponse($prixLivraison);
+        }
+        return $this->redirectToRoute("app_accueil");
+
     }
 }

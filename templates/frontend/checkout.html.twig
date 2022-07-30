@@ -1,4 +1,7 @@
 {% extends 'frontend/layouts/base.html.twig' %}
+{% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
 {% block content %}
     <main class="main contact-two mb-4">
         <nav aria-label="breadcrumb" class="breadcrumb-nav sticky-header p-0 mb-0">
@@ -24,25 +27,20 @@
                     <ul class="checkout-steps">
                         <li>
                             <h2 class="step-title">Inscription</h2>
-
                             {{ form_start(form,{ 'attr':{'id':'form-checkout'}}) }}
-
-
                             <div class="form-group">
                                 <label>Nom
                                     <abbr class="required" title="required">*</abbr>
                                 </label>
                                 {{ form_widget(form.nom,{ 'attr':{'class':'form-control'}}) }}
-
                             </div>
                             <div class="form-group">
                                 <label>Prénom
                                     <abbr class="required" title="required">*</abbr>
                                 </label>
                                 {{ form_widget(form.prenom,{ 'attr':{'class':'form-control'}}) }}
-
                             </div>
-                            {% if not app.user  %}
+                            {% if not app.user or is_granted("ROLE_ADMIN")  %}
                             <div class="form-group">
                                 <label>Nom d'utilisateur
                                     <abbr class="required" title="required">*</abbr></label>
@@ -69,7 +67,7 @@
                             <div class="form-group">
                                 <label>Ville
                                     <abbr class="required" title="required">*</abbr></label>
-                                {{ form_widget(form.ville,{ 'attr':{'class':'form-control','style':'height:37px'}}) }}
+                                {{ form_widget(form.ville,{ 'attr':{'class':'form-control input-ville','style':'height:37px'}}) }}
 
                             </div>
                             <div class="form-group">
@@ -127,13 +125,22 @@
                                     <span>{{ app.session.get("prixTotal") }}DH</span>
                                 </td>
                             </tr>
+                            <tr class="cart-subtotal">
+                                <td>
+                                    <h4>Prix de livaraison</h4>
+                                </td>
+
+                                <td class="price-col ">
+                                    <span class="prix-livraison">0 DH</span>
+                                </td>
+                            </tr>
 
                             <tr class="order-total">
                                 <td>
                                     <h4>Total</h4>
                                 </td>
                                 <td>
-                                    <b class="total-price"><span>{{ app.session.get("prixTotal") }}DH</span></b>
+                                    <b class="total-price"><span class="prix-total">{{ app.session.get("prixTotal") }}DH</span></b>
                                 </td>
                             </tr>
                             </tfoot>
@@ -162,7 +169,14 @@
 
 {% endblock %}
 {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
+        $(".input-ville").select2();
+        prixLivraison($(".input-ville").val())
+        $(".input-ville").change(function () {
+
+                prixLivraison($(this).val());
+        });
         $(".input-qte").change(function () {
             qte = $(this).val();
             produit = $(this).closest('tr').data('id');
@@ -212,5 +226,20 @@
             });
         });
 
+        function prixLivraison(idVille){
+            $.ajax({
+                method: 'POST',
+                url: "{{ path('app_prix_livraison') }}",
+                data: {'id_ville':idVille },
+                success: function (data) {
+                    console.log(data);
+                    $(".prix-livraison").text(data+" DH");
+                    prixTotal=data+ {{ app.session.get("prixTotal") }};
+                    $(".prix-total").text(prixTotal+" DH ");
+                },
+                error: function (xhr, status) {
+                }
+            })
+        }
     </script>
 {% endblock %}

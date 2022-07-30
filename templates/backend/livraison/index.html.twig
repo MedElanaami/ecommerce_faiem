@@ -13,7 +13,7 @@
         <div class="leftside-content-header">
             <ul class="breadcrumbs">
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="{{ path('admin_accueil') }}">Accueil</a></li>
-                <li><a>Villes</a></li>
+                <li><a>Livraisons</a></li>
             </ul>
         </div>
     </div>
@@ -24,39 +24,37 @@
             {# ---PANEL- -#}
             <div class="panel">
                 <div class="panel-header panel-success">
-                    <h3 class="panel-title">Liste de Villes </h3>
+                    <h3 class="panel-title">Liste des Livraisons </h3>
 
                 </div>
 
                 <div class="panel-content">
 
-                    <a class="btn btn-sm btn-success btn-center" href="{{ path('app_ville_new') }}"><span class="fa fa-plus"></span> </a>
+                    <a class="btn btn-sm btn-success btn-center" href="{{ path('admin_livraison_new') }}"><span class="fa fa-plus"></span> </a>
                     <a class="btn btn-sm btn-danger"><span class="fa fa-trash"></span> </a>
                     <div class="table-responsive">
                         <table id="basic-table" class="data-table table table-striped nowrap table-hover"
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
-                                <th>Nom</th>
-                                <th>Prix de Livraison</th>
+                                <th>Prix</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for ville in villes %}
+                            {% for livraison in livraisons %}
                                 <tr>
-                                    <td>{{ ville.nom }}</td>
-                                    <td>{{ ville.livraison }}</td>
 
+                                    <td>{{ livraison.prix }}</td>
                                     <td>
                                         <div class="btn-toolbar btn-group-sm">
 
                                             <a class="btn btn-warning"
-                                               href="{{ path('app_ville_edit', {'id': ville.id}) }}"><i
+                                               href="{{ path('admin_livraison_edit', {'id': livraison.id}) }}"><i
                                                         class="fa fa-pencil"></i>
                                             </a>
                                             <a class="btn btn-danger"
-                                               href="{{ path('app_ville_delete', {'id': ville.id}) }}"
+                                               href="{{ path('admin_livraison_delete', {'id': livraison.id}) }}"
                                                onclick="return confirm('Etes vous sûre de supprimer ce champ?')"><i
                                                         class="fa fa-trash"></i>
                                             </a>

@@ -21,6 +21,9 @@ class Ville
     #[ORM\OneToMany(mappedBy: 'ville', targetEntity: Client::class)]
     private $clients;
 
+    #[ORM\ManyToOne(targetEntity: Livraison::class, inversedBy: 'villes')]
+    private $livraison;
+
     public function __construct()
     {
         $this->clients = new ArrayCollection();
@@ -77,6 +80,18 @@ class Ville
     {
         return $this->getNom();
         // TODO: Implement __toString() method.
+    }
+
+    public function getLivraison(): ?Livraison
+    {
+        return $this->livraison;
+    }
+
+    public function setLivraison(?Livraison $livraison): self
+    {
+        $this->livraison = $livraison;
+
+        return $this;
     }
 
 }
