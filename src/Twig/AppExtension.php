@@ -5,6 +5,7 @@ namespace App\Twig;
 use App\Entity\Newsletter;
 use App\Form\NewsletterType;
 use App\Repository\CategorieRepository;
+use App\Repository\ParametreRepository;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactory;
@@ -19,10 +20,12 @@ class AppExtension extends AbstractExtension
 
     public FormFactory $formFactory;
     public CategorieRepository $categorieRepository;
-    public function __construct(FormFactory $formFactory,CategorieRepository $categorieRepository)
+    public ParametreRepository $parametreRepository;
+    public function __construct(FormFactory $formFactory,CategorieRepository $categorieRepository, ParametreRepository $parametreRepository)
     {
         $this->formFactory = $formFactory;
         $this->categorieRepository=$categorieRepository;
+        $this->parametreRepository=$parametreRepository;
     }
 
     public function getFunctions(): array
@@ -30,6 +33,7 @@ class AppExtension extends AbstractExtension
         return [
             new TwigFunction('formNewsletter', [$this, 'formNewsletter']),
             new TwigFunction('categories', [$this, 'categories']),
+            new TwigFunction('parametre', [$this, 'parametre']),
         ];
     }
 
@@ -42,9 +46,11 @@ class AppExtension extends AbstractExtension
     }
     public function categories()
     {
-
         $categories=$this->categorieRepository->findBy(array('parent'=>NULL));
-
         return $categories;
+    }public function parametre()
+    {
+        $parametre=$this->parametreRepository->findOneBy(array());
+        return $parametre;
     }
 }

@@ -27,34 +27,39 @@
                             ,sur mesure ainsi qu'un conseil technique et parfaitement personnalisé
                         </p>
                     </div>
-
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="feature-box text-center">
-                            <i class="sicon-location-pin"></i>
-                            <div class="feature-box-content">
-                                <h3>Adresse</h3>
-                                <h5>Marrakech / Maroc</h5>
+                    {% if parametre() and parametre().adresse %}
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box text-center">
+                                <i class="sicon-location-pin"></i>
+                                <div class="feature-box-content">
+                                    <h3>Adresse</h3>
+                                    <h5>{{ parametre().adresse }}</h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-3">
-                        <div class="feature-box text-center">
-                            <i class="fa fa-mobile-alt"></i>
-                            <div class="feature-box-content">
-                                <h3>Téléphone</h3>
-                                <h5>(+212) 707994062</h5>
+                    {% endif %}
+                    {% if parametre() and parametre().tel %}
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box text-center">
+                                <i class="fa fa-mobile-alt"></i>
+                                <div class="feature-box-content">
+                                    <h3>Téléphone</h3>
+                                    <h5><a href="tel:{{ parametre().tel }}">{{ parametre().tel }}</a></h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
+                    {% if parametre()and parametre().email %}
                     <div class="col-sm-6 col-lg-3">
                         <div class="feature-box text-center">
                             <i class="far fa-envelope"></i>
                             <div class="feature-box-content">
                                 <h3>E-mail </h3>
-                                <h5>info@faem.ma</h5>
+                                <h5><a href="mailto:{{ parametre().email }}">{{ parametre().email }}</a></h5>
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                     <div class="col-sm-6 col-lg-3">
                         <div class="feature-box text-center">
                             <i class="far fa-calendar-alt"></i>
@@ -72,37 +77,37 @@
                     <h2 class="mt-6 mb-2">Contactez-nous</h2>
 
 
-                        {{ form_start(form,{'attr':{'class':'mb-0'}}) }}
-                        <div class="form-group">
-                            <label class="mb-1" for="contact-name">Votre Nom
-                                <span class="required">*</span></label>
-                            {{ form_widget(form.nom,{'attr':{'class':'form-control'}}) }}
+                    {{ form_start(form,{'attr':{'class':'mb-0'}}) }}
+                    <div class="form-group">
+                        <label class="mb-1" for="contact-name">Votre Nom
+                            <span class="required">*</span></label>
+                        {{ form_widget(form.nom,{'attr':{'class':'form-control'}}) }}
 
-                        </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label class="mb-1" for="contact-email">Votre E-mail
-                                <span class="required">*</span></label>
-                            {{ form_widget(form.email,{'attr':{'class':'form-control'}}) }}
-                        </div>
-                        <div class="form-group">
-                            <label class="mb-1" for="contact-email">Votre Téléphone
-                                <span class="required">*</span></label>
-                            {{ form_widget(form.tel,{'attr':{'class':'form-control'}}) }}
-                        </div>
+                    <div class="form-group">
+                        <label class="mb-1" for="contact-email">Votre E-mail
+                            <span class="required">*</span></label>
+                        {{ form_widget(form.email,{'attr':{'class':'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                        <label class="mb-1" for="contact-email">Votre Téléphone
+                            <span class="required">*</span></label>
+                        {{ form_widget(form.tel,{'attr':{'class':'form-control'}}) }}
+                    </div>
 
-                        <div class="form-group">
-                            <label class="mb-1" for="contact-message">Votre Message
-                                <span class="required">*</span></label>
-                            {{ form_widget(form.message,{'attr':{'class':'form-control'}}) }}
-                        </div>
+                    <div class="form-group">
+                        <label class="mb-1" for="contact-message">Votre Message
+                            <span class="required">*</span></label>
+                        {{ form_widget(form.message,{'attr':{'class':'form-control'}}) }}
+                    </div>
 
-                        <div class="form-footer mb-0">
-                            <button type="submit" class="btn btn-dark font-weight-normal">
-                                Valider
-                            </button>
-                        </div>
-                    {{form_end(form)}}
+                    <div class="form-footer mb-0">
+                        <button type="submit" class="btn btn-dark font-weight-normal">
+                            Valider
+                        </button>
+                    </div>
+                    {{ form_end(form) }}
                 </div>
 
             </div>
