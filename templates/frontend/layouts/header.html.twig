@@ -16,9 +16,11 @@
                     <button class="mobile-menu-toggler d-lg-none d-block" type="button">
                         <i class="fas fa-bars text-white"></i>
                     </button>
+                    {%if parametre() %}
                     <a href="{{ path('app_accueil') }}" class="logo d-block d-lg-none">
-                        <img src="{{ asset('frontend/assets/images/demoes/demo10/logo.png') }}" alt="Porto Logo">
+                        <img src="{{ asset('uploads/images/parametre/')~parametre().imageName }}" alt="Porto Logo">
                     </a>
+                    {% endif %}
                 </div>
                 <!-- End .header-left -->
                 <div class=" header-left">
@@ -121,10 +123,11 @@
                     <button class="mobile-menu-toggler" type="button">
                         <i class="fas fa-bars"></i>
                     </button>
-
-                    <a href="{{ path('app_accueil') }}" class="logo">
-                        <img src="{{ asset('frontend/assets/images/demoes/demo10/logo.png') }}" alt="Porto Logo">
-                    </a>
+                    {%if parametre() %}
+                        <a href="{{ path('app_accueil') }}" class="logo">
+                            <img src="{{ asset('uploads/images/parametre/')~parametre().imageName }}" alt="Porto Logo">
+                        </a>
+                    {% endif %}
                 </div>
                 <!-- End .header-left -->
 
@@ -194,9 +197,11 @@
                 <!-- End .header-left -->
 
                 <div class="header-right d-block pr-0">
+                    {%if parametre() %}
                     <div class="header-contact text-white">
-                        <a href="tel:#">+212 656915271</a>
+                        <a href="tel:{{ parametre().tel }}">{{ parametre().tel }}</a>
                     </div>
+                    {% endif %}
                     <!-- End .header-contact -->
                 </div>
                 <!-- End .header-right -->
@@ -204,9 +209,9 @@
             <!-- End .container -->
 
             <div class="social-icons text-center">
-                <a href="#" class="social-icon" target="_blank"><i class="fa fa-facebook"></i></a>
-                <a href="#" class="social-icon" target="_blank"><i class="fa fa-whatsapp"></i></a>
-                <a href="#" class="social-icon" target="_blank"><i class="fa fa-instagram"></i></a>
+                <a href="{%if parametre() %}{{ parametre().facebook }}{% else %}#{% endif %}" class="social-icon" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a href="{%if parametre() %}{{ parametre().whatsapp }}{% else %}#{% endif %}" class="social-icon" target="_blank"><i class="fa fa-whatsapp"></i></a>
+                <a href="{%if parametre() %}{{ parametre().instagram }}{% else %}#{% endif %}" class="social-icon" target="_blank"><i class="fa fa-instagram"></i></a>
             </div>
             <!-- End .social-icons -->
         </div>

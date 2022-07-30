@@ -2,6 +2,7 @@
 
 namespace App\Controller\Frontend;
 
+use App\Repository\ParametreRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -16,8 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
-    public function index(Request $request,MailerInterface $mailer): Response
+    public function index(Request $request,MailerInterface $mailer, ParametreRepository $parametreRepository): Response
     {
+        $parametre=$parametreRepository->findOneBy(array());
+        if($parametre && $parametre->getEmail() )
+            $email=$parametre->getEmail();
+        else
+            $email='elanaamimohamed@gmail.com';
         $form = $this->createFormBuilder()
             ->add('nom', TextType::class,array('required'=>true))
             ->add('email', EmailType::class,array('required'=>true))
@@ -27,10 +33,11 @@ class ContactController extends AbstractController
        $form->handleRequest($request);
        if($form->isSubmitted()&&$form->isValid())
        {
+
           $email=(new TemplatedEmail())
               ->from(" noreply@elanaami.com")
-              ->to (new Address('elanaamimohamed@gmail.com'))
-              ->subject("Email envoyé depuis le site faem.ma")
+              ->to (new Address($email))
+              ->subject("Email envoyé depuis votre site ")
               ->htmlTemplate('frontend/emails/contact.html.twig')
               ->context(['data'=>$form->getData()]);
           $mailer->send($email);
