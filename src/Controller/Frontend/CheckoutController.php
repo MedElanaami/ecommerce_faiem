@@ -34,8 +34,6 @@ class CheckoutController extends AbstractController
         $session = $request->getSession();
         $session->set('route', "app_checkout");
         if ($session->get("produits") && count($session->get("produits")) > 0) {
-
-
             if ($this->getUser() && $security->isGranted('ROLE_CLIENT')) {
                 $user = $this->getUser();
             } else

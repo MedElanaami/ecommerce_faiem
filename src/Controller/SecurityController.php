@@ -12,17 +12,18 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     #[Route(path: '/login', name: 'app_login')]
-    public function login(Request $request,AuthenticationUtils $authenticationUtils): Response
+    public function login(Request $request, AuthenticationUtils $authenticationUtils): Response
     {
-        $user=$this->getUser();
-        if ($user  &&  $this->isGranted('ROLE_ADMIN'))
-        {
-            return $this->redirectToRoute('admin_accueil');
+        $user = $this->getUser();
+
+        if ($user and $this->isGranted('ROLE_ADMIN')) {
+                return $this->redirectToRoute('admin_accueil');
+
         }
-        else if ($request->getSession()->get('route'))
+        if ($user and $this->isGranted('ROLE_CLIENT')) {
+            return $this->redirectToRoute('app_checkout');
 
-                return $this->redirectToRoute($request->getSession()->get('route'));
-
+        }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
