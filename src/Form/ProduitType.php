@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Produit;
+use App\Entity\Tag;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -25,6 +27,7 @@ class ProduitType extends AbstractType
             ->add('reductionApplique')
             ->add('valeurReduction')
             ->add('typeReduction')
+            ->add('tags',EntityType::class,array('class'=>Tag::class,'multiple'=>true ))
         ;
     }
 

@@ -63,6 +63,9 @@ class Produit
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: LigneCommande::class, orphanRemoval: true)]
     private $ligneCommandes;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'produits')]
+    private $tags;
+
     public function __construct()
     {
         $this->visibilite = false;
@@ -72,6 +75,7 @@ class Produit
         $this->categories = new ArrayCollection();
         $this->variantes = new ArrayCollection();
         $this->ligneCommandes = new ArrayCollection();
+        $this->tags = new ArrayCollection();
 
     }
 
@@ -358,6 +362,33 @@ class Produit
         else
             $valReduction = $this->getValeurReduction() . "%";
         return $valReduction;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+            $tag->addProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->removeElement($tag)) {
+            $tag->removeProduit($this);
+        }
+
+        return $this;
     }
 
 }
