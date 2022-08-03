@@ -22,17 +22,20 @@
                     <h4 class=""><b>Information Client</b></h4>
                     <ul class="user-contact-info ph-sm">
                         <li>
-                            <b><i class="color-primary mr-sm fa fa-user"></i></b>Nom d'utilisateur: {{ commande.client.username }}
+                            <b><i class="color-primary mr-sm fa fa-user"></i></b>Nom
+                            d'utilisateur: {{ commande.client.username }}
                         </li>
                         <li>
                             <b><i class="color-primary mr-sm fa fa-user"></i></b>Nom: {{ commande.client.nom }} {{ commande.client.prenom }}
                         </li>
-                        <li><b><i class="color-primary mr-sm fa fa-envelope"></i></b> {{commande.client.email}}
+                        <li><b><i class="color-primary mr-sm fa fa-envelope"></i></b> {{ commande.client.email }}
                         </li>
                         <li><b><i class="color-primary mr-sm fa fa-phone"></i></b>{{ commande.client.tel }}</li>
-                        <li><b><i class="color-primary mr-sm fa fa-map-marker"></i></b>Adresse: {{ commande.client.adresse }}
+                        <li>
+                            <b><i class="color-primary mr-sm fa fa-map-marker"></i></b>Adresse: {{ commande.client.adresse }}
                         </li>
-                        <li><b><i class="color-primary mr-sm fa fa-map-marker"></i></b>Ville: {{ commande.client.ville }}
+                        <li>
+                            <b><i class="color-primary mr-sm fa fa-map-marker"></i></b>Ville: {{ commande.client.ville }}
                         </li>
 
                     </ul>
@@ -46,17 +49,24 @@
                 <div class="panel-content">
                     <h4 class=""><b>Detail Commande</b></h4>
                     <ul class="user-contact-info ph-sm">
-                        <li><b><i class="color-primary mr-sm fa fa-book"></i></b>Num: {{ commande.id }}</li>
-                        <li><b><i class="color-primary mr-sm fa fa-calendar"></i></b>Date de
-                            commande: {{ commande.dateCommande| date('Y-m-d H:i') }}</li>
+                        <li><b><i class="color-primary mr-sm fa fa-book"></i>Num:</b> {{ commande.id }}</li>
+                        <li><b><i class="color-primary mr-sm fa fa-calendar"></i>Date de
+                                commande:</b> {{ commande.dateCommande| date('Y-m-d H:i') }}</li>
                         <li>
-                            <b><i class="color-primary mr-sm fa fa-money"></i></b>Prix: {{ commande.prixTotal }}
-                            DH
+                            <b><i class="color-primary mr-sm fa fa-truck"></i>Prix Livraison:
+                            </b> {{ commande.prixLivraison }}DH
+                        </li>
+                        <li>
+                            <b><i class="color-primary mr-sm fa fa-percent"></i> Réduction:</b>
                             {% if commande.couponApplique %}
-                            Bénificié d'un code Coupon
-
-                            <span class="badge">{{ commande.coupon.nom }}</span>
-                            {% endif %}</li>
+                                Bénificié d'un code Coupon<span class="badge">{{ commande.coupon.nom }}</span>
+                            {% else %}
+                                Aucune réduction appliquée
+                            {% endif %}
+                        </li>
+                        <li>
+                            <b><i class="color-primary mr-sm fa fa-money"></i> Prix :</b> {{ commande.prixTotal }}DH
+                        </li>
                     </ul>
                     <div class="btn-group">
                         <a href="#"
@@ -88,21 +98,24 @@
                             <thead>
                             <tr>
 
-                                <th>Image</th><th>Produit</th>
+                                <th>Image</th>
+                                <th>Produit</th>
                                 <th>Prix Unitaire</th>
                                 <th>Quantite</th>
                             </tr>
                             </thead>
                             <tbody>
                             {% for ligne in commande.ligneCommandes %}
-                            <tr>
+                                <tr>
 
-                                <td><img src="{{ asset('uploads/images/produits/'~ligne.produit.images[0].imageName) }}" height="100px"/></td>
-                                <td>{{ ligne.produit.nom }}</td>
-                                <td> {{ ligne.prixVente }}
-                                </td>
-                                <td>{{ ligne.qte }}</td>
-                            </tr>
+                                    <td>
+                                        <img src="{{ asset('uploads/images/produits/'~ligne.produit.images[0].imageName) }}"
+                                             height="100px"/></td>
+                                    <td>{{ ligne.produit.nom }}</td>
+                                    <td> {{ ligne.prixVente }}
+                                    </td>
+                                    <td>{{ ligne.qte }}</td>
+                                </tr>
                             {% endfor %}
 
 
