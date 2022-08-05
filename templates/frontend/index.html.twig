@@ -1,4 +1,19 @@
 {% extends 'frontend/layouts/base.html.twig' %}
+{% block css  %}
+<style>
+    .page-item>a {
+        display: flex;
+        padding: 3px;
+        align-items: center;
+        justify-content: center;
+        width: 90px !important;
+        height: 33px;
+        border: 2px solid #0a0c0d;
+        background-color: #0a0c0d;
+        color: white;
+    }
+</style>
+{% endblock %}
  {% block content %}
      <main class="main">
          <section class="section-1">
@@ -10,24 +25,25 @@
 					}">
                  {% for slider in sliders %}
 
-                 <div class="banner {{ slider.textPosition }}">
-                     <img src="{{ asset('uploads/images/sliders/'~slider.imageName) }}" width="1620" height="980"
-                          style="background-color: #eee;" alt="slider-one">
+                     <div class="banner {{ slider.textPosition }}">
+                         <img src="{{ asset('uploads/images/sliders/'~slider.imageName) }}" width="1620" height="980"
+                              style="background-color: #eee;" alt="slider-one">
 
-                     <div class="banner-layer banner-layer-middle">
-                         <h6 class=" appear-animate" data-animation-name="fadeInRightShorter"
-                             data-animation-delay="200">{{slider.titre}}</h6>
+                         <div class="banner-layer banner-layer-middle">
+                             <h6 class=" appear-animate" data-animation-name="fadeInRightShorter"
+                                 data-animation-delay="200">{{ slider.titre }}</h6>
 
-                         <h3 class=" appear-animate" data-animation-name="fadeInRightShorter"
-                             data-animation-delay="700">{{ slider.sousTitre }}</h3>
-                         {% if slider.lien%}
-                         <a href="{{ slider.lien }}" target="_blank" class="btn btn-xl appear-animate"
-                            data-animation-name="fadeInRightShorter" data-animation-delay="950" role="button">Acheter maintenant<i class="fas fa-chevron-right"></i></a>{% endif %}
+                             <h3 class=" appear-animate" data-animation-name="fadeInRightShorter"
+                                 data-animation-delay="700">{{ slider.sousTitre }}</h3>
+                             {% if slider.lien %}
+                             <a href="{{ slider.lien }}" target="_blank" class="btn btn-xl appear-animate"
+                                data-animation-name="fadeInRightShorter" data-animation-delay="950" role="button">
+                                     Acheter maintenant<i class="fas fa-chevron-right"></i></a>{% endif %}
+                         </div>
+                         <!-- End .banner-layer.banner-layer-middle -->
                      </div>
-                     <!-- End .banner-layer.banner-layer-middle -->
-                 </div>
-                 <!-- End .banner -->
-                 {% endfor%}
+                     <!-- End .banner -->
+                 {% endfor %}
 
 
              </div>
@@ -39,90 +55,91 @@
              <div class="container">
                  <h2 class="section-title text-left">Meilleurs Produits</h2>
 
-                 <div class="row ">
+                 <div class="row div-produits">
                      {% for produit in produits %}
-                     <div class="col-6 col-sm-3">
-                         <div class="product-default">
-                             <figure>
+                         <div class="col-6 col-sm-3">
+                             <div class="product-default">
+                                 <figure>
 
-                                 <a href="{{ path('app_produit', {'slug': produit.slug}) }}">
-                                     {% for image in produit.images | slice(0,2) %}
-                                         <img src="{{ asset('uploads/images/produits/'~image.imageName) }}"
-                                              style="height: 300px !important;width:100% !important;" alt="product">
-                                     {% endfor %}
-                                 </a>
+                                     <a href="{{ path('app_produit', {'slug': produit.slug}) }}">
+                                         {% for image in produit.images | slice(0,2) %}
+                                             <img src="{{ asset('uploads/images/produits/'~image.imageName) }}"
+                                                  style="height: 300px !important;width:100% !important;" alt="product">
+                                         {% endfor %}
+                                     </a>
 
-                                 <div class="label-group">
-                                     <div class="product-label label-hot">Nouveau</div>
-                                     {% if produit.reductionApplique %}
+                                     <div class="label-group">
+                                         <div class="product-label label-hot">Nouveau</div>
+                                         {% if produit.reductionApplique %}
 
-                                     <div class="product-label label-sale">- {{ produit.valReduction }}</div>
+                                             <div class="product-label label-sale">- {{ produit.valReduction }}</div>
 
-                                 {% endif %}
+                                         {% endif %}
 
-                         </div>
-                         </figure>
+                                     </div>
+                                 </figure>
 
-                         <div class="product-details">
-                             <div class="category-wrap">
-                                 <div class="category-list">
-                                     {% for categorie in produit.categories %}
-                                     <a href="#" class="product-category">{{ categorie.nom }}</a>
-                                         {% if loop.index!=loop.last %}
-                                         ,&nbsp; {% endif %}
-                                     {% endfor %}
+                                 <div class="product-details">
+                                     <div class="category-wrap">
+                                         <div class="category-list">
+                                             {% for categorie in produit.categories %}
+                                                 <a href="{{ path('app_categorie', {'slug': categorie.slug}) }}" class="product-category">{{ categorie.nom }}</a>
+                                                 {% if loop.index!=loop.last %}
+                                                     ,&nbsp; {% endif %}
+                                             {% endfor %}
 
+                                         </div>
+
+
+                                     </div>
+
+                                     <h3 class="product-title"><a
+                                                 href="{{ path('app_produit', {'slug': produit.slug}) }}">{{ produit.nom }}</a>
+                                     </h3>
+
+                                     <div class="ratings-container">
+                                         <div class="product-ratings">
+                                             <span class="ratings" style="width:100%"></span>
+                                             <!-- End .ratings -->
+                                             <span class="tooltiptext tooltip-top"></span>
+                                         </div>
+                                         <!-- End .product-ratings -->
+                                     </div>
+                                     <!-- End .product-container -->
+
+                                     <div class="price-box">
+                                         {% if produit.reductionApplique %}
+                                             <span class="old-price">{{ produit.prixVente }} DH</span>
+                                             <span class="product-price">{{ produit.prixReduction }} DH</span>
+
+                                         {% else %}
+                                             <span class="product-price">{{ produit.prixVente }} DH</span>
+                                         {% endif %}
+
+                                     </div>
+                                     <!-- End .price-box -->
+
+                                     <div class="product-action">
+                                         <a href="#" class="btn-icon-wish" title="wishlist"><i
+                                                     class="icon-heart"></i></a>
+                                         <a href="{{ path('app_produit', {'slug': produit.slug}) }}"
+                                            class="btn-icon btn-add-cart"><i
+                                                     class="fa fa-arrow-right"></i><span>Ajouter au panier</span></a>
+                                         <a href="#" class="btn-quickview"
+                                            title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                                     </div>
                                  </div>
-
-
-                             </div>
-
-                             <h3 class="product-title"><a href="{{ path('app_produit', {'slug': produit.slug}) }}">{{ produit.nom }}</a></h3>
-
-                             <div class="ratings-container">
-                                 <div class="product-ratings">
-                                     <span class="ratings" style="width:100%"></span>
-                                     <!-- End .ratings -->
-                                     <span class="tooltiptext tooltip-top"></span>
-                                 </div>
-                                 <!-- End .product-ratings -->
-                             </div>
-                             <!-- End .product-container -->
-
-                             <div class="price-box">
-                                 {% if produit.reductionApplique %}
-                                     <span class="old-price">{{ produit.prixVente }} DH</span>
-                                     <span class="product-price">{{ produit.prixReduction}} DH</span>
-
-                                 {% else %}
-                                     <span class="product-price">{{ produit.prixVente }} DH</span>
-                                 {% endif %}
-
-                             </div>
-                             <!-- End .price-box -->
-
-                             <div class="product-action">
-                                 <a href="wishlist.html" class="btn-icon-wish" title="wishlist"><i
-                                             class="icon-heart"></i></a>
-                                 <a href="{{ path('app_produit', {'slug': produit.slug}) }}" class="btn-icon btn-add-cart"><i
-                                             class="fa fa-arrow-right"></i><span>Ajouter au panier</span></a>
-                                 <a href="ajax/product-quick-view.html" class="btn-quickview"
-                                    title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                                 <!-- End .product-details -->
                              </div>
                          </div>
-                         <!-- End .product-details -->
-                     </div>
+                         <!-- End .product-default -->
+                     {% endfor %}
+
                  </div>
-                 <!-- End .product-default -->
-                 {% endfor %}
-
-             </div>
-             <!-- End .row -->
-
-             <div class="load-more text-center d-inline-block">
-                 <a href="ajax/demo10-ajax-products.html" class="btn btn-xl loadmore" role="button">LOAD
-                     MORE...</a>
-             </div>
+                 <!-- End .row -->
+                 <div class="navigation text-center d-inline-block">
+                     {{ knp_pagination_render(produits) }}
+                 </div>
              </div>
          </section>
          <!-- End .section-5 -->
