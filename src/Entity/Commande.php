@@ -21,6 +21,9 @@ class Commande
     #[ORM\Column(type: 'float', nullable: true)]
     private $prixTotal;
 
+    #[ORM\Column(type: 'float', nullable: true)]
+    private $prixLivraison;
+
     #[ORM\ManyToOne(targetEntity: Coupon::class, inversedBy: 'commandes')]
     private $coupon;
 
@@ -42,8 +45,9 @@ class Commande
 
     public function __construct()
     {
-        $this->vu=false;
-        $this->dateCommande=new \DateTimeImmutable();
+        $this->vu = false;
+        $this->prixLivraison = 0;
+        $this->dateCommande = new \DateTimeImmutable();
         $this->ligneCommandes = new ArrayCollection();
     }
 
@@ -170,4 +174,22 @@ class Commande
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPrixLivraison()
+    {
+        return $this->prixLivraison;
+    }
+
+    /**
+     * @param mixed $prixLivraison
+     */
+    public function setPrixLivraison($prixLivraison): void
+    {
+        $this->prixLivraison = $prixLivraison;
+    }
+
+
 }
