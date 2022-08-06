@@ -7,7 +7,9 @@ use App\Form\NewsletterType;
 use App\Repository\NewsletterRepository;
 use App\Repository\ProduitRepository;
 use App\Repository\SliderRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,14 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccueilController extends AbstractController
 {
     #[Route('/', name: 'app_accueil')]
-    public function index(ProduitRepository $produitRepository, SliderRepository $sliderRepository): Response
+    public function index(Request $request,ProduitRepository $produitRepository, SliderRepository $sliderRepository,PaginatorInterface $paginator): Response
     {
-        $produits=$produitRepository->findAll();
         $sliders=$sliderRepository->findAll();
-
+        $produits = $paginator->paginate(
+            $produitRepository->findAll(), // Requête contenant les données à paginer (ici nos articles)
+            $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+            4 // Nombre de résultats par page
+        );
         return $this->render('frontend/index.html.twig',['produits'=>$produits,'sliders'=>$sliders]);
     }
-
 
 
     #[Route('/admin', name: 'admin_accueil')]
@@ -64,5 +68,4 @@ class AccueilController extends AbstractController
 
         return $this->render('frontend/retour.html.twig');
     }
-
 }
