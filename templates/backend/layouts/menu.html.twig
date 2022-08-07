@@ -35,6 +35,22 @@
 
                         </ul>
                     </li>
+                    <!--COUPONS-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa-solid fa-gift"></i><span>Coupon</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_coupon_index') }}">Liste des Coupons</a></li>
+                            <li><a href="{{ path('app_coupon_new') }}">Ajouter un Coupon</a></li>
+                        </ul>
+                    </li>
+                    <!--TYPEREDUCTION-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa-solid fa-chart-line"></i><span>Types Reduction</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('app_typeReduction_index') }}">Liste des types de reduction</a></li>
+                            <li><a href="{{ path('app_typeReduction_new') }}">Ajouter un type de reduction</a></li>
+                        </ul>
+                    </li>
 
                     <!--CATEGORIES-->
                     <li class="has-child-item close-item">
@@ -42,6 +58,14 @@
                         <ul class="nav child-nav level-1">
                             <li><a href="{{ path('app_categorie_index') }}">Liste de categories</a></li>
                             <li><a href="{{ path('app_categorie_new') }}">Ajouter Categorie</a></li>
+                        </ul>
+                    </li>
+                    <!--TAG-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-tags" aria-hidden="true"></i><span>Tags</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('admin_tag_index') }}">Liste de tags</a></li>
+                            <li><a href="{{ path('admin_tag_new') }}">Ajouter des tag</a></li>
                         </ul>
                     </li>
                     <!--SLIDERS-->
@@ -52,13 +76,12 @@
                             <li><a href="{{ path('app_slider_new') }}">Ajouter slider</a></li>
                         </ul>
                     </li>
-
-                    <!--VILLES-->
+                    <!--Livraison-->
                     <li class="has-child-item close-item">
-                        <a><i class="fa fa-map-marker" aria-hidden="true"></i><span>Villes</span> </a>
+                        <a><i class="fa fa-truck" aria-hidden="true"></i><span>Livraison</span> </a>
                         <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('app_ville_index') }}">Liste de villes</a></li>
-                            <li><a href="{{ path('app_ville_new') }}">Ajouter ville</a></li>
+                            <li><a href="{{ path('admin_livraison_index') }}">Liste de livraisons</a></li>
+                            <li><a href="{{ path('admin_livraison_new') }}">Ajouter des livraisons</a></li>
                         </ul>
                     </li>
                     <!--ATTRIBUTS-->
@@ -85,21 +108,28 @@
                             <li><a href="{{ path('app_status_new') }}">Ajouter un status</a></li>
                         </ul>
                     </li>
-
-                    <!--TYPEREDUCTION-->
+                    <!--VILLES-->
                     <li class="has-child-item close-item">
-                        <a><i class="fa-solid fa-chart-line"></i><span>Types Reduction</span> </a>
+                        <a><i class="fa fa-map-marker" aria-hidden="true"></i><span>Villes</span> </a>
                         <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('app_typeReduction_index') }}">Liste des types de reduction</a></li>
-                            <li><a href="{{ path('app_typeReduction_new') }}">Ajouter un type de reduction</a></li>
+                            <li><a href="{{ path('app_ville_index') }}">Liste de villes</a></li>
+                            <li><a href="{{ path('app_ville_new') }}">Ajouter ville</a></li>
                         </ul>
                     </li>
-                    <!--COUPONS-->
+                    <!--BLOGS-->
                     <li class="has-child-item close-item">
-                        <a><i class="fa-solid fa-gift"></i><span>Coupon</span> </a>
+                        <a><i class="fa fa-blog" aria-hidden="true"></i><span>Blogs</span> </a>
                         <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('app_coupon_index') }}">Liste des Coupons</a></li>
-                            <li><a href="{{ path('app_coupon_new') }}">Ajouter un Coupon</a></li>
+                            <li><a href="{{ path('admin_blog_index') }}">Liste de blogs</a></li>
+                            <li><a href="{{ path('admin_blog_new') }}">Ajouter un blog</a></li>
+                        </ul>
+                    </li>
+                    <!--NEWSLETTER-->
+                    <li class="has-child-item close-item">
+                        <a><i class="fa fa-envelope-open" aria-hidden="true"></i><span>Newsletters</span> </a>
+                        <ul class="nav child-nav level-1">
+                            <li><a href="{{ path('admin_newsletter_index') }}">Liste de newsletter</a></li>
+                            <li><a href="{{ path('admin_newsletter_new') }}">Ajouter newsletter</a></li>
                         </ul>
                     </li>
                     <!--FAQS-->
@@ -118,38 +148,7 @@
                             <li><a href="{{ path('admin_parametre_new') }}">Ajouter des parametre</a></li>
                         </ul>
                     </li>
-                    <!--TAG-->
-                    <li class="has-child-item close-item">
-                        <a><i class="fa fa-tags" aria-hidden="true"></i><span>Tags</span> </a>
-                        <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('admin_tag_index') }}">Liste de tags</a></li>
-                            <li><a href="{{ path('admin_tag_new') }}">Ajouter des tag</a></li>
-                        </ul>
-                    </li>
-                    <!--Livraison-->
-                    <li class="has-child-item close-item">
-                        <a><i class="fa fa-truck" aria-hidden="true"></i><span>Livraison</span> </a>
-                        <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('admin_livraison_index') }}">Liste de livraisons</a></li>
-                            <li><a href="{{ path('admin_livraison_new') }}">Ajouter des livraisons</a></li>
-                        </ul>
-                    </li>
-                    <!--BLOGS-->
-                    <li class="has-child-item close-item">
-                        <a><i class="fa fa-blog" aria-hidden="true"></i><span>Blogs</span> </a>
-                        <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('admin_blog_index')}}">Liste de blogs</a></li>
-                            <li><a href="{{ path('admin_blog_new') }}">Ajouter un blog</a></li>
-                        </ul>
-                    </li>
-                    <!--NEWSLETTER-->
-                    <li class="has-child-item close-item">
-                        <a><i class="fa fa-envelope-open" aria-hidden="true"></i><span>Newsletters</span> </a>
-                        <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('admin_newsletter_index') }}">Liste de newsletter</a></li>
-                            <li><a href="{{ path('admin_newsletter_new') }}">Ajouter newsletter</a></li>
-                        </ul>
-                    </li>
+
 
                 </ul>
             </nav>
