@@ -7,9 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity('username', message: 'Il existe déjà un compte avec ce nom ')]
+#[UniqueEntity('email', message: 'Il existe déjà un compte avec cet email ')]
 #[ORM\InheritanceType("JOINED")]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -28,12 +30,22 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Votre nom doit avoir au minimum 2 caractères',
+
+    )]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(
+        min: 2,
+        minMessage: 'Votre prénom doit avoir au minimum 2 caractères',
+
+    )]
     private $prenom;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, unique: true)]
     private $email;
 
     #[ORM\Column(type: 'boolean')]
