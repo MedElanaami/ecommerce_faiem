@@ -8,6 +8,7 @@ use App\Entity\Commande;
 use App\Entity\Coupon;
 use App\Entity\LigneCommande;
 use App\Entity\Produit;
+use App\Entity\Status;
 use App\Entity\Ville;
 use App\Form\RegistrationClientType;
 
@@ -75,6 +76,9 @@ class CheckoutController extends AbstractController
                         $commande->setCouponApplique(true);
                     }
                 }
+                $status=$entityManager->getRepository(Status::class)->find(1);
+                if ($status)
+                $commande->setStatus($status);
                 $entityManager->persist($commande);
                 $entityManager->flush();
                 $produits = $session->get('produits');

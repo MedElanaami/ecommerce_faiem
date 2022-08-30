@@ -56,7 +56,9 @@
                                         Tel: {{ commande.client.tel}} <br>
                                         Adresse: <br>{{ commande.client.adresse}}<br> {{ commande.client.ville}}<br> {{ commande.client.codePostal}}</td>
                                     <td>{{ commande.prixTotal }}</td>
-                                    <td></td>
+                                    <td>
+                                        {{ commande.status }}
+                                    </td>
 
                                     <td>
                                         <div class="btn-toolbar btn-group-sm">

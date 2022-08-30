@@ -37,6 +37,7 @@
                                cellspacing="0" width="100%">
                             <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Nom</th>
                                 <th>Action</th>
                             </tr>
@@ -44,6 +45,7 @@
                             <tbody>
                             {% for status in status %}
                                 <tr>
+                                    <td>{{ status.id }}</td>
                                     <td>{{ status.nom }}</td>
 
                                     <td>
