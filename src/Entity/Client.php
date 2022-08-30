@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 
 class Client extends  Utilisateur
@@ -17,13 +17,22 @@ class Client extends  Utilisateur
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Assert\Regex(
+        pattern:'/[0|+212][1-9][0-9]{8}/',
+        htmlPattern: '[0|+212][1-9][0-9]{8}',
 
+    )]
     #[ORM\Column(type: 'string', length: 255)]
     private $tel;
 
     #[ORM\Column(type: 'text')]
     private $adresse;
 
+    #[Assert\Regex(
+        pattern:'/[1-9][0-9]{4}/',
+        htmlPattern: '[1-9][0-9]{4}',
+
+    )]
     #[ORM\Column(type: 'string', nullable: true)]
     private $codePostal;
 

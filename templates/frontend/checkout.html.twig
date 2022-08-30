@@ -77,7 +77,7 @@
                             {% endif %}
                             <div class="form-group">
                                 <label>Téléphone <abbr class="required" title="required">*</abbr></label>
-                                {{ form_widget(form.tel,{ 'attr':{'class':'form-control'}}) }}
+                                {{ form_widget(form.tel,{ 'attr':{'class':'form-control','title':'Merci de saisir un num de téléphone sous format (0xxxxxxxxx)'}}) }}
                                 {% if form_errors(form.tel)  %}
                                 <div class="alert alert-danger" role="alert">
                                     {{ form_errors(form.tel) }}
@@ -108,7 +108,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Code Postal</label>
-                                    {{ form_widget(form.codePostal,{ 'attr':{'class':'form-control'}}) }}
+                                    {{ form_widget(form.codePostal,{ 'attr':{'class':'form-control','title':'Merci de saisir un code postal valide'}}) }}
                                 {% if form_errors(form.codePostal)  %}
                                 <div class="alert alert-danger" role="alert">
                                     {{ form_errors(form.codePostal) }}
