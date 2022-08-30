@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Status
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
 
@@ -60,6 +59,21 @@ class Status
 
         return $this;
     }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    public function __toString(): string
+    {
+        // TODO: Implement __toString() method.
+        return $this->getNom();
+    }
+
 
     public function removeCommande(Commande $commande): self
     {

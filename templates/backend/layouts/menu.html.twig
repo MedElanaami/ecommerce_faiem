@@ -23,6 +23,14 @@
                         <ul class="nav child-nav level-1">
                             <li><a href="{{ path('admin_commande_index') }}">Liste de commandes</a></li>
                             <li><a href="{{ path('admin_commande_new') }}">Ajouter commande</a></li>
+                            <!--STATUS-->
+                            <li class="has-child-item close-item">
+                                <a>Status</a>
+                                <ul class="nav child-nav level-1">
+                                    <li><a href="{{ path('app_status_index') }}">Liste des status</a></li>
+                                    <li><a href="{{ path('app_status_new') }}">Ajouter un status</a></li>
+                                </ul>
+                            </li>
 
                         </ul>
                     </li>
@@ -100,14 +108,7 @@
                             <li><a href="{{ path('app_caracteristique_new') }}">Ajouter une caracteristique</a></li>
                         </ul>
                     </li>
-                    <!--STATUS-->
-                    <li class="has-child-item close-item">
-                        <a><i class="fa fa-pencil" aria-hidden="true"></i><span>Status</span> </a>
-                        <ul class="nav child-nav level-1">
-                            <li><a href="{{ path('app_status_index') }}">Liste des status</a></li>
-                            <li><a href="{{ path('app_status_new') }}">Ajouter un status</a></li>
-                        </ul>
-                    </li>
+
                     <!--VILLES-->
                     <li class="has-child-item close-item">
                         <a><i class="fa fa-map-marker" aria-hidden="true"></i><span>Villes</span> </a>
