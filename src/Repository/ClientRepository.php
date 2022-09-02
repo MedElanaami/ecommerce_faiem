@@ -39,6 +39,30 @@ class ClientRepository extends ServiceEntityRepository
         }
     }
 
+    public function nbrClients($dateDebut,$dateFin )
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->select('count(c.id) as count');
+        if ($dateDebut and $dateFin) {
+            $qb->where('c.createdAt between :dateDebut and :dateFin');
+            $qb->setParameter('dateDebut', $dateDebut);
+            $qb->setParameter('dateFin', $dateFin);
+        }
+
+        return $qb->getQuery()->getSingleResult()["count"];
+
+    }
+    public function clientByMonthAndYear($month, $year)
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->select('count(c.id) as count');
+        $qb->where('month(c.createdAt)= :month' );
+        $qb->andWhere('year(c.createdAt)= :year' );
+        $qb->setParameter('month', $month);
+        $qb->setParameter('year', $year);
+        return $qb->getQuery()->getSingleResult()["count"];
+
+    }
 //    /**
 //     * @return Client[] Returns an array of Client objects
 //     */
