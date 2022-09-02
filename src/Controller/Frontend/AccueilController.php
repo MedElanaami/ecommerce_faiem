@@ -29,14 +29,7 @@ class AccueilController extends AbstractController
     }
 
 
-    #[Route('/admin', name: 'admin_accueil')]
-    public function adminAccueil(): Response
-    {
-        return $this->render('backend/accueil/index.html.twig', [
 
-
-        ]);
-    }
 
     #[Route('/newsletter', name: 'newsletter')]
     public function newsletter(Request $request, NewsletterRepository $newsletterRepository): Response

@@ -1,333 +1,399 @@
 {% extends 'backend/layouts/base.html.twig' %}
+{% block css %}
+
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
+
+        #chartdiv1 {
+            width: 100%;
+            height: 500px;
+        }
+
+        #chartdiv2 {
+            width: 100%;
+            height: 500px;
+        }
+    </style>
+{% endblock %}
 {% block content %}
-<div class="content">
-    <!-- content HEADER -->
-    <!-- ========================================================= -->
     <div class="content-header">
-        <!-- leftside content header -->
         <div class="leftside-content-header">
             <ul class="breadcrumbs">
                 <li><i class="fa fa-home" aria-hidden="true"></i><a href="#">Dashboard</a></li>
             </ul>
         </div>
     </div>
-    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-    <div class="row animated fadeInUp">
-        <div class="col-sm-12 col-lg-9">
-            <div class="row">
-                <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-                <!--WIDGETBOX-->
-                <div class="col-sm-12 col-md-4">
-                    <div class="panel widgetbox wbox-2 bg-scale-0">
-                        <a href="#">
-                            <div class="panel-content">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <span class="icon fa fa-globe color-darker-1"></span>
-                                    </div>
-                                    <div class="col-xs-8">
-                                        <h4 class="subtitle color-darker-1">Views</h4>
-                                        <h1 class="title color-primary"> 154.609</h1>
-                                    </div>
-                                </div>
+    <div class="row animated fadeInRight">
+
+        <div class="col-sm-12">
+
+            <div class="panel widgetbox wbox-2 bg-darker-2 color-light">
+                <div class="panel-content">
+                    <div class="text-center row">
+                        {{ form_start(form) }}
+                        <div class="form-inline col-md-3">
+                            <div class="col-md-4">
+                                <label for="name" class="control-label">Début</label>
+
                             </div>
-                        </a>
-                    </div>
-                    <div class="panel widgetbox wbox-2 bg-lighter-2 color-light">
-                        <a href="#">
-                            <div class="panel-content">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <span class="icon fa fa-user color-darker-2"></span>
-                                    </div>
-                                    <div class="col-xs-8">
-                                        <h4 class="subtitle color-darker-2">New Users</h4>
-                                        <h1 class="title color-w"> 105</h1>
-                                    </div>
-                                </div>
+                            <div class="col-md-8">
+                                {{ form_widget(form.dateDebut,{'attr': {'class':'form-control datetimepicker1','required':"required"}}) }}
                             </div>
-                        </a>
-                    </div>
-                    <div class="panel widgetbox wbox-2 bg-darker-2 color-light">
-                        <a href="#">
-                            <div class="panel-content">
-                                <div class="row">
-                                    <div class="col-xs-4">
-                                        <span class="icon fa fa-envelope color-lighter-1"></span>
-                                    </div>
-                                    <div class="col-xs-8">
-                                        <h4 class="subtitle color-lighter-1">New Messages</h4>
-                                        <h1 class="title color-light"> 124</h1>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-                <!--AREA CHART-->
-                <div class="col-sm-12 col-md-8">
-                    <div class="panel">
-                        <div class="panel-content">
-                            <h5><b>First semester</b> Sells</h5>
-                            <p class="section-text">Lorem ipsum <span class="highlight">dolor sit amet</span> consectetur adipisicing elit. Assumenda fugit inventore ipsam nam, qui voluptatibus</p>
-                            <canvas id="area-chart" width="400" height="160"></canvas>
                         </div>
+                        <div class="form-inline col-md-3">
+                            <div class="col-md-4">
+                                <label for="name" class="col-xs-2 control-label">Fin</label>
+                            </div>
+                            <div class="col-md-8">
+                                {{ form_widget(form.dateFin,{'attr': {'class':'form-control datetimepicker1','required':"required"}}) }}
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            {{ form_widget(form.valider) }}
+                        </div>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-                <!--TO DO LIST-->
-                <div class="col-sm-12 col-md-4">
-                    <div class="panel b-primary bt-md">
-                        <div class="panel-content p-none">
-                            <div class="widget-list list-to-do">
-                                <h4 class="list-title">To do List</h4>
-                                <button class="add-item btn btn-o btn-primary btn-xs"><i class="fa fa-plus"></i></button>
-                                <ul>
-                                    <li>
-                                        <div class="checkbox-custom checkbox-primary">
-                                            <input type="checkbox" id="check-h1" value="option1">
-                                            <label class="check" for="check-h1">Accusantium eveniet ipsam neque</label>
+            <div class="panel-content">
+                <div class="col-sm-12">
+                    <div class="col-sm-3">
+                        <div class="panel widgetbox wbox-2 bg-primary color-darker-2">
+                            <a href="#">
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            <span class="icon fa fa-users color-darker-2"></span>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-custom checkbox-primary">
-                                            <input type="checkbox" id="check-h2" value="option1" checked>
-                                            <label class="check" for="check-h2">Lorem ipsum dolor sit</label>
+                                        <div class="col-xs-10">
+                                            <h4 class="subtitle">Clients</h4>
+                                               <h1 class="title">{{nbrClients  }}</h1>
                                         </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-custom checkbox-primary">
-                                            <input type="checkbox" id="check-h3" value="option1">
-                                            <label class="check" for="check-h3">Dolor eligendi in ipsum sapiente</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-custom checkbox-primary">
-                                            <input type="checkbox" id="check-h4" value="option1">
-                                            <label class="check" for="check-h4">Natus recusandae vel</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-custom checkbox-primary">
-                                            <input type="checkbox" id="check-h5" value="option1">
-                                            <label class="check" for="check-h5">Adipisci amet officia tempore ut</label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="checkbox-custom checkbox-primary">
-                                            <input type="checkbox" id="check-h6" value="option1">
-                                            <label class="check" for="check-h6">Possimus repellat repellendus</label>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-                <!--TABS WITH TABLET-->
-                <div class="col-sm-12 col-md-8">
-                    <div class="tabs mt-none">
-                        <!-- Tabs Header -->
-                        <ul class="nav nav-tabs nav-justified">
-                            <li class="active"><a href="#home" data-toggle="tab">Employees</a></li>
-                            <li><a href="#profile" data-toggle="tab">Sells</a></li>
-                            <li><a href="#messages" data-toggle="tab">Messages</a></li>
-                            <li><a href="#settings" data-toggle="tab"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a></li>
-                        </ul>
-                        <!-- Tabs Content -->
-                        <div class="tab-content">
-                            <div class="tab-pane fade in active" id="home">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Position</th>
-                                            <th>Office</th>
-                                            <th>Age</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>Olivia Liang</td>
-                                            <td>Support Engineer</td>
-                                            <td>Singapore</td>
-                                            <td>34</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bruno Nash</td>
-                                            <td>Software Engineer</td>
-                                            <td>London</td>
-                                            <td>38</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Sakura Yamamoto</td>
-                                            <td>Support Engineer</td>
-                                            <td>Tokyo</td>
-                                            <td>37</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Michael Bruce</td>
-                                            <td>Javascript Developer</td>
-                                            <td>Singapore</td>
-                                            <td>29</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Donna Snider</td>
-                                            <td>Customer Support</td>
-                                            <td>New York</td>
-                                            <td>27</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="profile">
-                                <p><b>Profile</b> content</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae tellus tincidunt, mattis odio eu, accumsan quam. Duis ultricies, erat nec suscipit mattis, risus est efficitur enim, sed finibus lacus
-                                    nisi et mauris. Ut sed accumsan ipsum. Aliquam vel nibh et turpis euismod porttitor. In diam odio, cursus eget faucibus quis, efficitur id erat. Aliquam euismod in justo sit amet ornare. Quisque eu fringilla
-                                    libero. Donec iaculis sit amet nibh non laoreet.
-                                </p>
-                            </div>
-                            <div class="tab-pane fade" id="messages">
-                                <p><b>Message</b> content</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae tellus tincidunt, mattis odio eu, accumsan quam. Duis ultricies, erat nec suscipit mattis, risus est efficitur enim, sed finibus lacus
-                                    nisi et mauris. Ut sed accumsan ipsum. Aliquam vel nibh et turpis euismod porttitor. In diam odio, cursus eget faucibus quis, efficitur id erat. Aliquam euismod in justo sit amet ornare. Quisque eu fringilla
-                                    libero. Donec iaculis sit amet nibh non laoreet.
-                                </p>
-                            </div>
-                            <div class="tab-pane fade" id="settings">
-                                <p><b>Settings</b> content</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae tellus tincidunt, mattis odio eu, accumsan quam. Duis ultricies, erat nec suscipit mattis, risus est efficitur enim, sed finibus lacus
-                                    nisi et mauris. Ut sed accumsan ipsum. Aliquam vel nibh et turpis euismod porttitor. In diam odio, cursus eget faucibus quis, efficitur id erat. Aliquam euismod in justo sit amet ornare. Quisque eu fringilla
-                                    libero. Donec iaculis sit amet nibh non laoreet.
-                                </p>
-                            </div>
+                            </a>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-                <!--PIE CHART-->
-                <div class="col-sm-12 col-md-4">
-                    <div class="panel">
-                        <div class="panel-content">
-                            <h5><b>Lorem ipsum dolor sit</b></h5>
-                            <p>Dolor sit amet <span class="highlight">consectetur</span> erte</p>
-                            <canvas id="pie-chart" width="400" height="260"></canvas>
+                    <div class="col-sm-3">
+                        <div class="panel widgetbox wbox-2 bg-info color-darker-2">
+                            <a href="#">
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            <span class="icon fa fa-money color-darker-2"></span>
+                                        </div>
+                                        <div class="col-xs-10">
+                                            <h4 class="subtitle">Cmds</h4>
+                                            <h1 class="title">{{nbrCmds  }}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                </div>
-                <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-                <!--GALLERY-->
-                <div class="col-sm-12 col-md-8">
-                    <div class=" gallery-wrap">
-                        <div class="row">
-                            <div class="col-xs-6 col-md-3">
-                                <a href="images/helsinki-lg.jpg" title="By John Doe">
-                                    <img alt="first photo" src="backend/images/helsinki.jpg" class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a href="images/helsinki-lg.jpg" title="By John Doe">
-                                    <img alt="second photo" src="backend/images/helsinki.jpg" class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a href="images/helsinki-lg.jpg" title="By John Doe">
-                                    <img alt="third photo" src="backend/images/helsinki.jpg" class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a href="images/helsinki-lg.jpg" title="By John Doe">
-                                    <img alt="fourth photo" src="backend/images/helsinki.jpg" class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a href="images/helsinki-lg.jpg" title="By John Doe">
-                                    <img alt="fifth photo" src="backend/images/helsinki.jpg" class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a href="images/helsinki-lg.jpg" title="By John Doe">
-                                    <img alt="sixth photo" src="backend/images/helsinki.jpg" class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a href="images/helsinki-lg.jpg" title="By John Doe">
-                                    <img alt="seventh photo" src="backend/images/helsinki.jpg" class="img-responsive">
-                                </a>
-                            </div>
-                            <div class="col-xs-6 col-md-3">
-                                <a href="images/helsinki-lg.jpg" title="By John Doe">
-                                    <img alt="eighth photo" src="backend/images/helsinki.jpg" class="img-responsive">
-                                </a>
-                            </div>
+                    <div class="col-sm-3">
+                        <div class="panel widgetbox wbox-2 bg-danger color-darker-2">
+                            <a href="#">
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            <span class="icon fa fa-money color-darker-2"></span>
+                                        </div>
+                                        <div class="col-xs-10">
+                                            <h4 class="subtitle">Cmds Annulée</h4>
+                                            <h1 class="title">{{cmdAnnulee  }}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-        <!--TIMELINE left-->
-        <div class="col-sm-12 col-lg-3">
-            <div class="timeline">
-                <div class="timeline-box">
-                    <div class="timeline-icon bg-primary">
-                        <i class="fa fa-phone"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h4 class="tl-title">Ello impedit iusto</h4> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur distinctio illo impedit iusto minima nisi quo tempora ut!
-                    </div>
-                    <div class="timeline-footer">
-                        <span>Today. 14:25</span>
-                    </div>
-                </div>
-                <div class="timeline-box">
-                    <div class="timeline-icon bg-primary">
-                        <i class="fa fa-tasks"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h4 class="tl-title">consectetur adipisicing </h4> Lorem ipsum dolor sit amet. Consequatur distinctio illo impedit iusto minima nisi quo tempora ut!
-                    </div>
-                    <div class="timeline-footer">
-                        <span>Today. 10:55</span>
-                    </div>
-                </div>
-                <div class="timeline-box">
-                    <div class="timeline-icon bg-primary">
-                        <i class="fa fa-file"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h4 class="tl-title">Impedit iusto minima nisi</h4> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur distinctio illo impedit iusto minima nisi quo tempora ut!
-                    </div>
-                    <div class="timeline-footer">
-                        <span>Today. 9:20</span>
-                    </div>
-                </div>
-                <div class="timeline-box">
-                    <div class="timeline-icon bg-primary">
-                        <i class="fa fa-check"></i>
-                    </div>
-                    <div class="timeline-content">
-                        <h4 class="tl-title">Lorem ipsum dolor sit</h4> Lorem ipsum dolor sit amet Consequatur distinctio illo impedit iusto minima nisi quo tempora ut!
-                    </div>
-                    <div class="timeline-footer">
-                        <span>Yesteday. 16:30</span>
+                    <div class="col-sm-3">
+                        <div class="panel widgetbox wbox-2 bg-success color-darker-2">
+                            <a href="#">
+                                <div class="panel-content">
+                                    <div class="row">
+                                        <div class="col-xs-2">
+                                            <span class="icon fa fa-money color-darker-2"></span>
+                                        </div>
+                                        <div class="col-xs-10">
+                                            <h4 class="subtitle">Cmds Validées</h4>
+                                            <h1 class="title">{{ cmdConfirmee }}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= -->
-</div>
-{% endblock %}
-{%  block js %}
+    <div class="panel-content">
+        <div class="col-sm-12">
+            <div class="bg-scale-3 p-xs text-center"><h4>Commandes Validées </h4></div>
+        </div>
+        <div class="col-sm-12">
 
-<script src="{{ asset('backend') }}/javascripts/examples/dashboard.js"></script>
+            <div id="chartdiv1"></div>
+        </div>
+    </div>
+    <div class="panel-content">
+        <div class="col-sm-12">
+            <div class="bg-scale-3 p-xs text-center"><h4>Clients </h4></div>
+        </div>
+        <div class="col-sm-12">
+
+            <div id="chartdiv2"></div>
+        </div>
+    </div>
+
 {% endblock %}
+{% block js %}
+
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <!-- Chart code -->
+    <script>
+        am4core.ready(function() {
+
+// Themes begin
+            am4core.useTheme(am4themes_animated);
+// Themes end
+
+            var chart = am4core.create("chartdiv1", am4charts.XYChart);
+            chart.padding(40, 40, 40, 40);
+
+            chart.numberFormatter.bigNumberPrefixes = [
+                { "number": 1e+3, "suffix": "K" },
+                { "number": 1e+6, "suffix": "M" },
+                { "number": 1e+9, "suffix": "B" }
+            ];
+
+            var label = chart.plotContainer.createChild(am4core.Label);
+            label.x = am4core.percent(97);
+            label.y = am4core.percent(95);
+            label.horizontalCenter = "right";
+            label.verticalCenter = "middle";
+            label.dx = -15;
+            label.fontSize = 50;
+
+            var playButton = chart.plotContainer.createChild(am4core.PlayButton);
+            playButton.x = am4core.percent(97);
+            playButton.y = am4core.percent(95);
+            playButton.dy = -2;
+            playButton.verticalCenter = "middle";
+            playButton.events.on("toggled", function(event) {
+                if (event.target.isActive) {
+                    play();
+                }
+                else {
+                    stop();
+                }
+            })
+
+            var stepDuration = 4000;
+
+            var categoryAxis = chart.yAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.dataFields.category = "mois";
+            categoryAxis.renderer.minGridDistance = 1;
+            categoryAxis.renderer.inversed = true;
+            categoryAxis.renderer.grid.template.disabled = true;
+
+            var valueAxis = chart.xAxes.push(new am4charts.ValueAxis());
+            valueAxis.min = 0;
+            valueAxis.rangeChangeEasing = am4core.ease.linear;
+            valueAxis.rangeChangeDuration = stepDuration;
+            valueAxis.extraMax = 0.1;
+
+            var series = chart.series.push(new am4charts.ColumnSeries());
+            series.dataFields.categoryY = "mois";
+            series.dataFields.valueX = "montant";
+            series.tooltipText = "{valueX.value}"
+            series.columns.template.strokeOpacity = 0;
+            series.columns.template.column.cornerRadiusBottomRight = 5;
+            series.columns.template.column.cornerRadiusTopRight = 5;
+            series.interpolationDuration = stepDuration;
+            series.interpolationEasing = am4core.ease.linear;
+
+            var labelBullet = series.bullets.push(new am4charts.LabelBullet())
+            labelBullet.label.horizontalCenter = "right";
+            labelBullet.label.text = "{values.valueX.workingValue} MAD";
+            labelBullet.label.textAlign = "end";
+            labelBullet.label.dx = -10;
+
+            chart.zoomOutButton.disabled = true;
+
+// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+            series.columns.template.adapter.add("fill", function(fill, target){
+                return chart.colors.getIndex(target.dataItem.index);
+            });
+
+            var year = 2022;
+            label.text = year.toString();
+
+            var interval;
+
+            function play() {
+                interval = setInterval(function(){
+                    nextYear();
+                }, stepDuration)
+                nextYear();
+            }
+
+            function stop() {
+                if (interval) {
+                    clearInterval(interval);
+                }
+            }
+
+            function nextYear() {
+                year++
+
+                if (year > 2022) {
+                    year = 2022;
+                }
+
+                var newData = allData[year];
+                var itemsWithNonZero = 0;
+                for (var i = 0; i < chart.data.length; i++) {
+                    chart.data[i].montant = newData[i].montant;
+                    if (chart.data[i].montant > 0) {
+                        itemsWithNonZero++;
+                    }
+                }
+
+                if (year == 2022) {
+                    series.interpolationDuration = stepDuration / 4;
+                    valueAxis.rangeChangeDuration = stepDuration / 4;
+                }
+                else {
+                    series.interpolationDuration = stepDuration;
+                    valueAxis.rangeChangeDuration = stepDuration;
+                }
+
+                chart.invalidateRawData();
+                label.text = year.toString();
+
+                categoryAxis.zoom({ start: 0, end: itemsWithNonZero / categoryAxis.dataItems.length });
+            }
+
+
+            categoryAxis.sortBySeries = series;
+
+            var allData = JSON.parse('{{ cmdsStats|raw }}');
+
+            chart.data = JSON.parse(JSON.stringify(allData[year]));
+            categoryAxis.zoom({ start: 0, end: 1 / chart.data.length });
+
+            series.events.on("inited", function() {
+                setTimeout(function() {
+                    playButton.isActive = true; // this starts interval
+                }, 2000)
+            })
+
+        }); // end am4core.ready()
+    </script>
+    <!-- Chart code -->
+    <script>
+        am4core.ready(function() {
+
+// Themes begin
+            am4core.useTheme(am4themes_animated);
+// Themes end
+
+
+
+            var chart = am4core.create('chartdiv2', am4charts.XYChart)
+            chart.colors.step = 2;
+
+            chart.legend = new am4charts.Legend()
+            chart.legend.position = 'top'
+            chart.legend.paddingBottom = 20
+            chart.legend.labels.template.maxWidth = 95
+
+            var xAxis = chart.xAxes.push(new am4charts.CategoryAxis())
+            xAxis.dataFields.category = 'mois'
+            xAxis.renderer.cellStartLocation = 0.1
+            xAxis.renderer.cellEndLocation = 0.9
+            xAxis.renderer.grid.template.location = 0;
+
+            var yAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            yAxis.min = 0;
+
+            function createSeries(value, name) {
+                var series = chart.series.push(new am4charts.ColumnSeries())
+                series.dataFields.valueY = value
+                series.dataFields.categoryX = 'mois'
+                series.name = name
+
+                series.events.on("hidden", arrangeColumns);
+                series.events.on("shown", arrangeColumns);
+
+                var bullet = series.bullets.push(new am4charts.LabelBullet())
+                bullet.interactionsEnabled = false
+                bullet.dy = 30;
+                bullet.label.text = '{valueY}'
+                bullet.label.fill = am4core.color('#ffffff')
+
+                return series;
+            }
+
+            chart.data = JSON.parse('{{ clientsCmdsStats|raw }}');
+
+
+            createSeries('client', 'Client');
+            createSeries('commande', 'Commande');
+
+            function arrangeColumns() {
+
+                var series = chart.series.getIndex(0);
+
+                var w = 1 - xAxis.renderer.cellStartLocation - (1 - xAxis.renderer.cellEndLocation);
+                if (series.dataItems.length > 1) {
+                    var x0 = xAxis.getX(series.dataItems.getIndex(0), "categoryX");
+                    var x1 = xAxis.getX(series.dataItems.getIndex(1), "categoryX");
+                    var delta = ((x1 - x0) / chart.series.length) * w;
+                    if (am4core.isNumber(delta)) {
+                        var middle = chart.series.length / 2;
+
+                        var newIndex = 0;
+                        chart.series.each(function(series) {
+                            if (!series.isHidden && !series.isHiding) {
+                                series.dummyData = newIndex;
+                                newIndex++;
+                            }
+                            else {
+                                series.dummyData = chart.series.indexOf(series);
+                            }
+                        })
+                        var visibleCount = newIndex;
+                        var newMiddle = visibleCount / 2;
+
+                        chart.series.each(function(series) {
+                            var trueIndex = chart.series.indexOf(series);
+                            var newIndex = series.dummyData;
+
+                            var dx = (newIndex - trueIndex + middle - newMiddle) * delta
+
+                            series.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+                            series.bulletsContainer.animate({ property: "dx", to: dx }, series.interpolationDuration, series.interpolationEasing);
+                        })
+                    }
+                }
+            }
+
+        }); // end am4core.ready()
+    </script>
+
+
+{% endblock %}
+

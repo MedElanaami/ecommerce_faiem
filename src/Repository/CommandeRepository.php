@@ -39,6 +39,102 @@ class CommandeRepository extends ServiceEntityRepository
         }
     }
 
+
+    public function selectMaxId()
+    {
+        $qb = $this->createQueryBuilder("c");
+
+
+        return $qb->select('max(c.id)')->getFirstResult();
+
+    }
+
+    public function cmdConfirmee($dateDebut, $dateFin)
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->select('count(c.id) as count');
+        $qb->join('c.status','s');
+        $qb->where('s.id=5');
+        if ($dateDebut and $dateFin) {
+            $qb->andWhere('c.dateCommande between :dateDebut and :dateFin');
+            $qb->setParameter('dateDebut', $dateDebut);
+            $qb->setParameter('dateFin', $dateFin);
+        }
+
+        return $qb->getQuery()->getSingleResult()["count"];
+
+    }
+    public function cmdConfirmedByDate($dateDebut, $dateFin)
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->select('c');
+        $qb->join('c.status','s');
+        $qb->where('s.id=5');
+        if ($dateDebut and $dateFin) {
+            $qb->andWhere('c.dateCommande between :dateDebut and :dateFin');
+            $qb->setParameter('dateDebut', $dateDebut);
+            $qb->setParameter('dateFin', $dateFin);
+        }
+
+        return $qb->getQuery()->getResult();
+
+    }
+
+    public function nbrCmds($dateDebut, $dateFin)
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->select('count(c.id) as count');
+        if ($dateDebut and $dateFin) {
+            $qb->andWhere('c.dateCommande between :dateDebut and :dateFin');
+            $qb->setParameter('dateDebut', $dateDebut);
+            $qb->setParameter('dateFin', $dateFin);
+        }
+
+        return $qb->getQuery()->getSingleResult()["count"];
+
+    }
+
+    public function cmdAnnulee($dateDebut, $dateFin)
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->select('count(c.id) as count');
+        $qb->join('c.status','s');
+        $qb->where('s.id=3');
+        if ($dateDebut and $dateFin) {
+            $qb->andWhere('c.dateCommande between :dateDebut and :dateFin');
+            $qb->setParameter('dateDebut', $dateDebut);
+            $qb->setParameter('dateFin', $dateFin);
+        }
+
+        return $qb->getQuery()->getSingleResult()["count"];
+
+    }
+
+    public function montantByMonthAndYear($month, $year)
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->select('sum(c.prixTotal) as prix');
+        $qb->join('c.status','s');
+        $qb->where('s.id=5');
+        $qb->andWhere('month(c.dateCommande)= :month' );
+        $qb->andWhere('year(c.dateCommande)= :year' );
+        $qb->setParameter('month', $month);
+        $qb->setParameter('year', $year);
+        return $qb->getQuery()->getSingleResult()["prix"];
+
+    }
+    public function cmdByMonthAndYear($month, $year)
+    {
+        $qb = $this->createQueryBuilder("c");
+        $qb->select('count(c.id) as count');
+        $qb->where('month(c.dateCommande)= :month' );
+        $qb->andWhere('year(c.dateCommande)= :year' );
+        $qb->setParameter('month', $month);
+        $qb->setParameter('year', $year);
+        return $qb->getQuery()->getSingleResult()["count"];
+
+    }
+
 //    /**
 //     * @return Commande[] Returns an array of Commande objects
 //     */
