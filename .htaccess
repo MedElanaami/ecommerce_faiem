@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "This Area is Password Protected"
+AuthUserFile /etc/apache2/.htpasswd
+Require valid-user
