@@ -61,6 +61,9 @@ class Parametre
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $idPaypal = null;
+
 
     public function getId(): ?int
     {
@@ -242,5 +245,17 @@ class Parametre
     public function getImageSize(): ?int
     {
         return $this->imageSize;
+    }
+
+    public function getIdPaypal(): ?string
+    {
+        return $this->idPaypal;
+    }
+
+    public function setIdPaypal(?string $idPaypal): self
+    {
+        $this->idPaypal = $idPaypal;
+
+        return $this;
     }
 }

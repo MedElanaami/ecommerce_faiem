@@ -13,6 +13,7 @@ use App\Entity\Ville;
 use App\Form\RegistrationClientType;
 
 
+use App\Repository\CommandeRepository;
 use App\Repository\ParametreRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,6 +56,7 @@ class CheckoutController extends AbstractController
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
 
+                $typePaiement=$request->get('payment_method');
                 if (!$this->getUser()) {
                     $user->setPassword(
                         $userPasswordHasher->hashPassword(
@@ -66,6 +68,7 @@ class CheckoutController extends AbstractController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $commande = new Commande();
+                $commande->setTypePaiement($typePaiement);
                 $commande->setClient($user);
                 $commande->setPrixLivraison($session->get('prixLivraison'));
                 $commande->setPrixTotal($session->get('prixTotal'));
@@ -101,7 +104,6 @@ class CheckoutController extends AbstractController
                 $session->remove('prixTotal');
                 $session->remove('codeCoupon');
                 $session->remove('prixLivraison');
-                $this->addFlash('success', 'Votre commande a été bien enregistrée, nous vous contacterons le plus tôt possible.');
                 $email = (new TemplatedEmail())
                     ->from(" noreply@elanaami.com")
                     ->to(new Address('elanaamimohamed@gmail.com'))
@@ -109,6 +111,9 @@ class CheckoutController extends AbstractController
                     ->htmlTemplate('frontend/emails/commande.html.twig')
                     ->context(['commande' => $commande]);
                // $mailer->send($email);
+                if( $typePaiement==2)
+                    return $this->render('frontend/paypal.html.twig', ['commande' => $commande]);
+                $this->addFlash('success', 'Votre commande a été bien enregistrée, nous vous contacterons le plus tôt possible.');
                 return $this->redirectToRoute("app_accueil");
             }
 
@@ -132,6 +137,22 @@ class CheckoutController extends AbstractController
 
     }
 
+    #[Route('/payement', name: 'payment_success')]
+    public function payementSuccess(Request $request, CommandeRepository $commandeRepository): Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $commandeId = $request->get("commande");
+            $commande =$commandeRepository->find($commandeId);
+            if( $commande)
+            {   $commande->setPayee(true);
+                $commandeRepository->add($commande,true);
+                $this->addFlash('success', 'Votre commande a été bien enregistrée, nous vous contacterons le plus tôt possible.');
+            }
+            return new JsonResponse("success");
+        }
+        return $this->redirectToRoute("app_accueil");
+
+    }
 
     public function getPrixLivraison(Ville $ville=null)
     {

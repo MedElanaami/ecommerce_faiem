@@ -43,12 +43,19 @@ class Commande
     #[ORM\OneToMany(mappedBy: 'commande', targetEntity: LigneCommande::class, orphanRemoval: true)]
     private $ligneCommandes;
 
+    #[ORM\Column]
+    private ?int $typePaiement = null;
+
+    #[ORM\Column]
+    private ?bool $payee = null;
+
     public function __construct()
     {
         $this->vu = false;
         $this->prixLivraison = 0;
         $this->dateCommande = new \DateTimeImmutable();
         $this->ligneCommandes = new ArrayCollection();
+        $this->payee=false;
     }
 
     /**
@@ -189,6 +196,30 @@ class Commande
     public function setPrixLivraison($prixLivraison): void
     {
         $this->prixLivraison = $prixLivraison;
+    }
+
+    public function getTypePaiement(): ?int
+    {
+        return $this->typePaiement;
+    }
+
+    public function setTypePaiement(int $typePaiement): self
+    {
+        $this->typePaiement = $typePaiement;
+
+        return $this;
+    }
+
+    public function isPayee(): ?bool
+    {
+        return $this->payee;
+    }
+
+    public function setPayee(bool $payee): self
+    {
+        $this->payee = $payee;
+
+        return $this;
     }
 
 

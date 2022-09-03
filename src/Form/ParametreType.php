@@ -23,6 +23,7 @@ class ParametreType extends AbstractType
             ->add('instagram')
             ->add('whatsapp')
             ->add('adresse')
+            ->add('idPaypal')
             ->add('seuilLivraison')
             ->add('gestionStock',ChoiceType::class ,['choices'=>['Activée'=>true,'Desactivé'=>false]])
             ->add('imageFile',VichFileType::class, [

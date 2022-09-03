@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccueilController extends AbstractController
 {
-    #[Route('/', name: 'app_accueil')]
+    #[Route('/',name: 'app_accueil',options:['expose' => true])]
     public function index(Request $request,ProduitRepository $produitRepository, SliderRepository $sliderRepository,PaginatorInterface $paginator): Response
     {
         $sliders=$sliderRepository->findAll();
