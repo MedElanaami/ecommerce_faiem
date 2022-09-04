@@ -20,6 +20,20 @@ class AccueilController extends AbstractController
     public function index(Request $request,ProduitRepository $produitRepository, SliderRepository $sliderRepository,PaginatorInterface $paginator): Response
     {
         $sliders=$sliderRepository->findAll();
+
+        if ($request->isXmlHttpRequest()) {
+            $page = $request->get('page');
+
+
+            $produits = $paginator->paginate(
+                $produitRepository->findAll(), // Requête contenant les données à paginer (ici nos articles)
+                $request->query->getInt('page', $page), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page
+                8// Nombre de résultats par page
+            );
+
+            return new JsonResponse(['content' => $this->renderView('frontend/layouts/produits.html.twig', ['produits' => $produits])]);
+        }
+
         $produits = $paginator->paginate(
             $produitRepository->findAll(), // Requête contenant les données à paginer (ici nos articles)
             $request->query->getInt('page', 1), // Numéro de la page en cours, passé dans l'URL, 1 si aucune page

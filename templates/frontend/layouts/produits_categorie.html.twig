@@ -1,0 +1,142 @@
+<div class="row grid-prod ">
+
+    {% for produit in produits %}
+        <div class="col-6 col-sm-3">
+            <div class="product-default">
+                <figure>
+
+                    <a href="{{ path('app_produit', {'slug': produit.slug}) }}">
+                        {% for image in produit.images | slice(0,2) %}
+                            <img src="{{ asset('uploads/images/produits/'~image.imageName) }}"
+                                 style="height: 300px !important;width:100% !important;"
+                                 alt="product">
+                        {% endfor %}
+                    </a>
+
+                    <div class="label-group">
+                        <div class="product-label label-hot">Nouveau</div>
+                        {% if produit.reductionApplique %}
+
+                            <div class="product-label label-sale">- {{ produit.valReduction }}</div>
+
+                        {% endif %}
+
+                    </div>
+                </figure>
+
+                <div class="product-details">
+                    <div class="category-wrap">
+                        <div class="category-list">
+                            {% for categorie in produit.categories %}
+                                <a href="#" class="product-category">{{ categorie.nom }}</a>
+                                {% if loop.index!=loop.last %}
+                                    ,&nbsp; {% endif %}
+                            {% endfor %}
+
+                        </div>
+
+
+                    </div>
+
+                    <h3 class="product-title"><a
+                                href="{{ path('app_produit', {'slug': produit.slug}) }}">{{ produit.nom }}</a>
+                    </h3>
+
+                    <div class="ratings-container">
+                        <div class="product-ratings">
+                            <span class="ratings" style="width:100%"></span>
+                            <!-- End .ratings -->
+                            <span class="tooltiptext tooltip-top"></span>
+                        </div>
+                        <!-- End .product-ratings -->
+                    </div>
+                    <!-- End .product-container -->
+
+                    <div class="price-box">
+                        {% if produit.reductionApplique %}
+                            <span class="old-price">{{ produit.prixVente }} DH</span>
+                            <span class="product-price">{{ produit.prixReduction }} DH</span>
+
+                        {% else %}
+                            <span class="product-price">{{ produit.prixVente }} DH</span>
+                        {% endif %}
+
+                    </div>
+                    <!-- End .price-box -->
+
+                    <div class="product-action">
+                        <a href="#" class="btn-icon-wish" title="wishlist"><i
+                                    class="icon-heart"></i></a>
+                        <a href="{{ path('app_produit', {'slug': produit.slug}) }}"
+                           class="btn-icon btn-add-cart"><i
+                                    class="fa fa-arrow-right"></i><span>Ajouter au panier</span></a>
+                        <a href="#" class="btn-quickview"
+                           title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <!-- End .product-details -->
+            </div>
+        </div>
+        <!-- End .product-default -->
+    {% endfor %}
+
+</div>
+<!-- End .row -->
+<div class="row pb-4 d-none list-prod">
+    {% for produit in produits %}
+        <div class="col-sm-12 col-6 product-default left-details product-list mb-2">
+            <figure>
+                <a href="{{ path('app_produit', {'slug': produit.slug}) }}"> {% for image in produit.images | slice(0,2) %}
+
+                        <img src="{{ asset('uploads/images/produits/'~image.imageName) }}"
+                             width="250" height="250" alt="product" />{% endfor %}
+
+                </a>
+            </figure>
+            <div class="product-details">
+                <div class="category-list">
+                    {% for categorie in produit.categories %}
+                        <a href="#" class="product-category">{{ categorie.nom }}</a>
+                        {% if loop.index!=loop.last %}
+                            ,&nbsp; {% endif %}
+                    {% endfor %}
+
+                </div>
+                <h3 class="product-title"><a
+                            href="{{ path('app_produit', {'slug': produit.slug}) }}">{{ produit.nom }}</a>
+                </h3>
+                <div class="ratings-container">
+                    <div class="product-ratings">
+                        <span class="ratings" style="width:100%"></span>
+                        <!-- End .ratings -->
+                        <span class="tooltiptext tooltip-top"></span>
+                    </div>
+                    <!-- End .product-ratings -->
+                </div>
+                <!-- End .product-container -->
+                <p class="product-description">{{ produit.courteDesc }}</p>
+                <div class="price-box">
+                    {% if produit.reductionApplique %}
+                        <span class="old-price">{{ produit.prixVente }} DH</span>
+                        <span class="product-price">{{ produit.prixReduction }} DH</span>
+
+                    {% else %}
+                        <span class="product-price">{{ produit.prixVente }} DH</span>
+                    {% endif %}
+                </div>
+                <!-- End .price-box -->
+                <div class="product-action">
+                    <a href="#" class="btn-icon-wish" title="wishlist"><i
+                                class="icon-heart"></i></a>
+                    <a href="{{ path('app_produit', {'slug': produit.slug}) }}"
+                       class="btn-icon btn-add-cart"><span>Ajouter au panier</span></a>
+                    <a href="#" class="btn-quickview"
+                       title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                </div>
+            </div>
+            <!-- End .product-details -->
+        </div>
+    {% endfor %}
+
+
+</div>

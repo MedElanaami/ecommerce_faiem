@@ -1,18 +1,18 @@
 {% extends 'frontend/layouts/base.html.twig' %}
-{% block css  %}
-<style>
-    .page-item>a {
-        display: flex;
-        padding: 3px;
-        align-items: center;
-        justify-content: center;
-        width: 90px !important;
-        height: 33px;
-        border: 2px solid #0a0c0d;
-        background-color: #0a0c0d;
-        color: white;
-    }
-</style>
+{% block css %}
+    <style>
+        .page-item > a {
+            display: flex;
+            padding: 3px;
+            align-items: center;
+            justify-content: center;
+            width: 90px !important;
+            height: 33px;
+            border: 2px solid #0a0c0d;
+            background-color: #0a0c0d;
+            color: white;
+        }
+    </style>
 {% endblock %}
  {% block content %}
      <main class="main">
@@ -54,91 +54,13 @@
                   data-animation-delay="100">
              <div class="container">
                  <h2 class="section-title text-left">Meilleurs Produits</h2>
-
                  <div class="row div-produits">
-                     {% for produit in produits %}
-                         <div class="col-6 col-sm-3">
-                             <div class="product-default">
-                                 <figure>
-
-                                     <a href="{{ path('app_produit', {'slug': produit.slug}) }}">
-                                         {% for image in produit.images | slice(0,2) %}
-                                             <img src="{{ asset('uploads/images/produits/'~image.imageName) }}"
-                                                  style="height: 300px !important;width:100% !important;" alt="product">
-                                         {% endfor %}
-                                     </a>
-
-                                     <div class="label-group">
-                                         <div class="product-label label-hot">Nouveau</div>
-                                         {% if produit.reductionApplique %}
-
-                                             <div class="product-label label-sale">- {{ produit.valReduction }}</div>
-
-                                         {% endif %}
-
-                                     </div>
-                                 </figure>
-
-                                 <div class="product-details">
-                                     <div class="category-wrap">
-                                         <div class="category-list">
-                                             {% for categorie in produit.categories %}
-                                                 <a href="{{ path('app_categorie', {'slug': categorie.slug}) }}" class="product-category">{{ categorie.nom }}</a>
-                                                 {% if loop.index!=loop.last %}
-                                                     ,&nbsp; {% endif %}
-                                             {% endfor %}
-
-                                         </div>
-
-
-                                     </div>
-
-                                     <h3 class="product-title"><a
-                                                 href="{{ path('app_produit', {'slug': produit.slug}) }}">{{ produit.nom }}</a>
-                                     </h3>
-
-                                     <div class="ratings-container">
-                                         <div class="product-ratings">
-                                             <span class="ratings" style="width:100%"></span>
-                                             <!-- End .ratings -->
-                                             <span class="tooltiptext tooltip-top"></span>
-                                         </div>
-                                         <!-- End .product-ratings -->
-                                     </div>
-                                     <!-- End .product-container -->
-
-                                     <div class="price-box">
-                                         {% if produit.reductionApplique %}
-                                             <span class="old-price">{{ produit.prixVente }} DH</span>
-                                             <span class="product-price">{{ produit.prixReduction }} DH</span>
-
-                                         {% else %}
-                                             <span class="product-price">{{ produit.prixVente }} DH</span>
-                                         {% endif %}
-
-                                     </div>
-                                     <!-- End .price-box -->
-
-                                     <div class="product-action">
-                                         <a href="#" class="btn-icon-wish" title="wishlist"><i
-                                                     class="icon-heart"></i></a>
-                                         <a href="{{ path('app_produit', {'slug': produit.slug}) }}"
-                                            class="btn-icon btn-add-cart"><i
-                                                     class="fa fa-arrow-right"></i><span>Ajouter au panier</span></a>
-                                         <a href="#" class="btn-quickview"
-                                            title="Quick View"><i class="fas fa-external-link-alt"></i></a>
-                                     </div>
-                                 </div>
-                                 <!-- End .product-details -->
-                             </div>
-                         </div>
-                         <!-- End .product-default -->
-                     {% endfor %}
-
+                     {% include'frontend/layouts/produits.html.twig' with {'produits':produits} %}
                  </div>
-                 <!-- End .row -->
                  <div class="navigation text-center d-inline-block">
-                     {{ knp_pagination_render(produits) }}
+                     <div class="load-more text-center d-inline-block">
+                         <button class="btn btn-xl voir-plus" role="button" data-page="2">Voir Plus</button>
+                     </div>
                  </div>
              </div>
          </section>
@@ -147,4 +69,25 @@
      <!-- End .main -->
 
  {% endblock %}
+{% block js %}
+
+    <script>
+        $(".voir-plus").click(function (e) {
+            let page = $(this).data('page')
+            let url = Routing.generate("app_accueil");
+            $.ajax({
+                method: 'POST',
+                url: url,
+                data: {'page': page},
+                success: function (data) {
+                    $(".div-produits").append(data.content);
+                    $('.voir-plus').data('page', page + 1);
+                },
+                error: function (xhr, status) {
+                    alert("Erreur lors de chargement de page  merci de réessayer")
+                }
+            });
+        });</script>
+
+{% endblock %}
 
