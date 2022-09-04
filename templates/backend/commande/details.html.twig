@@ -57,6 +57,10 @@
                             </b> {{ commande.status }}
                         </li>
                         <li>
+                            <b><i class="color-primary mr-sm fa fa-hand-holding-usd"></i>Paiement:
+                            </b> {% if(commande.payee)  %} Payée {% else %}En cours{% endif %} ( {%if commande.typePaiement==1 %} Paiement à la livraison {% else %}Paypal{% endif %} )
+                        </li>
+                        <li>
                             <b><i class="color-primary mr-sm fa fa-truck"></i>Prix Livraison:
                             </b> {{ commande.prixLivraison }}DH
                         </li>

@@ -51,6 +51,8 @@
 <script src="{{ asset ('frontend/assets/js/jquery.appear.min.js')}}"></script>
 <script src="{{ asset ('frontend/assets/js/main.min.js')}}"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 <style>
     .swal2-popup{
         width: 48em !important;

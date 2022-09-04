@@ -57,7 +57,9 @@
                                         Adresse: <br>{{ commande.client.adresse}}<br> {{ commande.client.ville}}<br> {{ commande.client.codePostal}}</td>
                                     <td>{{ commande.prixTotal }}</td>
                                     <td>
-                                        {{ commande.status }}
+                                        {{ commande.status }} <br>
+                                         {% if(commande.payee)  %} Payée {% else %}En cours{% endif %} ( {%if commande.typePaiement==1 %} Paiement à la livraison {% else %}Paypal{% endif %} )
+
                                     </td>
 
                                     <td>
