@@ -1,0 +1,57 @@
+
+    <a href="#" title="Close (Esc)" class="btn-close">×</a>
+
+    <div class="dropdownmenu-wrapper custom-scrollbar">
+        <div class="dropdown-cart-header">Panier</div>
+        <!-- End .dropdown-cart-header -->
+
+        <div class="dropdown-cart-products">
+            {% for key,produit in produits_cmd %}
+
+                <div class="product">
+                    <div class="product-details">
+                        <h4 class="product-title">
+                            <a href="{{ path('app_produit', {'slug': produit.slug}) }}">{{ produit.nom }}</a>
+                        </h4>
+
+                        <span class="cart-product-info">
+														<span class="cart-product-qty">{{ produit.qte }}</span> × {{ produit.prix }} DH
+                                                    </span>
+                    </div>
+                    <!-- End .product-details -->
+
+                    <figure class="product-image-container">
+                        <a href="{{ path('app_produit', {'slug': produit.slug}) }}"
+                           class="product-image">
+                            <img src="{{ asset('uploads/images/produits/'~produit.imageName) }}"
+                                 alt="product" width="80" height="80">
+                        </a>
+
+                        <a href="{{ path('app_supprimer_produit', {'key': key}) }}"
+                           class="btn-remove" title="Remove Product"><span>×</span></a>
+                    </figure>
+                </div>
+                <!-- End .product -->
+            {% endfor %}
+
+        </div>
+        <!-- End .cart-product -->
+
+        <div class="dropdown-cart-total">
+            <span>TOTAL:</span>
+
+            <span class="cart-total-price float-right">
+                                        {{ app.session.get('prixTotal') }} DH
+                                    </span>
+        </div>
+        <!-- End .dropdown-cart-total -->
+
+        <div class="dropdown-cart-action">
+            <a href="{{ path('app_panier') }}" class="btn btn-gray btn-block view-cart">Détail
+                Panier</a>
+            <a href="{{ path('app_checkout') }}" class="btn btn-dark btn-block">Aller à la
+                caisse</a>
+        </div>
+        <!-- End .dropdown-cart-total -->
+    </div>
+    <!-- End .dropdownmenu-wrapper -->

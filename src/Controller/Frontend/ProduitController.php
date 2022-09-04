@@ -14,7 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProduitController extends AbstractController
 {
     #[Route('/produit/{slug}', name: 'app_produit')]
-    public function index(Produit $produit, Request $request, CouponRepository $couponRepository): Response
+    public function index(Produit $produit, Request $request): Response
+    {
+        return $this->render('frontend/produit.html.twig', [
+            'produit' => $produit,
+        ]);
+    }
+    #[Route('/ajouterProduit/{id}', name: 'app_ajouter_produit',options:['expose' => true])]
+    public function ajouterProduit(Produit $produit, Request $request, CouponRepository $couponRepository): Response
     {
 
         $qte = $request->get('qte');
@@ -31,19 +38,17 @@ class ProduitController extends AbstractController
                     $produitExist = true;
                 }
             }
-            if ($produitExist == false) {
-                array_push($produits,
-                    ['id' => $produit->getId(),
-                        'nom' => $produit->getNom(),
-                        'slug' => $produit->getSlug(),
-                        'prix' => $produit->prixReduction(),
-                        'imageName' => $produit->getImages()[0]->getImageName(),
-                        'qte' => $qte]
-                );
+            if (!$produitExist) {
+                $produits[] = ['id' => $produit->getId(),
+                    'nom' => $produit->getNom(),
+                    'slug' => $produit->getSlug(),
+                    'prix' => $produit->prixReduction(),
+                    'imageName' => $produit->getImages()[0]->getImageName(),
+                    'qte' => $qte];
             }
             $session->set('produits', $produits);
             $this->setPrixTotal($request, $couponRepository);
-            $this->addFlash('success', "L'article a été ajouté à votre panier");
+            return new JsonResponse(['content'=>$this->renderView('frontend/layouts/panier.html.twig',['produits_cmd'=>$session->get('produits')]),'nbrProduits'=>count($produits),'message'=>'L\'article a été ajouté à votre panier']);
         }
         return $this->render('frontend/produit.html.twig', [
             'produit' => $produit,
@@ -51,6 +56,7 @@ class ProduitController extends AbstractController
 
 
     }
+
 
     #[Route('/supprimerProduit/{key}', name: 'app_supprimer_produit')]
     public function supProduit($key, Request $request, CouponRepository $couponRepository)

@@ -38,29 +38,39 @@ class ProduitRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-//    /**
-//     * @return Produit[] Returns an array of Produit objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Produit
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function selectParPrixDescendant($categorie): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->join('c.categories','categorie')
+            ->andWhere('categorie = :cat')
+            ->setParameter('cat', $categorie)
+            ->orderBy('c.prixVente','DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function selectParPrixAscendant($categorie): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->join('c.categories','categorie')
+            ->andWhere('categorie = :cat')
+            ->setParameter('cat', $categorie)
+            ->orderBy('c.prixVente','ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function selectParPromo($categorie): array
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c')
+            ->join('c.categories','categorie')
+            ->andWhere('categorie = :cat')
+            ->andWhere('c.reductionApplique=true')
+            ->setParameter('cat', $categorie)
+            ->getQuery()
+            ->getResult();
+    }
 }

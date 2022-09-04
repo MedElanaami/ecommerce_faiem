@@ -21,7 +21,7 @@
                     {% if error %}
                         <div class="alert alert-danger">Le nom de l'utilisateur ou mot de passe incorrecte </div>
                     {% endif %}
-                    <form method="post">
+                    <form action="{{ path('app_login') }}" method="post">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group required-field">
