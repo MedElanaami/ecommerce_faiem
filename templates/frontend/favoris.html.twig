@@ -1,0 +1,84 @@
+{% extends 'frontend/layouts/base.html.twig' %}
+{% block content %}
+    <main class="main contact-two mb-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav sticky-header p-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Favoris</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav>
+
+
+        <div class="container">
+         <section class="section-5 product-collection text-center appear-animate" data-animation-name="fadeIn"
+                  data-animation-delay="100">
+             <div class="container">
+                 <h2 class="section-title text-left">Produits Favoris</h2>
+                 <div class="row div-produits">
+                     {% include'frontend/layouts/produits.html.twig' with {'produits':produits} %}
+                 </div>
+             </div>
+         </section>
+        </div>
+         <!-- End .section-5 -->
+     </main>
+     <!-- End .main -->
+
+ {% endblock %}
+{% block js %}
+
+    <script>
+
+        $(".btn-add-cart").on("click", function (event) {
+            event.preventDefault();
+            produit=$(this).data('produit');
+            $.ajax({
+                method: 'POST',
+                url: Routing.generate('app_ajouter_produit',{'id':produit}),
+                data: {qte:1},
+                success: function (data) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true,
+                    });
+
+                    $(".mobile-cart").html(data.content);
+                    $(".cart-count").html(data.nbrProduits)
+                },
+                error: function (xhr, status) {
+                    alert("Erreur Lors de l'ajout du produit")
+                }
+            });
+        });
+        $(".btn-favoris").on("click", function (event) {
+            event.preventDefault();
+            produit=$(this).data('produit');
+            $.ajax({
+                method: 'POST',
+                url: Routing.generate('app_ajouter_produit_wishlist',{'id':produit}),
+
+                success: function (data) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true,
+                    });
+
+                },
+                error: function (xhr, status) {
+                    console.log(xhr);
+                    alert("Erreur Lors de l'ajout du produit")
+                }
+            });
+        });
+    </script>
+
+
+{% endblock %}
+

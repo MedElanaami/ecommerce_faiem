@@ -67,8 +67,8 @@
                     <div class="product-action">
                         <a href="#" class="btn-icon-wish" title="wishlist"><i
                                     class="icon-heart"></i></a>
-                        <a href="{{ path('app_produit', {'slug': produit.slug}) }}"
-                           class="btn-icon btn-add-cart"><i
+                        <a href="#"
+                           class="btn-icon btn-add-cart" data-produit="{{ produit.id }}"><i
                                     class="fa fa-arrow-right"></i><span>Ajouter au panier</span></a>
                         <a href="#" class="btn-quickview"
                            title="Quick View"><i class="fas fa-external-link-alt"></i></a>

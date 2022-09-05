@@ -126,7 +126,7 @@
             </div>
             <div class="navigation text-center d-inline-block">
                 <div class="load-more text-center d-inline-block">
-                    <button  class="btn btn-xl voir-plus" role="button" data-page="2">Voir Plus</button>
+                    <button class="btn btn-xl voir-plus" role="button" data-page="2">Voir Plus</button>
                 </div>
             </div>
         </div>
@@ -200,6 +200,29 @@
                 },
                 error: function (xhr, status) {
                     alert("Erreur lors de chargement de page  merci de réessayer")
+                }
+            });
+        });
+        $(".btn-add-cart").on("click", function (event) {
+            event.preventDefault();
+            produit=$(this).data('produit');
+            $.ajax({
+                method: 'POST',
+                url: Routing.generate('app_ajouter_produit',{'id':produit}),
+                data: {qte:1},
+                success: function (data) {
+                    Swal.fire({
+                        position: 'top-center',
+                        icon: 'success',
+                        title: data.message,
+                        showConfirmButton: true,
+                    });
+
+                    $(".mobile-cart").html(data.content);
+                    $(".cart-count").html(data.nbrProduits)
+                },
+                error: function (xhr, status) {
+                    alert("Erreur Lors de l'ajout du produit")
                 }
             });
         });

@@ -7,6 +7,7 @@ use App\Repository\CouponRepository;
 use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,7 +21,16 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
-    #[Route('/ajouterProduit/{id}', name: 'app_ajouter_produit',options:['expose' => true])]
+    #[Route('/wishlist', name: 'app_wishlist')]
+    public function wishList(Request $request): Response
+    {
+        return $this->render('frontend/favoris.html.twig', [
+            'produits'=>$request->getSession()->get('wishList')
+
+        ]);
+    }
+
+    #[Route('/ajouterProduit/{id}', name: 'app_ajouter_produit', options: ['expose' => true])]
     public function ajouterProduit(Produit $produit, Request $request, CouponRepository $couponRepository): Response
     {
 
@@ -48,7 +58,7 @@ class ProduitController extends AbstractController
             }
             $session->set('produits', $produits);
             $this->setPrixTotal($request, $couponRepository);
-            return new JsonResponse(['content'=>$this->renderView('frontend/layouts/panier.html.twig',['produits_cmd'=>$session->get('produits')]),'nbrProduits'=>count($produits),'message'=>'L\'article a été ajouté à votre panier']);
+            return new JsonResponse(['content' => $this->renderView('frontend/layouts/panier.html.twig', ['produits_cmd' => $session->get('produits')]), 'nbrProduits' => count($produits), 'message' => 'L\'article a été ajouté à votre panier']);
         }
         return $this->render('frontend/produit.html.twig', [
             'produit' => $produit,
@@ -109,5 +119,35 @@ class ProduitController extends AbstractController
 
 
     }
+
+    #[Route('/ajouterProduitWishList/{id}', name: 'app_ajouter_produit_wishlist', options: ['expose' => true])]
+    public function ajouterProduitWishList(Produit $produit, Request $request, CouponRepository $couponRepository): Response
+    {
+
+        if ($request->isXmlHttpRequest()) {
+            $session = $request->getSession();
+            $wishList = $session->get('wishList');
+            if ($wishList == null) {
+                $wishList = [];
+            };
+            $produitExist = false;
+            foreach ($wishList as $key => $produitFavoris) {
+                if ($produitFavoris->getId()== $produit->getId()) {
+                    $produitExist = true;
+                }
+            }
+            if (!$produitExist) {
+                $wishList[] = $produit;
+            }
+            $session->set('wishList', $wishList);
+
+            return new JsonResponse(['message' => 'L\'article a été ajouté à votre favoris']);
+        }
+
+    return $this->redirectToRoute('app_accueil');
+
+
+    }
+
 
 }
