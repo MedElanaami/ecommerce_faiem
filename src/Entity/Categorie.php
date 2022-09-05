@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CategorieRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
@@ -26,25 +27,26 @@ class Categorie
 
     #[ORM\Column(type: 'string', length: 255)]
     private $slug;
+    #[Ignore]
     #[Vich\UploadableField(mapping: 'sliders', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
 
     #[ORM\Column(type: 'string')]
     private ?string $imageName = null;
-
+    #[Ignore]
     #[ORM\Column(type: 'integer')]
     private ?int $imageSize = null;
-
+    #[Ignore]
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
-
+    #[Ignore]
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
     #[ORM\JoinColumn(nullable: true)]
     private $parent;
-
+    #[Ignore]
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private $categories;
-
+    #[Ignore]
     #[ORM\ManyToMany(targetEntity: Produit::class, mappedBy: 'categories')]
     private $produits;
 

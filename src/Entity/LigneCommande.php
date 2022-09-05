@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LigneCommandeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: LigneCommandeRepository::class)]
 class LigneCommande
@@ -18,7 +19,7 @@ class LigneCommande
 
     #[ORM\Column(type: 'float')]
     private $prixVente;
-
+    #[Ignore]
     #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'ligneCommandes')]
     #[ORM\JoinColumn(nullable: false)]
     private $produit;

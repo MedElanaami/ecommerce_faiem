@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ImageRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ImageRepository::class)]
@@ -15,22 +16,23 @@ class Image
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
     private $id;
-
+    #[Ignore]
     #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'images')]
     #[ORM\JoinColumn(nullable: false)]
     private $produit;
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      */
+    #[Ignore]
     #[Vich\UploadableField(mapping: 'produits', fileNameProperty: 'imageName', size: 'imageSize')]
     private ?File $imageFile = null;
 
     #[ORM\Column(type: 'string')]
     private ?string $imageName = null;
-
+    #[Ignore]
     #[ORM\Column(type: 'integer')]
     private ?int $imageSize = null;
-
+    #[Ignore]
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $updatedAt = null;
 

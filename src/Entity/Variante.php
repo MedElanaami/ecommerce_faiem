@@ -6,6 +6,7 @@ use App\Repository\VarianteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: VarianteRepository::class)]
 class Variante
@@ -24,7 +25,7 @@ class Variante
     #[ORM\ManyToOne(targetEntity: Attribut::class, inversedBy: 'variantes')]
     #[ORM\JoinColumn(nullable: false)]
     private $attribut;
-
+    #[Ignore]
     #[ORM\ManyToOne(targetEntity: Produit::class, inversedBy: 'variantes')]
     #[ORM\JoinColumn(nullable: false)]
     private $produit;

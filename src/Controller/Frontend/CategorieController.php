@@ -67,7 +67,7 @@ class CategorieController extends AbstractController
                     );
                 }
             }
-            return new JsonResponse(['content' => $this->renderView('frontend/layouts/produits_categorie.html.twig', ['produits' => $produits])]);
+            return new JsonResponse(['content' => $this->renderView('frontend/layouts/produits_categorie.html.twig', ['produits' => $produits]),'nbrProduits'=>count($produits)]);
         }
         $produits = $paginator->paginate(
             $categorie->getProduits(), // Requête contenant les données à paginer (ici nos articles)

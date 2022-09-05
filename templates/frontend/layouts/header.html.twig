@@ -38,13 +38,13 @@
                         <!-- End .header-search-wrapper -->
                     </div>
                     <a href="{{ path('app_wishlist') }}" title="Wishlist" class="header-icon"><i
-                                class=" icon-wishlist-2"></i></a>
+                                class=" icon-wishlist-2"></i><span class="cart-count badge-circle">{{ produits_cmd|length }}</span></a>
+
                     <div class="dropdown cart-dropdown">
                         <a href="#" title="Cart"
                            class="dropdown-toggle dropdown-arrow cart-toggle d-flex align-items-center" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
                             <i class="minicart-icon"></i>
-                            <span class="cart-count badge-circle">{{ produits_cmd|length }}</span>
                         </a>
 
                         <div class="cart-overlay"></div>

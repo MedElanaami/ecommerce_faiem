@@ -31,7 +31,7 @@ class AccueilController extends AbstractController
                 8// Nombre de résultats par page
             );
 
-            return new JsonResponse(['content' => $this->renderView('frontend/layouts/produits.html.twig', ['produits' => $produits])]);
+            return new JsonResponse(['content' => $this->renderView('frontend/layouts/produits.html.twig', ['produits' => $produits]),'nbrProduits'=>count($produits)]);
         }
 
         $produits = $paginator->paginate(
