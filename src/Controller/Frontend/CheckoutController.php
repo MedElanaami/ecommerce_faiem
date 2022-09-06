@@ -111,9 +111,32 @@ class CheckoutController extends AbstractController
                     ->htmlTemplate('frontend/emails/commande.html.twig')
                     ->context(['commande' => $commande]);
                // $mailer->send($email);
-                if( $typePaiement==2)
-                    return $this->render('frontend/paypal.html.twig', ['commande' => $commande]);
-                $this->addFlash('success', 'Votre commande a été bien enregistrée, nous vous contacterons le plus tôt possible.');
+                if( $typePaiement==2) {
+                    $req_url = 'https://api.exchangerate-api.com/v4/latest/MAD';
+                    $response_json = file_get_contents($req_url);
+                    $prixEnMAD = $commande->getPrixTotal()+$commande->getPrixLivraison();
+                    if(false !== $response_json) {
+
+                        // Try/catch for json_decode operation
+                        try {
+
+                            // Decoding
+                            $response_object = json_decode($response_json);
+
+                            // YOUR APPLICATION CODE HERE, e.g.
+                           // Your price in MAD
+                            $prixEnUSD = round(($prixEnMAD * $response_object->rates->USD), 0);
+
+                        }
+                        catch(\Exception $e) {
+
+                        }
+                    }
+                    else{
+                        $prixEnUSD=$prixEnMAD*0.0941;
+                    }
+                    return $this->render('frontend/paypal.html.twig', ['commande' => $commande,'prix'=>$prixEnUSD]);
+                }$this->addFlash('success', 'Votre commande a été bien enregistrée, nous vous contacterons le plus tôt possible.');
                 return $this->redirectToRoute("app_accueil");
             }
 
