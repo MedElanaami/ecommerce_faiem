@@ -6,6 +6,8 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: ProduitRepository::class)]
 class Produit
@@ -29,7 +31,7 @@ class Produit
 
     #[ORM\Column(type: 'float')]
     private $prixVente;
-
+    #[Ignore]
     #[ORM\Column(type: 'integer')]
     private $qteStock;
 
@@ -56,13 +58,13 @@ class Produit
 
     #[ORM\ManyToMany(targetEntity: Categorie::class, inversedBy: 'produits')]
     private $categories;
-
+    #[Ignore]
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: Variante::class, orphanRemoval: true)]
     private $variantes;
-
+    #[Ignore]
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: LigneCommande::class, orphanRemoval: true)]
     private $ligneCommandes;
-
+    #[Ignore]
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'produits')]
     private $tags;
 
@@ -342,7 +344,8 @@ class Produit
         return $this;
     }
 
-    public function prixReduction()
+
+    public function getPrixReduction()
     {
         if ($this->getTypeReduction()) {
             if ($this->getTypeReduction()->getNom() == 'Prix')
@@ -350,15 +353,19 @@ class Produit
             else
                 $prixReduction = $this->getPrixVente() * (1 - $this->getValeurReduction() / 100);
             return $prixReduction;
-        }
-        else
+        } else
             return $this->getPrixVente();
     }
 
-    public function valReduction()
+
+    public function getValReduction()
     {
-        if ($this->getTypeReduction()->getNom() == 'Prix')
-            $valReduction = $this->getValeurReduction() . " DH";
+        if ($this->getTypeReduction()) {
+            if ($this->getTypeReduction()->getNom() == 'Prix')
+                $valReduction = $this->getValeurReduction() . " DH";
+            else
+                $valReduction = $this->getValeurReduction() . "%";
+        }
         else
             $valReduction = $this->getValeurReduction() . "%";
         return $valReduction;

@@ -6,6 +6,7 @@ use App\Repository\CouponRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
 class Coupon
@@ -29,11 +30,11 @@ class Coupon
 
     #[ORM\Column(type: 'string', length: 255)]
     private $valeur;
-
+    #[Ignore]
     #[ORM\ManyToOne(targetEntity: TypeReduction::class, inversedBy: 'coupons')]
     #[ORM\JoinColumn(nullable: false)]
     private $typeReduction;
-
+    #[Ignore]
     #[ORM\OneToMany(mappedBy: 'coupon', targetEntity: Commande::class)]
     private $commandes;
 

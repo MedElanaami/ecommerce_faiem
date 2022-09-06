@@ -11,7 +11,12 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
 class ProduitController extends AbstractController
 {
     #[Route('/produit/{slug}', name: 'app_produit')]
@@ -24,6 +29,7 @@ class ProduitController extends AbstractController
     #[Route('/wishlist', name: 'app_wishlist')]
     public function wishList(Request $request): Response
     {
+
         return $this->render('frontend/favoris.html.twig', [
             'produits'=>$request->getSession()->get('wishList')
 
@@ -52,7 +58,7 @@ class ProduitController extends AbstractController
                 $produits[] = ['id' => $produit->getId(),
                     'nom' => $produit->getNom(),
                     'slug' => $produit->getSlug(),
-                    'prix' => $produit->prixReduction(),
+                    'prix' => $produit->getPrixReduction(),
                     'imageName' => $produit->getImages()[0]->getImageName(),
                     'qte' => $qte];
             }
@@ -121,31 +127,33 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/ajouterProduitWishList/{id}', name: 'app_ajouter_produit_wishlist', options: ['expose' => true])]
-    public function ajouterProduitWishList(Produit $produit, Request $request, CouponRepository $couponRepository): Response
+    public function ajouterProduitWishList(Produit $produit, Request $request): Response
     {
 
-        if ($request->isXmlHttpRequest()) {
-            $session = $request->getSession();
-            $wishList = $session->get('wishList');
-            if ($wishList == null) {
-                $wishList = [];
-            };
-            $produitExist = false;
-            foreach ($wishList as $key => $produitFavoris) {
-                if ($produitFavoris->getId()== $produit->getId()) {
-                    $produitExist = true;
-                }
-            }
-            if (!$produitExist) {
-                $wishList[] = $produit;
-            }
-            $session->set('wishList', $wishList);
+         if($request->isXmlHttpRequest()) {
+             $session = $request->getSession();
+             $wishList = $session->get('wishList');
+             if ($wishList == null) {
+                 $wishList = [];
+             };
+             $produitExist = false;
+             foreach ($wishList as $key => $produitFavoris) {
+                 if ($produitFavoris['id'] == $produit->getId()) {
+                     $produitExist = true;
+                 }
+             }
+             if (!$produitExist) {
+                 $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+                 $normalizer = new ObjectNormalizer($classMetadataFactory);
+                 $serializer = new Serializer([$normalizer]);
+                 $data = $serializer->normalize($produit);
+                 $wishList[] = $data;
+             }
+             $session->set('wishList', $wishList);
 
-            return new JsonResponse(['message' => 'L\'article a été ajouté à votre favoris']);
-        }
-
-    return $this->redirectToRoute('app_accueil');
-
+             return new JsonResponse(['message' => 'L\'article a été ajouté à votre favoris']);
+         }
+         return $this->redirectToRoute("app_accueil");
 
     }
 
