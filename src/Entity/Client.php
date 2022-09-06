@@ -49,10 +49,7 @@ class Client extends  Utilisateur
         $this->commandes = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+
 
     public function getTel(): ?string
     {
