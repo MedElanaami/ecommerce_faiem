@@ -21,7 +21,7 @@ class Categorie
 
     #[ORM\Column(type: 'string', length: 255)]
     private $nom;
-
+    #[Ignore]
     #[ORM\Column(type: 'string', length: 255)]
     private $description;
 

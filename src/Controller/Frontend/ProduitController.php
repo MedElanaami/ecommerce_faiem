@@ -130,29 +130,30 @@ class ProduitController extends AbstractController
     public function ajouterProduitWishList(Produit $produit, Request $request): Response
     {
 
-         if($request->isXmlHttpRequest()) {
-             $session = $request->getSession();
-             $wishList = $session->get('wishList');
-             if ($wishList == null) {
-                 $wishList = [];
-             };
-             $produitExist = false;
-             foreach ($wishList as $key => $produitFavoris) {
-                 if ($produitFavoris['id'] == $produit->getId()) {
-                     $produitExist = true;
-                 }
-             }
-             if (!$produitExist) {
-                 $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
-                 $normalizer = new ObjectNormalizer($classMetadataFactory);
-                 $serializer = new Serializer([$normalizer]);
-                 $data = $serializer->normalize($produit);
-                 $wishList[] = $data;
-             }
-             $session->set('wishList', $wishList);
+          if($request->isXmlHttpRequest()) {
+              $session = $request->getSession();
+              $wishList = $session->get('wishList');
+              if ($wishList == null) {
+                  $wishList = [];
+              };
 
-             return new JsonResponse(['message' => 'L\'article a été ajouté à votre favoris']);
-         }
+              $produitExist = false;
+              foreach ($wishList as $key => $produitFavoris) {
+                  if ($produitFavoris['id'] == $produit->getId()) {
+                      $produitExist = true;
+                  }
+              }
+              if (!$produitExist) {
+                  $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+                  $normalizer = new ObjectNormalizer($classMetadataFactory);
+                  $serializer = new Serializer([$normalizer]);
+                  $data = $serializer->normalize($produit);
+                  $wishList[] = $data;
+              }
+              $session->set('wishList', $wishList);
+
+              return new JsonResponse(['message' => 'L\'article a été ajouté à votre favoris']);
+          }
          return $this->redirectToRoute("app_accueil");
 
     }

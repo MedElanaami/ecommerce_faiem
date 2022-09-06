@@ -22,7 +22,7 @@ class Produit
 
     #[ORM\Column(type: 'string', length: 255)]
     private $courteDesc;
-
+    #[Ignore]
     #[ORM\Column(type: 'string', length: 255)]
     private $longueDesc;
 
