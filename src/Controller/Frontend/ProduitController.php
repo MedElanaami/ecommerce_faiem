@@ -74,15 +74,19 @@ class ProduitController extends AbstractController
     }
 
 
-    #[Route('/supprimerProduit/{key}', name: 'app_supprimer_produit')]
+    #[Route('/supprimerProduit/{key}', name: 'app_supprimer_produit', options: ['expose' => true])]
     public function supProduit($key, Request $request, CouponRepository $couponRepository)
     {
-        $session = $request->getSession();
+        if($request->isXmlHttpRequest() )
+        {$session = $request->getSession();
         $produits = $session->get('produits');
         unset($produits[$key]);
         $session->set('produits', $produits);
         $this->setPrixTotal($request, $couponRepository);
-        return $this->redirect($request->headers->get('referer'));
+        return new JsonResponse(['content'=>$this->renderView("frontend/layouts/panier.html.twig",['produits_cmd'=>$produits]),'nbrProduits'=>count($produits)]);
+        }
+        else
+            return $this->redirectToRoute("app_accueil");
     }
 
     public function setPrixTotal(Request $request, CouponRepository $couponRepository)
