@@ -18,7 +18,7 @@
                     </button>
                     {%if parametre() %}
                     <a href="{{ path('app_accueil') }}" class="logo d-block d-lg-none">
-                        <img src="{{ asset('uploads/images/parametre/')~parametre().imageName }}" alt="Porto Logo">
+                        <img src="{{ asset('uploads/images/parametre/')~parametre().imageName }}" alt=" {{ parametre().nomSite}} Logo">
                     </a>
                     {% endif %}
                 </div>
@@ -37,16 +37,17 @@
                         </div>
                         <!-- End .header-search-wrapper -->
                     </div>
-                    <a href="{{ path('app_wishlist') }}" title="Wishlist" class="header-icon"><i
-                                class=" icon-wishlist-2"></i><span class="cart-count badge-circle">{{ produits_cmd|length }}</span></a>
+
+                    <a href="{{ path('app_wishlist') }}" title="Wishlist" class="header-icon">
+                        <i class=" icon-wishlist-2"></i>
+                    </a>
 
                     <div class="dropdown cart-dropdown">
                         <a href="#" title="Cart"
                            class="dropdown-toggle dropdown-arrow cart-toggle d-flex align-items-center" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                            <i class="minicart-icon"></i>
+                            <i class="minicart-icon"></i><span class="cart-count badge-circle">{{ produits_cmd|length }}</span></a>
                         </a>
-
                         <div class="cart-overlay"></div>
                         <div class="dropdown-menu mobile-cart">
                         {% include'frontend/layouts/panier.html.twig' with {'produits_cmd':produits_cmd} %}
