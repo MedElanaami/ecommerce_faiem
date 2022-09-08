@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
-
+use VictorPrdh\RecaptchaBundle\Form\ReCaptchaType;
 class ContactController extends AbstractController
 {
     #[Route('/contact', name: 'app_contact')]
@@ -29,6 +29,7 @@ class ContactController extends AbstractController
             ->add('email', EmailType::class,array('required'=>true))
             ->add('tel', TextType::class,array('required'=>true))
             ->add('message', TextareaType::class,array('required'=>true))
+            ->add("recaptcha", ReCaptchaType::class)
             ->getForm();
        $form->handleRequest($request);
        if($form->isSubmitted()&&$form->isValid())
