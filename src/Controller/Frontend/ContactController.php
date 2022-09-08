@@ -23,7 +23,7 @@ class ContactController extends AbstractController
         if($parametre && $parametre->getEmail() )
             $email=$parametre->getEmail();
         else
-            $email='elanaamimohamed@gmail.com';
+            $email='contact@faem.ma';
         $form = $this->createFormBuilder()
             ->add('nom', TextType::class,array('required'=>true))
             ->add('email', EmailType::class,array('required'=>true))
@@ -36,7 +36,7 @@ class ContactController extends AbstractController
        {
 
           $email=(new TemplatedEmail())
-              ->from(" noreply@elanaami.com")
+              ->from(" noreply@faem.ma")
               ->to (new Address($email))
               ->subject("Email envoyé depuis votre site ")
               ->htmlTemplate('frontend/emails/contact.html.twig')

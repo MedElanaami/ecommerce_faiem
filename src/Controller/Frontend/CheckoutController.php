@@ -105,12 +105,12 @@ class CheckoutController extends AbstractController
                 $session->remove('codeCoupon');
                 $session->remove('prixLivraison');
                 $email = (new TemplatedEmail())
-                    ->from(" noreply@elanaami.com")
-                    ->to(new Address('elanaamimohamed@gmail.com'))
+                    ->from(" noreply@faem.ma")
+                    ->to(new Address('commande@faem.ma'))
                     ->subject("Nouvelle commande depuis le site faem.ma")
                     ->htmlTemplate('frontend/emails/commande.html.twig')
                     ->context(['commande' => $commande]);
-               // $mailer->send($email);
+               $mailer->send($email);
                 if( $typePaiement==2) {
                     $req_url = 'https://api.exchangerate-api.com/v4/latest/MAD';
                     $response_json = file_get_contents($req_url);

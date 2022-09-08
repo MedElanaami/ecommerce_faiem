@@ -63,13 +63,13 @@ class AccueilController extends AbstractController
     }
 
 
-    #[Route('/Confidentialité', name: 'p_conf')]
+    #[Route('/confidentialité', name: 'p_conf')]
     public function pConf(): Response
     {
 
         return $this->render('frontend/conf.html.twig');
     }
-    #[Route('/Retour', name: 'p_retour')]
+    #[Route('/retour', name: 'p_retour')]
     public function pRetour(): Response
     {
 
