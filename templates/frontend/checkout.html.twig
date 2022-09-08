@@ -204,6 +204,7 @@
                                         <label for="payment_method_bacs">
                                             Paiement à la livraison </label>
                                     </li>
+                                    {% if parametre().idPaypal%}
                                     <li class="wc_payment_method payment_method_paypal">
                                         <input id="payment_method_cheque" type="radio" class="input-radio"
                                                name="payment_method" value="2" form="form-checkout" >
@@ -211,6 +212,7 @@
                                         <label for="payment_method_paypal">
                                             Paiement par Paypal </label>
                                     </li>
+                                    {% endif %}
                                 </ul>
                             </div>
 
