@@ -49,7 +49,7 @@
 </head>
 <body>
 <div class="page_header">
-    <img src="https://faem.ma/uploads/images/parametre/{{ parametre().imageName }}" width="200px">
+    <img src="{{ absolute_url(asset('uploads/images/parametre/')~ parametre().imageName) }}" width="200px">
     <br>
     <table style="width: 100%;border-color:transparent ">
         <tr>
