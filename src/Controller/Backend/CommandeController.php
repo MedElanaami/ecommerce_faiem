@@ -5,6 +5,8 @@ namespace App\Controller\Backend;
 use App\Entity\Commande;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,5 +76,35 @@ class CommandeController extends AbstractController
     {$commandeRepository->remove($commande,true);
 
         return $this->redirectToRoute('admin_commande_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('imprimer/{id}', name: 'admin_commande_imprimer', methods: ['GET', 'POST'])]
+    public function imprimer(Commande $commande)
+    {
+        $template = $this->renderView(
+            'backend/commande/generer_commande.html.twig',
+            array('commande' => $commande)
+        );
+
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+
+        $pdfOptions->set('isRemoteEnabled', true);
+        $pdfOptions->set('isHtml5ParserEnabled', true);
+
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($template);
+
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        return new Response($dompdf->stream('cmd_' . $commande->getId()));
+
+
     }
 }
