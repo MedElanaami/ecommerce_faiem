@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en" class="fixed">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <style type="text/css">
+        body {
+            background: lightgray;
+            position: relative;
+        }
+        footer{
+            width: 100%;
+            position: fixed;
+            bottom: 40px;
+            text-align: center;
+        }
+
+        .page_footer {
+            display: flex;
+            flex-direction: column;
+
+
+
+        }
+
+        .page_header {
+            padding-top: 30px;
+            font-size: 14px;
+
+        }
+
+        table {
+            padding-left: 10px;
+            padding-right: 10px;
+
+        }
+
+
+        body {
+            margin: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0
+        }
+    </style>
+</head>
+<body>
+<div class="page_header">
+    <img src="https://faem.ma/uploads/images/parametre/{{ parametre().imageName }}" width="200px">
+    <br>
+    <table style="width: 100%;border-color:transparent ">
+        <tr>
+            <td style="text-align: center;width: 100%;" colspan="2">
+                <h3>Bon
+                    de livraison</h3>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;width: 20%; background-color: #bce2e5 ;border-radius: 5px;padding: 10px"><h5>
+                    Numéro de commande<br></h5></td>
+            <td style="text-align: center ;width: 80%; background-color: #bce2e5; border-radius: 5px;padding: 10px">
+                <h5>Client</h5>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center;width: 20%;background-color: #e5fafb">{{ commande.id }}</td>
+            <td style="text-align: center ;width: 80%;background-color: #e5fafb;border-radius: 5px">
+                {{ commande.client.nom }}  {{ commande.client.prenom }}<br>
+                {{ commande.client.tel }}<br>
+                {{ commande.client.adresse }} {{ commande.client.ville }}
+            </td>
+        </tr>
+
+    </table>
+
+    <br><br><br>
+
+    {#  <table style="width: 100%;border-color:transparent ">
+          <tr>
+              <td style="width: 100%; border-color:transparent;">
+                  Cher Client,<br>
+                  Nous avons bien reçu votre commande et nous vous en remercions .Ces produits vous seront livrés à
+                  l'adresse ci-dessus<br>
+                  Nous vous rappelons prècisément le contenu de votre commande
+              </td>
+          </tr>
+
+      </table> #}
+    <br><br><br>
+    <table style="width: 100%;border-collapse: collapse;" border="0.5px">
+
+        <tr>
+            <th style="width: 20% ;background-color: #bce2e5 ;border-radius: 5px;padding: 10px">Référence</th>
+            <th style="background-color: #bce2e5 ;border-radius: 5px;padding: 5px;width: 40%">Désignation</th>
+            <th style="width: 20%;background-color: #bce2e5 ;border-radius: 5px;padding: 10px">Quantité</th>
+            <th style="width: 20%;background-color: #bce2e5 ;border-radius: 5px;padding: 10px">Prix </th>
+        </tr>
+        {% for r in commande.ligneCommandes %}
+            <tr>
+                <td style="text-align: center;padding: 5px;background-color: #e5fafb ;">{{ r.produit.id }}</td>
+                <td style="text-align: center;padding: 5px;background-color: #e5fafb ;">{{ r.produit.nom }} </td>
+                <td style="text-align: center;padding: 5px;background-color: #e5fafb ;">{{ r.qte }}</td>
+                <td style="text-align: center;padding: 5px;background-color: #e5fafb ;">{{ r.prixVente * r.qte }} DH</td>
+            </tr>
+
+        {% endfor %}
+        <tr>
+            <td style="padding: 5px;background-color: #bce2e5 ;" colspan="3">Sous total</td>
+            <td style="text-align: center;padding: 5px;background-color: #bce2e5 ;"> {{ commande.prixTotal }} DH</td>
+        </tr>
+        {#        {% if commande.couponApplique %} #}
+        {#            <tr> #}
+        {#                <td style="padding: 5px;background-color: #bce2e5 ;" colspan="3">Promo</td> #}
+        {#                <td style="text-align: center;padding: 5px;background-color: #bce2e5 ;"> #}
+        {#                    -{{ promo(commande.codeCoupon) }} % #}
+        {#                </td> #}
+        {#            </tr> #}
+        {#        {% endif %} #}
+        {#        <tr> #}
+        {#            <td style="padding: 5px;background-color: #bce2e5 ;" colspan="3">Remise</td> #}
+        {#            <td style="text-align: center;padding: 5px;background-color: #bce2e5 ;">-{{ priceWithoutDevise(prixReductionByCommande(commande.id)) }} </td> #}
+        {#        </tr> #}
+        <tr>
+            <td style="padding: 5px;background-color: #bce2e5 ;" colspan="3">Frais de Livraison</td>
+            <td style="text-align: center;padding: 5px;background-color: #bce2e5 ;"> {% if commande.prixLivraison %}{{ commande.prixLivraison }} {% else %} 0 {% endif %} DH</td>
+        </tr>
+        <tr>
+            <td style="padding: 5px;background-color: #bce2e5 ;" colspan="3">Total à règler</td>
+            <td style="text-align: center;padding: 5px;background-color: #bce2e5 ;">{{ commande.prixTotal + commande.prixLivraison }} DH </td>
+        </tr>
+    </table>
+</div>
+<footer>
+<div class="page_footer">
+    <h3>  {{ parametre().nomSite }}</h3>
+    <p> Telephone: {{ parametre().tel }}</p>
+    <p> Email:{{ parametre().email }}</p>
+
+</div>
+</footer>
+</body>
+</html>
