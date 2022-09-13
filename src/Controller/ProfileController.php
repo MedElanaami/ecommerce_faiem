@@ -57,15 +57,13 @@ class ProfileController extends AbstractController
                     )
                 );
                 $entityManager->persist($user);
+                $this->addFlash("success","Le mot de passe a été changé avec succès");
                 $entityManager->flush(); return $this->redirectToRoute('admin_profile');
 
             }
             else{
                 $this->addFlash("error","Le mot de passe que vous avez saisi est incorrecte ");
             }
-
-
-
         }
 
         return $this->render('backend/profile/edit_password.html.twig', [

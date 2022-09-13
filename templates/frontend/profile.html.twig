@@ -1,0 +1,289 @@
+{% extends 'frontend/layouts/base.html.twig' %}
+{% block css %}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+
+    <style>
+        .list li:before {
+            content: "" !important;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <main class="main contact-two mb-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav sticky-header p-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}"><i class="icon-home"></i></a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Mon compte</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav>
+        <div class="container">
+            <div class="row mt-1">
+                <div class="sidebar widget widget-dashboard mb-lg-0 mb-3 col-lg-3 order-0">
+                    <ul class="nav nav-tabs list flex-column mb-0" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard"
+                               role="tab" aria-controls="dashboard" aria-selected="true">Tableau de bord</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                               aria-controls="profile" aria-selected="false">Profile</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="password-tab" data-toggle="tab" href="#password" role="tab"
+                               aria-controls="password" aria-selected="false">Modifier mot de passe</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" id="order-tab" data-toggle="tab" href="#order" role="tab"
+                               aria-controls="address" aria-selected="false">Commandes</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_wishlist') }}">Favoris</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}">Déconnecter</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-9 order-lg-last order-1 tab-content">
+                    <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+                        <div class="dashboard-content">
+                            <div class="mb-4"></div>
+                            <div class="row row-lg">
+                                <div class="col-6 col-md-6">
+                                    <div class="feature-box text-center pb-4">
+                                        <a href="#profile" class="link-to-tab"><i class="icon-user-2"></i></a>
+                                        <div class="feature-box-content p-0">
+                                            <h3>Profile</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6">
+                                    <div class="feature-box text-center pb-4">
+                                        <a href="#password" class="link-to-tab"><i class="sicon-lock"></i></a>
+                                        <div class="feature-box-content">
+                                            <h3>MOT DE PASSE</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6">
+                                    <div class="feature-box text-center pb-4">
+                                        <a href="#order" class="link-to-tab"><i
+                                                    class="sicon-social-dropbox"></i></a>
+                                        <div class="feature-box-content">
+                                            <h3>Commandes</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-md-6">
+                                    <div class="feature-box text-center pb-4">
+                                        <a href="{{ path('app_wishlist') }}" class="link-to-tab"><i
+                                                    class="sicon-heart"></i></a>
+                                        <div class="feature-box-content">
+                                            <h3>WISHLIST</h3>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div><!-- End .row -->
+                        </div>
+                    </div><!-- End .tab-pane -->
+
+                    <div class="tab-pane fade" id="order" role="tabpanel">
+                        <div class="order-content">
+                            <h3 class="account-sub-title d-none d-md-block"><i
+                                        class="sicon-social-dropbox align-middle mr-3"></i>Commandes</h3>
+                            <div class="order-table-container text-center">
+                                <table class="table table-order text-left">
+                                    <thead>
+                                    <tr>
+                                        <th class="order-id">ORDER</th>
+                                        <th class="order-date">DATE</th>
+                                        <th class="order-status">PAIEMENT</th>
+                                        <th class="order-price">TOTAL</th>
+                                        <th class="order-status">STATUS</th>
+                                        <th class="order-action">ACTIONS</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for commande in commandes %}
+                                        <tr>
+                                            <td>{{ commande.id }}</td>
+                                            <td>{{ commande.dateCommande|date('Y-m-d') }}</td>
+                                            <td>{% if(commande.payee) %} Payée {% else %}En cours {% endif %}
+                                                ({% if commande.typePaiement==1 %} Paiement à la livraison {% else %}Paypal{% endif %}
+                                                )
+                                            </td>
+                                            <td> {{ commande.prixTotal + commande.prixLivraison }}</td>
+                                            <td>{{ commande.status }}</td>
+                                            <td>
+                                                {% if commande.status   and commande.status.id==1 %}
+                                                <a href="{{ path('app_annuler_commande', {'id':commande.id}) }}" class="btn btn-primary">Annuler</a>{% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                <hr class="mt-0 mb-3 pb-2"/>
+
+                                <a href="{{ path('app_accueil') }}" class="btn btn-dark">Ajouter produits</a>
+                            </div>
+                        </div>
+                    </div><!-- End .tab-pane -->
+
+                    <div class="tab-pane fade" id="password" role="tabpanel">
+                        <div class="change-password">
+                            <h3 class="text-uppercase mb-2">Editer Mot de passe</h3>
+                            {{ form_start(form1 , { 'attr':{'class':'form-horizontal form-stripe'}}) }}
+                            <div class="form-group">
+                                <label for="acc-password">Mot de passe Actuel</label>
+                                {{ form_widget(form1.password,{ 'attr':{'class':'form-control mb-2'}}) }}
+                                <span class="text-danger">{{ form_errors(form1.password) }}</span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="acc-password">Nouveau mot de passe</label>
+                                {{ form_widget(form1.plainPassword.first,{ 'attr':{'class':'form-control mb-2'}}) }}
+                                <span class="text-danger">{{ form_errors(form1.plainPassword.first) }}</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="acc-password">Confirmer mot de passe</label>
+                                {{ form_widget(form1.plainPassword.second,{ 'attr':{'class':'form-control mb-2'}}) }}
+                                <span class="text-danger">{{ form_errors(form1.plainPassword.second) }}</span>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Valider</button>
+                                </div>
+                            </div>
+                            {{ form_end(form1) }}
+                        </div>
+                    </div>
+
+
+                    <div class="tab-pane fade" id="profile" role="tabpanel">
+                        <h3 class="account-sub-title d-none d-md-block mt-0 pt-1 ml-1"><i
+                                    class="icon-user-2 align-middle mr-3 pr-1"></i>Détails du compte</h3>
+                        <div class="account-content">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="acc-name">Nom <span class="required">*</span></label>
+                                        {{ form_widget(form.nom,{ 'attr':{'class':'form-control'}}) }}
+                                        {% if form_errors(form.nom) %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ form_errors(form.nom) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="acc-lastname">Prénom <span
+                                                    class="required">*</span></label>
+                                        {{ form_widget(form.prenom,{ 'attr':{'class':'form-control'}}) }}
+                                        {% if form_errors(form.prenom) %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ form_errors(form.prenom) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="acc-text">Nom d'utilisateur <span class="required">*</span></label>
+                                        {{ form_widget(form.username,{ 'attr':{'class':'form-control'}}) }}
+                                        {% if form_errors(form.username) %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ form_errors(form.username) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="acc-email">Téléphone <span class="required">*</span></label>
+                                        {{ form_widget(form.tel,{ 'attr':{'class':'form-control','title':'Merci de saisir un num de téléphone sous format (0xxxxxxxxx)'}}) }}
+                                        {% if form_errors(form.tel) %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ form_errors(form.tel) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="acc-email">Email <span class="required">*</span></label>
+                                        {{ form_widget(form.email,{ 'attr':{'class':'form-control'}}) }}
+                                        {% if form_errors(form.email) %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ form_errors(form.email) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="acc-email">Ville <span class="required">*</span></label>
+                                        <br>
+                                        {{ form_widget(form.ville,{ 'attr':{'class':'input-ville form-control','style':'height:45px;width:100%'}}) }}
+                                        {% if form_errors(form.ville) %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ form_errors(form.ville) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="acc-email">Code Postal <span class="required">*</span></label>
+                                        {{ form_widget(form.codePostal,{ 'attr':{'class':'form-control','title':'Merci de saisir un code postal valide'}}) }}
+                                        {% if form_errors(form.codePostal) %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ form_errors(form.codePostal) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="acc-email">Adresse <span class="required">*</span></label>
+                                        {{ form_widget(form.adresse,{ 'attr':{'class':'form-control'}}) }}
+                                        {% if form_errors(form.adresse) %}
+                                            <div class="alert alert-danger" role="alert">
+                                                {{ form_errors(form.adresse) }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-footer mt-3 mb-0">
+                                <button type="submit" class="btn btn-dark mr-0">
+                                    Sauvegarder
+                                </button>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div><!-- End .tab-pane -->
+                </div><!-- End .tab-content -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </main><!-- End .main -->
+
+
+{% endblock %}
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(".input-ville").select2();
+</script>
+{% endblock %}
