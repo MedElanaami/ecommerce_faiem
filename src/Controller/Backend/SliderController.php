@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/slider')]
+#[Route('/admin/slider')]
 class SliderController extends AbstractController
 {
     #[Route('/', name: 'app_slider_index', methods: ['GET'])]

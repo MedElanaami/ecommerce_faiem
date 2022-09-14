@@ -26,7 +26,7 @@ class ProduitController extends AbstractController
             'produit' => $produit,
         ]);
     }
-    #[Route('/wishlist', name: 'app_wishlist')]
+    #[Route('/favoris', name: 'app_wishlist')]
     public function wishList(Request $request): Response
     {
 

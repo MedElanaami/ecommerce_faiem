@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/caracteristique')]
+#[Route('/admin/caracteristique')]
 class CaracteristiqueController extends AbstractController
 {
     #[Route('/', name: 'app_caracteristique_index', methods: ['GET'])]
