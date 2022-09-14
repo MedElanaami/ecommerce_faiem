@@ -31,25 +31,27 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
         $form1 = $this->createform(EditPasswordType::class, $user);
         $form1->handleRequest($request);
-        if ($form1->isSubmitted() && $form1->isValid()) {
-            if ($userPasswordHasher->isPasswordValid($user, $form1->get('password')->getData())) {
-                $user->setPassword(
-                    $userPasswordHasher->hashPassword(
-                        $user,
-                        $form1->get('plainPassword')->getData()
-                    )
-                );
-                $entityManager->persist($user);
-                $this->addFlash("success","Le mot de passe a été changé avec succès");
-                $entityManager->flush(); return $this->redirectToRoute('app_profile');
+        if ($form1->isSubmitted() ) {
+            if ($form1->isValid()) {
+                if ($userPasswordHasher->isPasswordValid($user, $form1->get('password')->getData())) {
+                    $user->setPassword(
+                        $userPasswordHasher->hashPassword(
+                            $user,
+                            $form1->get('plainPassword')->getData()
+                        )
+                    );
+                    $entityManager->persist($user);
+                    $this->addFlash("success", "Le mot de passe a été changé avec succès");
+                    $entityManager->flush();
+                    return $this->redirectToRoute('app_profile');
 
+                } else {
+                    $this->addFlash("error", "Le mot de passe que vous avez saisi est incorrecte ");
+                }
+
+            } else {
+                $this->addFlash("error", "Erreur lors du modification du mot de passe ");
             }
-            else{
-                $this->addFlash("error","Le mot de passe que vous avez saisi est incorrecte ");
-            }
-        }
-        else{
-            $this->addFlash("error","Erreur lors du modification du mot de passe ");
         }
         if ($form->isSubmitted() && $form->isValid()){
             $entityManager->persist($user);
