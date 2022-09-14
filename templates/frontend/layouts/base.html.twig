@@ -97,6 +97,17 @@
 
     </script>
 {% endfor %}
+{% for message in app.flashes('error') %}
+    <script>
+        Swal.fire({
+            position: 'top-center',
+            icon: 'error',
+            title: '{{ message }}',
+            showConfirmButton: true,
+        })
+
+    </script>
+{% endfor %}
 {% block js %}{% endblock %}
 </body>
 </html>
