@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/typeReduction')]
+#[Route('/admin/typeReduction')]
 class TypeReductionController extends AbstractController
 {
     #[Route('/', name: 'app_typeReduction_index', methods: ['GET'])]

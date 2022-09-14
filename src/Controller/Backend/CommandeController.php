@@ -107,4 +107,15 @@ class CommandeController extends AbstractController
 
 
     }
+    #[Route('/cmdvus', name: 'admin_commandes_vus', methods: ['GET'])]
+    public function cmdvus(CommandeRepository $commandeRepository): Response
+    {
+       $commandes=$commandeRepository->findAll();
+
+       foreach($commandes as $commande){
+           $commande->setVu(true);
+           $commandeRepository->add($commande,true);
+    }
+        return $this->redirectToRoute('admin_commande_index');
+    }
 }

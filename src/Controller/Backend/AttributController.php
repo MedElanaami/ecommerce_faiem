@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/attribut')]
+#[Route('/admin/attribut')]
 class AttributController extends AbstractController
 {
     #[Route('/', name: 'app_attribut_index', methods: ['GET'])]
