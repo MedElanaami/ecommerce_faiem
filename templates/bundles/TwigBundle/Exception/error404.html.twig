@@ -1,0 +1,42 @@
+{% extends 'frontend/layouts/base.html.twig' %}
+{% block css %}
+    <style>
+        .alert{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <main class="main contact-two mb-4">
+        <nav aria-label="breadcrumb" class="breadcrumb-nav sticky-header p-0 mb-0">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('app_accueil') }}"><i class="icon-home"></i></a></li>
+                </ol>
+            </div><!-- End .container -->
+        </nav>
+        <div class="container">
+            <div class="row ">
+                <div class="col-md-12 mt-4"  >
+                    <div class="alert alert-rounded alert-danger icon-sm" >
+                        <div class="alert-wrapper">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span><b>Erreur 404</b></span>
+                            <p class="mt-2">Oups! La page que vous recherchez semble introuvable.</p>
+                            <div>
+                                <a href="{{ path('app_accueil') }}" class="btn btn-dark btn-block">
+                                    Aller à la page d'accueil
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </main><!-- End .main -->
+
+
+{% endblock %}
