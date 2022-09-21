@@ -24,7 +24,8 @@
                 </div>
                 <!-- End .header-left -->
                 <div class=" header-left">
-                    <a href="{% if app.user %}{{ path('app_profile') }} {% else %} {{ path('app_login') }}{% endif%} " class="header-icon header-icon-user d-lg-block d-none"><i
+                    <a href="{% if app.user %}
+                                {% if is_granted("ROLE_ADMIN") %}{{ path('admin_accueil') }} {% else %} {{ path('app_profile') }}{% endif%} {% else %} {{ path('app_login') }} {% endif %}" class="header-icon header-icon-user d-lg-block d-none"><i
                                 class="icon-user-2"></i></a>
                     <div class="header-search d-lg-none d-block mr-4">
                         <a href="#" class="search-toggle" role="button"><i class="icon-magnifier"></i></a>
