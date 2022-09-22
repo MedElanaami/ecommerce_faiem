@@ -128,21 +128,17 @@
                             <label class="sr-only">Partager:</label>
 
                             <div class="social-icons mr-2">
-                                <a href="#" class="social-icon social-facebook icon-facebook" target="_blank"
+                                <a href="{%if parametre() %}{{ parametre().facebook }}{% else %}#{% endif %}" class="social-icon social-facebook icon-facebook" target="_blank"
                                    title="Facebook"></a>
-                                <a href="#" class="social-icon social-twitter icon-twitter" target="_blank"
-                                   title="Twitter"></a>
-                                <a href="#" class="social-icon social-linkedin fab fa-linkedin-in" target="_blank"
-                                   title="Linkedin"></a>
-                                <a href="#" class="social-icon social-gplus fab fa-google-plus-g" target="_blank"
-                                   title="Google +"></a>
-                                <a href="#" class="social-icon social-mail icon-mail-alt" target="_blank"
-                                   title="Mail"></a>
+                                <a href="{%if parametre() %}{{ parametre().instagram }}{% else %}#{% endif %}" class="social-icon social-instagram icon-instagram" target="_blank"
+                                   title="Instagram"></a>
+                                <a href="{%if parametre() %}{{ parametre().whatsapp }}{% else %}#{% endif %}" class="social-icon fa fa-whatsapp" target="_blank"
+                                   title="Whatsapp"></a>
                             </div>
                             <!-- End .social-icons -->
 
-                            <a href="#" class="btn-icon-wish add-wishlist" title="Ajouter au favoris"><i
-                                        class="icon-wishlist-2"></i><span>Ajouter au favoris</span></a>
+                            <a href="#" class="btn-icon-wish btn-favoris add-wishlist" title="Ajouter au favoris" data-produit="{{ produit.id }}"><i
+                                        class="icon-wishlist-2"></i></a>
                         </div>
                         <!-- End .product single-share -->
                     </div>
