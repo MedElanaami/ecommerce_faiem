@@ -70,7 +70,7 @@
                     </button>
                     {%if parametre() %}
                         <a href="{{ path('app_accueil') }}" class="logo">
-                            <img src="{{ asset('uploads/images/parametre/')~parametre().imageName }}" alt="Porto Logo">
+                            <img src="{{ asset('uploads/images/parametre/')~parametre().imageName }}" alt="{{ parametre().nomSite }} Logo">
                         </a>
                     {% endif %}
                 </div>
