@@ -178,5 +178,27 @@
             }
         });
     });
+    $('body').on("click",'.btn-favoris', function (event) {
+        event.preventDefault();
+        produit=$(this).data('produit');
+        $.ajax({
+            method: 'POST',
+            url: Routing.generate('app_ajouter_produit_wishlist',{'id':produit}),
+
+            success: function (data) {
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: data.message,
+                    showConfirmButton: true,
+                });
+
+            },
+            error: function (xhr, status) {
+                console.log(xhr);
+                alert("Erreur Lors de l'ajout du produit")
+            }
+        });
+    });
 </script>
 {% endblock %}
