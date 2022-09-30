@@ -16,217 +16,228 @@
 
 
         <div class="container">
+            {% if not app.user %}
             <div class="row mt-2">
                 <h4>Déjà Client ?
                     <a href="{{ path('app_login') }}" class="btn btn-link btn-toggle">Se connecter
                     </a>
                 </h4>
             </div>
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-lg-7">
-                    <ul class="checkout-steps">
+                    <ul class="checkout-steps ">
                         <li>
                             <h2 class="step-title">Inscription</h2>
-                            {{ form_start(form,{ 'attr':{'id':'form-checkout'}}) }}
-                            <div class="form-group">
-                                <label>Nom
-                                    <abbr class="required" title="required">*</abbr>
-                                </label>
-                                {{ form_widget(form.nom,{ 'attr':{'class':'form-control'}}) }}
-                                {% if form_errors(form.nom) %}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.nom) }}
-                                    </div>
-                                {% endif %}
+                            {% else %}
+                            <div class="row mt-2">
+                                <div class="col-lg-7">
+                                    <ul class="checkout-steps ">
+                                        <li>
+                                            {% endif %}
+                                            {{ form_start(form,{ 'attr':{'id':'form-checkout'}}) }}
+                                            <div class="form-group">
+                                                <label>Nom
+                                                    <abbr class="required" title="required">*</abbr>
+                                                </label>
+                                                {{ form_widget(form.nom,{ 'attr':{'class':'form-control'}}) }}
+                                                {% if form_errors(form.nom) %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ form_errors(form.nom) }}
+                                                    </div>
+                                                {% endif %}
 
-                            </div>
-                            <div class="form-group">
-                                <label>Prénom
-                                    <abbr class="required" title="required">*</abbr>
-                                </label>
-                                {{ form_widget(form.prenom,{ 'attr':{'class':'form-control'}}) }}
-                                {% if form_errors(form.prenom) %}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.prenom) }}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            {% if not app.user or is_granted("ROLE_ADMIN") %}
-                                <div class="form-group">
-                                    <label>Nom d'utilisateur
-                                        <abbr class="required" title="required">*</abbr></label>
-                                    {{ form_widget(form.username,{ 'attr':{'class':'form-control'}}) }}
-                                    {% if form_errors(form.username) %}
-                                        <div class="alert alert-danger" role="alert">
-                                            {{ form_errors(form.username) }}
-                                        </div>
-                                    {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Prénom
+                                                    <abbr class="required" title="required">*</abbr>
+                                                </label>
+                                                {{ form_widget(form.prenom,{ 'attr':{'class':'form-control'}}) }}
+                                                {% if form_errors(form.prenom) %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ form_errors(form.prenom) }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            {% if not app.user or is_granted("ROLE_ADMIN") %}
+                                                <div class="form-group">
+                                                    <label>Nom d'utilisateur
+                                                        <abbr class="required" title="required">*</abbr></label>
+                                                    {{ form_widget(form.username,{ 'attr':{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.username) %}
+                                                        <div class="alert alert-danger" role="alert">
+                                                            {{ form_errors(form.username) }}
+                                                        </div>
+                                                    {% endif %}
 
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Mot de Passe
+                                                        <abbr class="required" title="required">*</abbr></label>
+                                                    {{ form_widget(form.plainPassword,{ 'attr':{'class':'form-control'}}) }}
+                                                    {% if form_errors(form.plainPassword) %}
+                                                        <div class="alert alert-danger" role="alert">
+                                                            {{ form_errors(form.plainPassword) }}
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                            <div class="form-group">
+                                                <label>Téléphone <abbr class="required"
+                                                                       title="required">*</abbr></label>
+                                                {{ form_widget(form.tel,{ 'attr':{'class':'form-control','title':'Merci de saisir un num de téléphone sous format (0xxxxxxxxx)'}}) }}
+                                                {% if form_errors(form.tel) %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ form_errors(form.tel) }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Email
+                                                    <abbr class="required" title="required">*</abbr></label>
+                                                {{ form_widget(form.email,{ 'attr':{'class':'form-control'}}) }}
+                                                {% if form_errors(form.email) %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ form_errors(form.email) }}
+                                                    </div>
+                                                {% endif %}
+
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Ville
+                                                    <abbr class="required" title="required">*</abbr></label>
+                                                {{ form_widget(form.ville,{ 'attr':{'class':'form-control input-ville','style':'height:37px'}}) }}
+                                                {% if form_errors(form.ville) %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ form_errors(form.ville) }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Code Postal</label>
+                                                {{ form_widget(form.codePostal,{ 'attr':{'class':'form-control','title':'Merci de saisir un code postal valide'}}) }}
+                                                {% if form_errors(form.codePostal) %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ form_errors(form.codePostal) }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Adresse
+                                                    <abbr class="required" title="required">*</abbr></label>
+                                                {{ form_widget(form.adresse,{ 'attr':{'class':'form-control'}}) }}
+                                                {% if form_errors(form.adresse) %}
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ form_errors(form.adresse) }}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+
+                                            {{ form_end(form) }}
+                                        </li>
+                                    </ul>
                                 </div>
+                                <!-- End .col-lg-8 -->
 
-                                <div class="form-group">
-                                    <label>Mot de Passe
-                                        <abbr class="required" title="required">*</abbr></label>
-                                    {{ form_widget(form.plainPassword,{ 'attr':{'class':'form-control'}}) }}
-                                    {% if form_errors(form.plainPassword) %}
-                                        <div class="alert alert-danger" role="alert">
-                                            {{ form_errors(form.plainPassword) }}
+                                <div class="col-lg-5">
+                                    <div class="order-summary">
+                                        <h3>Votre Panier</h3>
+
+                                        <table class="table table-mini-cart">
+                                            <thead>
+                                            <tr>
+                                                <th colspan="2">Produits</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for produit in produits_cmd %}
+                                                <tr>
+                                                    <td class="product-col">
+                                                        <h5 class="product-title">
+                                                            {{ produit.nom }} ×
+                                                            <span class="product-qty">{{ produit.qte }}</span>
+                                                        </h5>
+                                                    </td>
+
+                                                    <td class="price-col">
+                                                        <span>{{ produit.prix *produit.qte }} DH</span>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+
+
+                                            </tbody>
+                                            <tfoot>
+                                            <tr class="cart-subtotal">
+                                                <td>
+                                                    <h4>Sous Total</h4>
+                                                </td>
+
+                                                <td class="price-col">
+                                                    <span>{{ app.session.get("prixTotal") }}DH</span>
+                                                </td>
+                                            </tr>
+                                            <tr class="cart-subtotal">
+                                                <td>
+                                                    <h4>Prix de livaraison</h4>
+                                                </td>
+
+                                                <td class="price-col ">
+                                                    <span class="prix-livraison">0 DH</span>
+                                                </td>
+                                            </tr>
+
+                                            <tr class="order-total">
+                                                <td>
+                                                    <h4>Total</h4>
+                                                </td>
+                                                <td>
+                                                    <b class="total-price"><span
+                                                                class="prix-total">{{ app.session.get("prixTotal") }}DH</span></b>
+                                                </td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+
+                                        <div class="payment-methods">
+                                            <h4 class="">Méthode de Payement</h4>
+                                            <div id="payment" class="woocommerce-checkout-payment">
+                                                <ul class="wc_payment_methods payment_methods methods">
+                                                    <li class="wc_payment_method payment_method_bacs active">
+                                                        <input id="payment_method_bacs" type="radio" class="input-radio"
+                                                               name="payment_method" value="1" checked="checked"
+                                                               form="form-checkout">
+
+                                                        <label for="payment_method_bacs">
+                                                            Paiement à la livraison </label>
+                                                    </li>
+                                                    {% if parametre().idPaypal %}
+                                                        <li class="wc_payment_method payment_method_paypal">
+                                                            <input id="payment_method_cheque" type="radio"
+                                                                   class="input-radio"
+                                                                   name="payment_method" value="2" form="form-checkout">
+
+                                                            <label for="payment_method_paypal">
+                                                                Paiement par Paypal </label>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+
+                                            <button type="submit" class="btn btn-dark btn-place-order"
+                                                    form="form-checkout">
+                                                Valider
+                                            </button>
                                         </div>
-                                    {% endif %}
+                                    </div>
+                                    <!-- End .cart-summary -->
                                 </div>
-                            {% endif %}
-                            <div class="form-group">
-                                <label>Téléphone <abbr class="required" title="required">*</abbr></label>
-                                {{ form_widget(form.tel,{ 'attr':{'class':'form-control','title':'Merci de saisir un num de téléphone sous format (0xxxxxxxxx)'}}) }}
-                                {% if form_errors(form.tel) %}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.tel) }}
-                                    </div>
-                                {% endif %}
+                                <!-- End .col-lg-4 -->
                             </div>
-
-                            <div class="form-group">
-                                <label>Email
-                                    <abbr class="required" title="required">*</abbr></label>
-                                {{ form_widget(form.email,{ 'attr':{'class':'form-control'}}) }}
-                                {% if form_errors(form.email) %}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.email) }}
-                                    </div>
-                                {% endif %}
-
-                            </div>
-                            <div class="form-group">
-                                <label>Ville
-                                    <abbr class="required" title="required">*</abbr></label>
-                                {{ form_widget(form.ville,{ 'attr':{'class':'form-control input-ville','style':'height:37px'}}) }}
-                                {% if form_errors(form.ville) %}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.ville) }}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="form-group">
-                                <label>Code Postal</label>
-                                {{ form_widget(form.codePostal,{ 'attr':{'class':'form-control','title':'Merci de saisir un code postal valide'}}) }}
-                                {% if form_errors(form.codePostal) %}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.codePostal) }}
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="form-group">
-                                <label>Adresse
-                                    <abbr class="required" title="required">*</abbr></label>
-                                {{ form_widget(form.adresse,{ 'attr':{'class':'form-control'}}) }}
-                                {% if form_errors(form.adresse) %}
-                                    <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.adresse) }}
-                                    </div>
-                                {% endif %}
-                            </div>
-
-
-                            {{ form_end(form) }}
-                        </li>
-                    </ul>
-                </div>
-                <!-- End .col-lg-8 -->
-
-                <div class="col-lg-5">
-                    <div class="order-summary">
-                        <h3>Votre Panier</h3>
-
-                        <table class="table table-mini-cart">
-                            <thead>
-                            <tr>
-                                <th colspan="2">Produits</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for produit in produits_cmd %}
-                                <tr>
-                                    <td class="product-col">
-                                        <h5 class="product-title">
-                                            {{ produit.nom }} ×
-                                            <span class="product-qty">{{ produit.qte }}</span>
-                                        </h5>
-                                    </td>
-
-                                    <td class="price-col">
-                                        <span>{{ produit.prix *produit.qte }} DH</span>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-
-
-                            </tbody>
-                            <tfoot>
-                            <tr class="cart-subtotal">
-                                <td>
-                                    <h4>Sous Total</h4>
-                                </td>
-
-                                <td class="price-col">
-                                    <span>{{ app.session.get("prixTotal") }}DH</span>
-                                </td>
-                            </tr>
-                            <tr class="cart-subtotal">
-                                <td>
-                                    <h4>Prix de livaraison</h4>
-                                </td>
-
-                                <td class="price-col ">
-                                    <span class="prix-livraison">0 DH</span>
-                                </td>
-                            </tr>
-
-                            <tr class="order-total">
-                                <td>
-                                    <h4>Total</h4>
-                                </td>
-                                <td>
-                                    <b class="total-price"><span
-                                                class="prix-total">{{ app.session.get("prixTotal") }}DH</span></b>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
-
-                        <div class="payment-methods">
-                            <h4 class="">Méthode de Payement</h4>
-                            <div id="payment" class="woocommerce-checkout-payment">
-                                <ul class="wc_payment_methods payment_methods methods">
-                                    <li class="wc_payment_method payment_method_bacs active">
-                                        <input id="payment_method_bacs" type="radio" class="input-radio"
-                                               name="payment_method" value="1" checked="checked" form="form-checkout">
-
-                                        <label for="payment_method_bacs">
-                                            Paiement à la livraison </label>
-                                    </li>
-                                    {% if parametre().idPaypal%}
-                                    <li class="wc_payment_method payment_method_paypal">
-                                        <input id="payment_method_cheque" type="radio" class="input-radio"
-                                               name="payment_method" value="2" form="form-checkout" >
-
-                                        <label for="payment_method_paypal">
-                                            Paiement par Paypal </label>
-                                    </li>
-                                    {% endif %}
-                                </ul>
-                            </div>
-
-                            <button type="submit" class="btn btn-dark btn-place-order" form="form-checkout">
-                                Valider
-                            </button>
-                        </div>
-                    </div>
-                    <!-- End .cart-summary -->
-                </div>
-                <!-- End .col-lg-4 -->
-            </div>
-            <!-- End .row -->
-        </div><!-- End .container -->
+                            <!-- End .row -->
+                </div><!-- End .container -->
     </main><!-- End .main -->
 
 {% endblock %}
