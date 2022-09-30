@@ -30,10 +30,9 @@
                         {% endfor %}
                     </ul>
                 </li>
-                <li><a href="{{ path('app_faq') }}">Faqs</a></li>
-                <li><a href="{{ path('app_contact') }}">Contactez nous</a></li>
                 <li><a href="{{ path('app_blogs') }}">Blog</a></li>
-                <li><a href="{{ path('app_wishlist') }}">Favoris</a></li>
+                <li><a href="{{ path('app_faq') }}">Faqs</a></li>
+                <li><a href="{{ path('app_contact') }}">Contact</a></li>
                 {% if app.user %}
                     <li class="border-0"><a href="{{ path('app_logout') }}" class="border-0">DECONNEXION</a>
                     </li>
