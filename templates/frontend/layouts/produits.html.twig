@@ -6,7 +6,7 @@
                 <a href="{{ path('app_produit', {'slug': produit.slug}) }}">
                     {% for image in produit.images | slice(0,2) %}
                         <img src="{{ asset('uploads/images/produits/'~image.imageName) }}"
-                             style="height: 300px !important;width:100% !important;" alt="product">
+                             style="height: 300px !important;width:100% !important; object-fit: cover" alt="product">
                     {% endfor %}
                 </a>
 
