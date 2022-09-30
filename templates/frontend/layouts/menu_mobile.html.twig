@@ -19,13 +19,13 @@
                     <ul>
                         {% for categorie in categories() %}
                             <li><a href="{{ path('app_categorie', {'slug': categorie.slug}) }}">{{ categorie.nom }}</a>
-                                {% for  sousCategorie  in categorie.categories %}
-                                    <ul>
+                                <ul>
+                                    {% for  sousCategorie  in categorie.categories %}
                                         <li>
                                             <a href="{{ path('app_categorie', {'slug': sousCategorie.slug}) }}">{{ sousCategorie.nom }}</a>
                                         </li>
-                                    </ul>
-                                {% endfor %}
+                                    {% endfor %}
+                                </ul>
                             </li>
                         {% endfor %}
                     </ul>
