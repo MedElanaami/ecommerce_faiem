@@ -106,7 +106,7 @@
                                             <div class="form-group">
                                                 <label>Ville
                                                     <abbr class="required" title="required">*</abbr></label>
-                                                {{ form_widget(form.ville,{ 'attr':{'class':'form-control input-ville','style':'height:37px'}}) }}
+                                                {{ form_widget(form.ville,{ 'attr':{'class':'form-control input-ville','style':'height:37px','required':'true'}}) }}
                                                 {% if form_errors(form.ville) %}
                                                     <div class="alert alert-danger" role="alert">
                                                         {{ form_errors(form.ville) }}
@@ -125,7 +125,7 @@
                                             <div class="form-group">
                                                 <label>Adresse
                                                     <abbr class="required" title="required">*</abbr></label>
-                                                {{ form_widget(form.adresse,{ 'attr':{'class':'form-control'}}) }}
+                                                {{ form_widget(form.adresse,{ 'attr':{'class':'form-control','required':'true'}}) }}
                                                 {% if form_errors(form.adresse) %}
                                                     <div class="alert alert-danger" role="alert">
                                                         {{ form_errors(form.adresse) }}
@@ -235,8 +235,11 @@
                                 </div>
                                 <!-- End .col-lg-4 -->
                             </div>
-                            <!-- End .row -->
-                </div><!-- End .container -->
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- End .row -->
+        </div><!-- End .container -->
     </main><!-- End .main -->
 
 {% endblock %}

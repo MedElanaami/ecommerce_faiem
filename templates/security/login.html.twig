@@ -7,6 +7,9 @@
            align-items: center;
             justify-content: center;
        }
+       .sign-up{
+           text-decoration: underline;
+       }
    </style>
    {% endblock %}
 {% block content %}
@@ -41,22 +44,17 @@
                                     <label for="contact-password">Mot de passe</label>
                                     <input type="password" class="form-control" name="_password" autocomplete="current-password"
                                            required>
-
-
                                 </div><!-- End .form-group -->
-
                             </div>
+                            <a href="{{path('app_inscription') }}"
+                               class=" sign-up text-dark form-footer-right">Crée un compte?</a>
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                         </div>
-
-
                         <div class="form-footer">
                             <button type="submit" class="btn btn-primary">Valider</button>
                         </div><!-- End .form-footer -->
                     </form>
                 </div><!-- End .col-md-8 -->
-
-
             </div><!-- End .row -->
         </div><!-- End .container -->
     </main><!-- End .main -->
