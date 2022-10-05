@@ -25,7 +25,7 @@ class Client extends  Utilisateur
     #[ORM\Column(type: 'string', length: 255)]
     private $tel;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text',nullable: true)]
     private $adresse;
 
     #[Assert\Regex(
@@ -37,7 +37,7 @@ class Client extends  Utilisateur
     private $codePostal;
 
     #[ORM\ManyToOne(targetEntity: Ville::class, inversedBy: 'clients')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $ville;
 
     #[ORM\OneToMany(mappedBy: 'client', targetEntity: Commande::class)]
